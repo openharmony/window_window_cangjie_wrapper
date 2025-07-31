@@ -439,7 +439,7 @@ public enum WindowEventType {
     @!APILevel[
         21,
         stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        syscap: "SystemCapability.Window.SessionManager"
     ]
     WindowDestroyed
     | ...

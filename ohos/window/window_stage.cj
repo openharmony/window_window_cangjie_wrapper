@@ -17,10 +17,8 @@ package ohos.window
 
 internal import ohos.ffi.*
 
-public type WindowStageNativeHandler = Int64
-
 foreign {
-    func FfiOHOSBindWindowStage(handler: WindowStageNativeHandler): RetDataI64
+    func FfiOHOSBindWindowStage(handler: Int64): RetDataI64
 
     func FfiOHOSGetMainWindow(id: Int64): RetDataI64
 
@@ -61,7 +59,7 @@ let stageRegisterMutex = Mutex()
 public class WindowStage <: RemoteDataLite {
     let callbackMaps = HashMap<String, ArrayList<(CallbackObject, Int64)>>(
         [("windowStageEvent", ArrayList<(CallbackObject, Int64)>())])
-    protected init(windowStageHandler: WindowStageNativeHandler) {
+    protected init(windowStageHandler: Int64) {
         let ret = unsafe { FfiOHOSBindWindowStage(windowStageHandler) }
         checkRet(ret.code, "[WindowStage] bind WindowStage: ")
         dataInit(ret.data)
