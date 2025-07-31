@@ -259,15 +259,15 @@ public func getCurrentFoldCreaseRegion(): FoldCreaseRegion {
 /**
 * Disables all listeners for display device changes.
 *
-* @param {ListenerType} `type` - Type of listening event
+* @param {ListenerType} listenerType - Type of listening event
 */
 @!APILevel[
     21,
     stagemodelonly: true,
     syscap: "SystemCapability.Window.SessionManager"
 ]
-public func off(`type`: ListenerType): Unit {
-    offAllCallback(`type`.getValue())
+public func off(listenerType: ListenerType): Unit {
+    offAllCallback(listenerType.getValue())
 }
 
 func offAllCallback(callbackType: String): Unit {
@@ -293,7 +293,7 @@ func offAllCallback(callbackType: String): Unit {
 /**
 * Register the callback for fold status changes.
 *
-* @param {ListenerType} `type` - the event of fold status changes
+* @param {ListenerType} listenerType - the event of fold status changes
 * @param {Callback1Argument<FoldStatus>} callback - Callback used to return the current fold status of device
 * @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified. 
 *                                                                       2. Incorrect parameter types.
@@ -305,11 +305,11 @@ func offAllCallback(callbackType: String): Unit {
     stagemodelonly: true,
     syscap: "SystemCapability.Window.SessionManager"
 ]
-public func on(`type`: ListenerType, callback: Callback1Argument<FoldStatus>): Unit {
-    match (`type`) {
-        case ListnerTypeFoldStatusChange => onFoldStatusChange(`type`.getValue(), callback)
+public func on(listenerType: ListenerType, callback: Callback1Argument<FoldStatus>): Unit {
+    match (listenerType) {
+        case ListnerTypeFoldStatusChange => onFoldStatusChange(listenerType.getValue(), callback)
         case _ => throw BusinessException(EXCEPTION_PARAMCHECK,
-            "Parameter error: ${`type`.getValue()} is not supported.")
+            "Parameter error: ${listenerType.getValue()} is not supported.")
     }
 }
 
@@ -344,7 +344,7 @@ func onFoldStatusChange(callbackType: String, callback: Callback1Argument<FoldSt
 /**
 * Unregister the callback for fold status changes.
 *
-* @param {ListenerType} `type` - the event of fold status change
+* @param {ListenerType} listenerType - the event of fold status change
 * @param {Callback1Argument<FoldStatus>} callback - Callback used to return the current fold status of device
 * @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified. 
 *                                                                       2. Incorrect parameter types.
@@ -356,11 +356,11 @@ func onFoldStatusChange(callbackType: String, callback: Callback1Argument<FoldSt
     stagemodelonly: true,
     syscap: "SystemCapability.Window.SessionManager"
 ]
-public func off(`type`: ListenerType, callback: Callback1Argument<FoldStatus>): Unit {
-    match (`type`) {
-        case ListnerTypeFoldStatusChange => offFoldStatusChange(`type`.getValue(), callback)
+public func off(listenerType: ListenerType, callback: Callback1Argument<FoldStatus>): Unit {
+    match (listenerType) {
+        case ListnerTypeFoldStatusChange => offFoldStatusChange(listenerType.getValue(), callback)
         case _ => throw BusinessException(EXCEPTION_PARAMCHECK,
-            "Parameter error: ${`type`.getValue()} is not supported.")
+            "Parameter error: ${listenerType.getValue()} is not supported.")
     }
 }
 
@@ -393,7 +393,7 @@ func offFoldStatusChange(callbackType: String, callback: Callback1Argument<FoldS
 /**
 * Register the callback for fold display mode changes.
 *
-* @param {ListenerType} `type` - the event of fold display mode changes
+* @param {ListenerType} listenerType - the event of fold display mode changes
 * @param {Callback1Argument<FoldStatus>} callback - Callback used to return the current fold display mode
 * @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified. 
 *                                                                       2. Incorrect parameter types.
@@ -405,11 +405,11 @@ func offFoldStatusChange(callbackType: String, callback: Callback1Argument<FoldS
     stagemodelonly: true,
     syscap: "SystemCapability.Window.SessionManager"
 ]
-public func on(`type`: ListenerType, callback: Callback1Argument<FoldDisplayMode>): Unit {
-    match (`type`) {
-        case ListnerTypeFoldDisplayModeChange => onFoldDisplayModeChange(`type`.getValue(), callback)
+public func on(listenerType: ListenerType, callback: Callback1Argument<FoldDisplayMode>): Unit {
+    match (listenerType) {
+        case ListnerTypeFoldDisplayModeChange => onFoldDisplayModeChange(listenerType.getValue(), callback)
         case _ => throw BusinessException(EXCEPTION_PARAMCHECK,
-            "Parameter error: ${`type`.getValue()} is not supported.")
+            "Parameter error: ${listenerType.getValue()} is not supported.")
     }
 }
 
@@ -446,7 +446,7 @@ func onFoldDisplayModeChange(callbackType: String, callback: Callback1Argument<F
 /**
 * Unregister the callback for fold display mode changes.
 *
-* @param {ListenerType} `type` - the event of fold display mode changes
+* @param {ListenerType} listenerType - the event of fold display mode changes
 * @param {Callback1Argument<FoldStatus>} callback - Callback used to return the current fold display mode
 * @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified. 
 *                                                                       2. Incorrect parameter types.
@@ -458,11 +458,11 @@ func onFoldDisplayModeChange(callbackType: String, callback: Callback1Argument<F
     stagemodelonly: true,
     syscap: "SystemCapability.Window.SessionManager"
 ]
-public func off(`type`: ListenerType, callback: Callback1Argument<FoldDisplayMode>): Unit {
-    match (`type`) {
-        case ListnerTypeFoldDisplayModeChange => offFoldDisplayModeChange(`type`.getValue(), callback)
+public func off(listenerType: ListenerType, callback: Callback1Argument<FoldDisplayMode>): Unit {
+    match (listenerType) {
+        case ListnerTypeFoldDisplayModeChange => offFoldDisplayModeChange(listenerType.getValue(), callback)
         case _ => throw BusinessException(EXCEPTION_PARAMCHECK,
-            "Parameter error: ${`type`.getValue()} is not supported.")
+            "Parameter error: ${listenerType.getValue()} is not supported.")
     }
 }
 
