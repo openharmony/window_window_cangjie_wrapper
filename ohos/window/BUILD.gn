@@ -15,25 +15,26 @@ import("//build/cangjie/cjc.gni")
 
 ohos_cj_library("ohos.window") {
   sources = [
-    "src/cj_window_common.cj",
-    "src/cj_window_enum.cj",
-    "src/cj_window_log.cj",
-    "src/cj_window_utils.cj",
-    "src/window.cj",
-    "src/window_stage.cj",
+    "cj_window_common.cj",
+    "cj_window_enum.cj",
+    "cj_window_log.cj",
+    "cj_window_utils.cj",
+    "window.cj",
+    "window_stage.cj",
   ]
 
   cj_external_deps = [
-    "cangjie_api:ohos.base",
+    "ability_cangjie_api:ohos.app.ability",
     "cangjie_api:ohos.ffi",
-    "cangjie_api:ohos.hilog",
     "cangjie_api:ohos.labels",
-    "multimedia_cangjie_api:ohos.image",
+    "arkui_cangjie_api:ohos.base",
+    "hiviewdfx_cangjie_api:ohos.hilog",
+    "multimedia_cangjie_api:ohos.multimedia.image",
   ]
 
-  external_deps = [ "window_manager:cj_window_ffi" ]
-
-  subsystem_name = "window"
-  part_name = "window_cangjie_api"
+  external_deps = [ 
+    "ability_runtime:abilitykit_native",
+    "window_manager:cj_window_ffi"
+  ]
   lib_name = "window"
 }

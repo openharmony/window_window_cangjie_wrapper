@@ -21,17 +21,21 @@
       "deps": {
         "components": [
           "cangjie_api",
+          "arkui_cangjie_api",
           "multimedia_cangjie_api",
+          "hiviewdfx_cangjie_api",
+
           "window_manager"
         ]
       },
       "build": {
         "sub_component": [
-          "//foundation/window/window_cangjie_api/window:ohos.window"
+          "//foundation/window/window_cangjie_api/ohos/window:ohos.window",
+          "//foundation/window/window_cangjie_api/ohos/display:ohos.display"
         ],
         "inner_kits": [
           {
-            "name": "//foundation/window/window_cangjie_api/window:ohos.window"
+            "name": "//foundation/window/window_cangjie_api/ohos/window:ohos.window"
           }
         ],
         "test": [
