@@ -19,7 +19,7 @@ import ohos.ffi.*
 import ohos.base.*
 import std.sync.*
 import std.collection.*
-import ohos.graphics.color_space_manager.*
+import ohos.color_manager.*
 import ohos.labels.*
 import std.collection.HashMap
 
