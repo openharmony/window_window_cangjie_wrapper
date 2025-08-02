@@ -25,7 +25,7 @@ ohos_cj_library("ohos.display") {
     "cangjie_api:ohos.ffi",
     "cangjie_api:ohos.labels",
     "arkui_cangjie_api:ohos.base",
-    "graphic_cangjie_api:ohos.graphics.color_space_manager",
+    "graphic_cangjie_api:ohos.color_manager",
     "hiviewdfx_cangjie_api:ohos.hilog",
   ]
 

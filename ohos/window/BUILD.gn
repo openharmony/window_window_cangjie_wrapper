@@ -24,12 +24,11 @@ ohos_cj_library("ohos.window") {
   ]
 
   cj_external_deps = [
-    "ability_cangjie_api:ohos.app.ability",
     "cangjie_api:ohos.ffi",
     "cangjie_api:ohos.labels",
     "arkui_cangjie_api:ohos.base",
     "hiviewdfx_cangjie_api:ohos.hilog",
-    "multimedia_cangjie_api:ohos.multimedia.image",
+    "multimedia_cangjie_api:ohos.image",
   ]
 
   external_deps = [ 

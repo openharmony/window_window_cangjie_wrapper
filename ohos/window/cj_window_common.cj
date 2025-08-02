@@ -16,7 +16,6 @@
 package ohos.window
 
 internal import ohos.labels.*
-import ohos.app.ability.BaseContext
 
 /**
 * Window size
@@ -237,14 +236,14 @@ public class Configuration {
     /**
     * Indicates window context.
     *
-    * @relation ctx?: BaseContext
+    * @relation ctx?: StageContext
     */
     @!APILevel[
         21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public var ctx: BaseContext
+    public var ctx: StageContext
     /**
     * Indicates display ID.
     *
@@ -279,7 +278,7 @@ public class Configuration {
     public init(
         name!: String,
         windowType!: WindowType,
-        ctx!: BaseContext,
+        ctx!: StageContext,
         displayId!: Int64 = -1,
         parentId!: Int64 = -1
     ) {
