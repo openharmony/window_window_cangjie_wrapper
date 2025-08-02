@@ -810,7 +810,7 @@ public class SystemBarProperties {
         atomicservice: true,
         crossplatform: true,
         stagemodelonly: true,
-        syscap: "SystemCapability.Window.SessionManager"
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var enableStatusBarAnimation: Bool = false
     /**
@@ -823,7 +823,7 @@ public class SystemBarProperties {
         atomicservice: true,
         crossplatform: true,
         stagemodelonly: true,
-        syscap: "SystemCapability.Window.SessionManager"
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var enableNavigationBarAnimation: Bool = false
 
