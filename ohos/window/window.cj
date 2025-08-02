@@ -17,9 +17,8 @@ package ohos.window
 
 internal import std.collection.*
 internal import std.sync.*
-import ohos.app.ability.BaseContext
 internal import ohos.ffi.*
-internal import ohos.multimedia.image.*
+internal import ohos.image.*
 
 type StageContext = CPointer<Unit>
 
@@ -187,17 +186,11 @@ public func findWindow(name: String): Window {
 ]
 public func createWindow(config: Configuration): Window {
     unsafe {
-        let stageContext = unsafe {
-            FFIGetContext(config.ctx.getID())
-        }
-        if (stageContext.isNull()) {
-            throw IllegalArgumentException("only UIAbilityContext is supported")
-        }
         if (config.name.isEmpty()) {
             checkRet(401, "[Window] createWindow: ")
         }
         let cname = LibC.mallocCString(config.name)
-        let ret = FfiOHOSCreateWindow(cname, config.windowType.getValue(), stageContext, config.displayId, config.parentId
+        let ret = FfiOHOSCreateWindow(cname, config.windowType.getValue(), config.ctx, config.displayId, config.parentId
         )
         LibC.free(cname)
         checkRet(ret.code, "[Window] createWindow: ")
@@ -220,11 +213,9 @@ public func createWindow(config: Configuration): Window {
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
-public func getLastWindow(ctx: BaseContext): Window {
+public func getLastWindow(ctx: StageContext): Window {
     unsafe {
-        let stageContext = unsafe {
-            FFIGetContext(ctx.getID())
-        }
+        let stageContext = ctx
         if (stageContext.isNull()) {
             throw IllegalArgumentException("only UIAbilityContext is supported")
         }
