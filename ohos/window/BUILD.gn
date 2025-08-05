@@ -36,4 +36,6 @@ ohos_cj_library("ohos.window") {
     "window_manager:cj_window_ffi"
   ]
   lib_name = "window"
+  subsystem_name = "window"
+  part_name = "window_cangjie_api"
 }
