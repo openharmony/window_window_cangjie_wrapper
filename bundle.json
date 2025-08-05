@@ -38,7 +38,7 @@
             "name": "//foundation/window/window_cangjie_api/ohos/window:ohos.window"
           },
           {
-            "name": "//foundation/window/window_cangjie_api/ohos/window:ohos.window"
+            "name": "//foundation/window/window_cangjie_api/ohos/display:ohos.display"
           }
         ],
         "test": [
