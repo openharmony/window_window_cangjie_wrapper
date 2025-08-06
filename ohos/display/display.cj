@@ -23,12 +23,49 @@ import ohos.color_manager.*
 import ohos.labels.*
 import std.collection.HashMap
 
+// The value of ColorSpace in ohos.display is different from value of ColorSpace in ohos.color_manager.
+// The map NATIVE_TO_JS_COLOR_SPACE_TYPE_MAP is in cpp file "foundation/window/window_manager/interfaces/kits/napi/display_runtime/js_display.cpp"
+extend ColorSpace {
+    static func parseFromDisplay(cs: UInt32): ColorSpace {
+        return match (cs) {
+            case 0 => UNKNOWN
+            case 2228482 => BT601_EBU
+            case 2294019 => BT601_SMPTE_C
+            case 2162945 => BT709
+            case 2360580 => BT2020_HLG
+            case 2360324 => BT2020_PQ
+            case 4325634 => BT601_EBU
+            case 4391171 => BT601_SMPTE_C
+            case 4260097 => BT709
+            case 4457732 => BT2020_HLG
+            case 4457476 => BT2020_PQ
+            case 2294273 => SRGB
+            case 2294278 => DISPLAY_P3
+            case 2295046 => P3_HLG
+            case 2294790 => P3_PQ
+            case 2098711 => ADOBE_RGB_1998
+            case 4391425 => SRGB
+            case 4391430 => DISPLAY_P3
+            case 4391942 => P3_PQ
+            case 4195863 => ADOBE_RGB_1998
+            case 769 => LINEAR_SRGB
+            case 774 => LINEAR_P3
+            case 772 => LINEAR_BT2020
+            case _ => throw Exception("Unrecognized ColorSpace type: ${cs}")
+        }
+    }
+}
+
 foreign {
     func FfiOHOSGetDefaultDisplaySync(): RetStruct
 
     func FfiOHOSGetAllDisplays(): RetStruct
 
+    func FfiOHOSHasPrivateWindow(displayId: UInt32): RetStruct
+
     func FfiOHOSIsFoldable(): Bool
+
+    func FfiOHOSSetFoldDisplayMode(mode: UInt32): Unit
 
     func FfiOHOSGetFoldStatus(): UInt32
 
@@ -95,17 +132,24 @@ const EXCEPTION_PARAMCHECK: Int32 = 401
 let REGISTER_MUTEX = Mutex()
 let CALLBACK_MAP = HashMap<String, ArrayList<(CallbackObject, Int64)>>(
     [
-        (ListnerTypeAdd.getValue(), ArrayList<(CallbackObject, Int64)>()),
-        (ListnerTypeRemove.getValue(), ArrayList<(CallbackObject, Int64)>()),
-        (ListnerTypeChange.getValue(), ArrayList<(CallbackObject, Int64)>()),
-        (ListnerTypeFoldStatusChange.getValue(), ArrayList<(CallbackObject, Int64)>()),
-        (ListnerTypeFoldAngleChange.getValue(), ArrayList<(CallbackObject, Int64)>()),
-        (ListnerTypeCaptureStatusChange.getValue(), ArrayList<(CallbackObject, Int64)>()),
-        (ListnerTypeFoldDisplayModeChange.getValue(), ArrayList<(CallbackObject, Int64)>()),
-        (ListnerTypeAvailableAreaChange.getValue(), ArrayList<(CallbackObject, Int64)>())
+        (LISTNER_TYPE_ADD.toString(), ArrayList<(CallbackObject, Int64)>()),
+        (LISTNER_TYPE_REMOVE.toString(), ArrayList<(CallbackObject, Int64)>()),
+        (LISTNER_TYPE_CHANGE.toString(), ArrayList<(CallbackObject, Int64)>()),
+        (LISTNER_TYPE_FOLD_STATUS_CHANGE.toString(), ArrayList<(CallbackObject, Int64)>()),
+        (LISTNER_TYPE_FOLD_ANGLE_CHANGE.toString(), ArrayList<(CallbackObject, Int64)>()),
+        (LISTNER_TYPE_CAPTURE_STATUS_CHANGE.toString(), ArrayList<(CallbackObject, Int64)>()),
+        (LISTNER_TYPE_FOLD_DISPLAY_MODE_CHANGE.toString(), ArrayList<(CallbackObject, Int64)>()),
+        (LISTNER_TYPE_AVAILABLE_AREA_CHANGE.toString(), ArrayList<(CallbackObject, Int64)>())
     ]
 )
 
+/*
+ * Find the callback among registered callbacks
+ *
+ * @param list: registered callbacks
+ * @param callback: target callback object
+ * @return index of the found callback if it exists else -1
+ */
 func findCallbackObject(list: ArrayList<(CallbackObject, Int64)>, callback: CallbackObject): Int64 {
     for (idx in 0..list.size) {
         if (refEq(callback, list[idx][0])) {
@@ -116,15 +160,12 @@ func findCallbackObject(list: ArrayList<(CallbackObject, Int64)>, callback: Call
 }
 
 /**
-* Obtain the default display.
-*
-* @returns { Display } the result of display
-* @throws { BusinessException } 1400001 - Invalid display or screen.
-* @throws { BusinessException } 1400003 - This display manager service works abnormally.
-* @relation export function getDefaultDisplaySync(): Display
-*/
+ * @brief  getDefaultDisplaySync(): Display
+ */
 @!APILevel[
-    21,
+    12,
+    atomicservice: true,
+    crossplatform: true,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
@@ -143,15 +184,12 @@ public func getDefaultDisplaySync(): Display {
 }
 
 /**
-* Obtain all displays.
-*
-* @returns { Array<Display> } the result of all displays
-* @throws { BusinessException } 1400001 - Invalid display or screen.
-* @throws { BusinessException } 1400003 - This display manager service works abnormally.
-* @relation function getAllDisplays(): Promise<Array<Display>>
-*/
+ * @brief  getAllDisplays(): Promise<Array<Display>>
+ */
 @!APILevel[
-    21,
+    12,
+    atomicservice: true,
+    crossplatform: true,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
@@ -172,30 +210,83 @@ public func getAllDisplays(): Array<Display> {
 }
 
 /**
-* Check whether the device is foldable.
-*
-* @returns { Bool } true means the device is foldable.
-* @relation export function isFoldable(): boolean
-*/
+ * @brief  hasPrivateWindow(displayId: number): boolean
+ */
 @!APILevel[
-    21,
+    12,
+    atomicservice: true,
+    crossplatform: true,
     stagemodelonly: true,
-    syscap: "SystemCapability.Window.SessionManager"
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
+]
+public func hasPrivateWindow(displayId: UInt32): Bool {
+    unsafe {
+        let ret = FfiOHOSHasPrivateWindow(displayId)
+        if (ret.code != 0) {
+            DisplayLog.error("[display] ERROR: ${ret.code} Failed to check private window")
+            return false
+        }
+        let dataPtr = CPointer<Bool>(ret.data)
+        let retVal = dataPtr.read()
+        LibC.free<Bool>(dataPtr)
+        return retVal
+    }
+}
+
+/**
+ * @brief  isFoldable(): boolean
+ */
+@!APILevel[
+    12,
+    atomicservice: true,
+    crossplatform: true,
+    stagemodelonly: true,
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public func isFoldable(): Bool {
     unsafe { FfiOHOSIsFoldable() }
 }
 
 /**
-* Get the current fold status of the foldable device.
-*
-* @returns { FoldStatus } fold status of device.
-* @relation export function getFoldStatus(): FoldStatus
-*/
+ * @brief  setFoldDisplayMode(mode: FoldDisplayMode): void
+ */
 @!APILevel[
-    21,
+    12,
+    atomicservice: true,
+    crossplatform: true,
     stagemodelonly: true,
-    syscap: "SystemCapability.Window.SessionManager"
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
+]
+public func setFoldDisplayMode(mode: FoldDisplayMode): Unit {
+    unsafe { FfiOHOSSetFoldDisplayMode(mode.getValue()) }
+}
+
+/**
+ * Check whether the device is taking a screenshot, projection, or recording.
+ *
+ * @return true if the device is taking a screenshot, projection, or recording, else false
+ * @since 14
+ */
+@!APILevel[
+    19,
+    atomicservice: true,
+    crossplatform: true,
+    stagemodelonly: true,
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
+]
+public func isCaptured(): Bool {
+    unsafe { FfiOHOSIsCaptured() }
+}
+
+/**
+ * @brief  getFoldStatus(): FoldStatus
+ */
+@!APILevel[
+    12,
+    atomicservice: true,
+    crossplatform: true,
+    stagemodelonly: true,
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public func getFoldStatus(): FoldStatus {
     unsafe {
@@ -205,15 +296,14 @@ public func getFoldStatus(): FoldStatus {
 }
 
 /**
-* Get the display mode of the foldable device.
-*
-* @returns { FoldDisplayMode } display mode of the foldable device.
-* @relation export function getFoldDisplayMode(): FoldDisplayMode
-*/
+ * @brief  getFoldDisplayMode(): FoldDisplayMode
+ */
 @!APILevel[
-    21,
+    12,
+    atomicservice: true,
+    crossplatform: true,
     stagemodelonly: true,
-    syscap: "SystemCapability.Window.SessionManager"
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public func getFoldDisplayMode(): FoldDisplayMode {
     unsafe {
@@ -223,16 +313,14 @@ public func getFoldDisplayMode(): FoldDisplayMode {
 }
 
 /**
-* Get the fold crease region in the current display mode.
-*
-* @returns { FoldCreaseRegion } fold crease region in the current display mode.
-* @throws { BusinessException } 1400003 - This display manager service works abnormally.
-* @relation export function getCurrentFoldCreaseRegion(): FoldCreaseRegion
-*/
+ * @brief  getCurrentFoldCreaseRegion(): FoldCreaseRegion
+ */
 @!APILevel[
-    21,
+    12,
+    atomicservice: true,
+    crossplatform: true,
     stagemodelonly: true,
-    syscap: "SystemCapability.Window.SessionManager"
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public func getCurrentFoldCreaseRegion(): FoldCreaseRegion {
     let retData = unsafe {
@@ -257,19 +345,55 @@ public func getCurrentFoldCreaseRegion(): FoldCreaseRegion {
 }
 
 /**
-* Disables all listeners for display device changes.
-*
-* @param {ListenerType} listenerType - Type of listening event
-*/
+ * Obtaining a display mode of a current folding device and a corresponding physical screen resolution information object.
+ *
+ * @return All current DisplayPhysicalResolution objects
+ * @since 14
+ */
 @!APILevel[
-    21,
+    19,
+    atomicservice: true,
+    crossplatform: true,
     stagemodelonly: true,
-    syscap: "SystemCapability.Window.SessionManager"
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
-public func off(listenerType: ListenerType): Unit {
-    offAllCallback(listenerType.getValue())
+public func getAllDisplayPhysicalResolution(): Array<DisplayPhysicalResolution> {
+    unsafe {
+        let ret = FfiOHOSGetAllDisplayPhysicalResolution()
+        if (ret.code != 0) {
+            DisplayLog.error("[display] ERROR: ${ret.code} Failed to get all display physical resolution.")
+            throw BusinessException(ret.code, "ERROR: Failed to get all display physical resolution.")
+        }
+        let dataPtr = CPointer<CDisplayPhysicalResolution>(ret.data)
+        let resolutionArray = Array<CDisplayPhysicalResolution>(ret.len, {i => dataPtr.read(i)})
+        LibC.free<CDisplayPhysicalResolution>(dataPtr)
+        let result = Array<DisplayPhysicalResolution>(ret.len, {i => DisplayPhysicalResolution(resolutionArray[i])})
+        return result
+    }
 }
 
+/**
+ * Disables all listeners for display device changes.
+ *
+ * @param `type`: Type of listening event
+ * @since 14
+ */
+@!APILevel[
+    19,
+    atomicservice: true,
+    crossplatform: true,
+    stagemodelonly: true,
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
+]
+public func off(`type`: ListenerType): Unit {
+    offAllCallback(`type`.toString())
+}
+
+/*
+ * Disables all listeners for display device changes.
+ *
+ * @param callbackType: Type of listening event
+ */
 func offAllCallback(callbackType: String): Unit {
     synchronized(REGISTER_MUTEX) {
         var v = CALLBACK_MAP.entryView(callbackType)
@@ -291,28 +415,146 @@ func offAllCallback(callbackType: String): Unit {
 }
 
 /**
-* Register the callback for fold status changes.
-*
-* @param {ListenerType} listenerType - the event of fold status changes
-* @param {Callback1Argument<FoldStatus>} callback - Callback used to return the current fold status of device
-* @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified. 
-*                                                                       2. Incorrect parameter types.
-* @throws { BusinessException } 1400003 - This display manager service works abnormally.
-* @relation export function on(type: 'foldStatusChange', callback: Callback<FoldStatus>): void
-*/
+ * Enable listening to display device changes.
+ *
+ * @param `type`: Type of listening event
+ * @param callback: Callback function
+ * @since 14
+ */
 @!APILevel[
-    21,
+    19,
+    atomicservice: true,
+    crossplatform: true,
     stagemodelonly: true,
-    syscap: "SystemCapability.Window.SessionManager"
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
-public func on(listenerType: ListenerType, callback: Callback1Argument<FoldStatus>): Unit {
-    match (listenerType) {
-        case ListnerTypeFoldStatusChange => onFoldStatusChange(listenerType.getValue(), callback)
+public func on(`type`: ListenerType, callback: Callback1Argument<UInt64>): Unit {
+    match (`type`) {
+        case LISTNER_TYPE_CHANGE => onDeviceChange(`type`.toString(), callback)
         case _ => throw BusinessException(EXCEPTION_PARAMCHECK,
-            "Parameter error: ${listenerType.getValue()} is not supported.")
+            "Parameter error: ${`type`.toString()} is not supported.")
     }
 }
 
+/**
+ * Enable listening to display device changes.
+ *
+ * @param callbackType: Type of listening event
+ * @param callback: Callback function
+ * @since 14
+ */
+func onDeviceChange(callbackType: String, callback: Callback1Argument<UInt64>): Unit {
+    synchronized(REGISTER_MUTEX) {
+        var v = CALLBACK_MAP.entryView(callbackType)
+        if (v.value.isNone()) {
+            DisplayLog.error("[display] ERROR: Failed to register callback with type ${callbackType}")
+            return
+        }
+        if (findCallbackObject(v.value.getOrThrow(), callback) >= 0) {
+            DisplayLog.info("[display] INFO: The callback obj already registered!")
+            return
+        }
+        unsafe {
+            let wrapper = {
+                value: CPointer<Unit> => callback.invoke(CPointer<UInt64>(value).read())
+            }
+            let registerCall = Callback1Param<CPointer<Unit>, Unit>(wrapper)
+            let callbackCType = LibC.mallocCString(callbackType)
+            let ret = FfiOHOSRegisterDisplayManagerCallback(callbackCType, registerCall.getID())
+            LibC.free(callbackCType)
+            if (ret != 0) {
+                DisplayLog.error("[display] ERROR: ${ret} Failed to register callback with type ${callbackType}")
+                throw BusinessException(ret, "ERROR: Failed to register callback with type ${callbackType}")
+            }
+            v.value.getOrThrow().add((callback, registerCall.getID()))
+        }
+    }
+}
+
+/**
+ * Disable listening to display device changes.
+ *
+ * @param `type`: Type of listening event
+ * @param callback: Callback function
+ * @since 14
+ */
+@!APILevel[
+    19,
+    atomicservice: true,
+    crossplatform: true,
+    stagemodelonly: true,
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
+]
+public func off(`type`: ListenerType, callback: Callback1Argument<UInt64>): Unit {
+    match (`type`) {
+        case LISTNER_TYPE_CHANGE => offDeviceChange(`type`.toString(), callback)
+        case _ => throw BusinessException(EXCEPTION_PARAMCHECK,
+            "Parameter error: ${`type`.toString()} is not supported.")
+    }
+}
+
+/**
+ * Disable listening to display device changes.
+ *
+ * @param callbackType: Type of listening event
+ * @param callback: Callback function
+ * @since 14
+ */
+func offDeviceChange(callbackType: String, callback: Callback1Argument<UInt64>): Unit {
+    synchronized(REGISTER_MUTEX) {
+        var v = CALLBACK_MAP.entryView(callbackType)
+        if (v.value.isNone()) {
+            DisplayLog.error("[display] ERROR: Failed to unregister callback with type ${callbackType}")
+            return
+        }
+        let idx = findCallbackObject(v.value.getOrThrow(), callback)
+        if (idx == -1) {
+            DisplayLog.info("[Display] INFO: The callback obj is not registered")
+            return
+        }
+        unsafe {
+            let callbackId = v.value.getOrThrow()[idx][1]
+            let callbackCType = LibC.mallocCString(callbackType)
+            let ret = FfiOHOSUnRegisterDisplayManagerCallback(callbackCType, callbackId)
+            LibC.free(callbackCType)
+            if (ret != 0) {
+                DisplayLog.error("[display] ERROR: ${ret} Failed to unregister callback with type ${callbackType}")
+                throw BusinessException(ret, "ERROR: Failed to unregister callback with type ${callbackType}")
+            }
+            v.value.getOrThrow().remove(at: idx)
+        }
+    }
+}
+
+/**
+ * Enable listening for changes in the folding state of foldable devices.
+ *
+ * @param `type`: Type of listening event
+ * @param callback: Callback function
+ * @since 14
+ */
+@!APILevel[
+    12,
+    atomicservice: true,
+    crossplatform: true,
+    stagemodelonly: true,
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
+]
+public func on(`type`: ListenerType, callback: Callback1Argument<FoldStatus>): Unit {
+    match (`type`) {
+        case LISTNER_TYPE_FOLD_STATUS_CHANGE => onFoldStatusChange(`type`.toString(), callback)
+        case _ => throw BusinessException(EXCEPTION_PARAMCHECK,
+            "Parameter error: ${`type`.toString()} is not supported.")
+    }
+}
+
+/**
+ * Enable listening for changes in the folding state of foldable devices.
+ *
+ * @param callbackType: Type of listening event
+ * @param callback: Callback function
+ * @since 14
+ */
 func onFoldStatusChange(callbackType: String, callback: Callback1Argument<FoldStatus>): Unit {
     synchronized(REGISTER_MUTEX) {
         var v = CALLBACK_MAP.entryView(callbackType)
@@ -342,28 +584,34 @@ func onFoldStatusChange(callbackType: String, callback: Callback1Argument<FoldSt
 }
 
 /**
-* Unregister the callback for fold status changes.
-*
-* @param {ListenerType} listenerType - the event of fold status change
-* @param {Callback1Argument<FoldStatus>} callback - Callback used to return the current fold status of device
-* @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified. 
-*                                                                       2. Incorrect parameter types.
-* @throws { BusinessException } 1400003 - This display manager service works abnormally.
-* @relation export function off(type: 'foldStatusChange', callback?: Callback<FoldStatus>): void
-*/
+ * Disable listening for changes in the folding state of foldable devices.
+ *
+ * @param `type`: Type of listening events
+ * @param callback: Callback function
+ * @since 14
+ */
 @!APILevel[
-    21,
+    19,
+    atomicservice: true,
+    crossplatform: true,
     stagemodelonly: true,
-    syscap: "SystemCapability.Window.SessionManager"
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
-public func off(listenerType: ListenerType, callback: Callback1Argument<FoldStatus>): Unit {
-    match (listenerType) {
-        case ListnerTypeFoldStatusChange => offFoldStatusChange(listenerType.getValue(), callback)
+public func off(`type`: ListenerType, callback: Callback1Argument<FoldStatus>): Unit {
+    match (`type`) {
+        case LISTNER_TYPE_FOLD_STATUS_CHANGE => offFoldStatusChange(`type`.toString(), callback)
         case _ => throw BusinessException(EXCEPTION_PARAMCHECK,
-            "Parameter error: ${listenerType.getValue()} is not supported.")
+            "Parameter error: ${`type`.toString()} is not supported.")
     }
 }
 
+/**
+ * Disable listening for changes in the folding state of foldable devices.
+ *
+ * @param callbackType: Type of listening events
+ * @param callback: Callback function
+ * @since 14
+ */
 func offFoldStatusChange(callbackType: String, callback: Callback1Argument<FoldStatus>): Unit {
     synchronized(REGISTER_MUTEX) {
         var v = CALLBACK_MAP.entryView(callbackType)
@@ -391,28 +639,254 @@ func offFoldStatusChange(callbackType: String, callback: Callback1Argument<FoldS
 }
 
 /**
-* Register the callback for fold display mode changes.
-*
-* @param {ListenerType} listenerType - the event of fold display mode changes
-* @param {Callback1Argument<FoldStatus>} callback - Callback used to return the current fold display mode
-* @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified. 
-*                                                                       2. Incorrect parameter types.
-* @throws { BusinessException } 1400003 - This display manager service works abnormally.
-* @relation export function on(type: 'foldDisplayModeChange', callback: Callback<FoldDisplayMode>): void
-*/
+ * Enable listening for changes in the folding angle of foldable devices.
+ * @param `type`: Type of listening events
+ * @param callback: Callback function
+ * @since 14
+ */
 @!APILevel[
-    21,
+    19,
+    atomicservice: true,
+    crossplatform: true,
     stagemodelonly: true,
-    syscap: "SystemCapability.Window.SessionManager"
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
-public func on(listenerType: ListenerType, callback: Callback1Argument<FoldDisplayMode>): Unit {
-    match (listenerType) {
-        case ListnerTypeFoldDisplayModeChange => onFoldDisplayModeChange(listenerType.getValue(), callback)
+public func on(`type`: ListenerType, callback: Callback1Argument<Array<Float32>>): Unit {
+    match (`type`) {
+        case LISTNER_TYPE_FOLD_ANGLE_CHANGE => onFoldAngleChange(`type`.toString(), callback)
         case _ => throw BusinessException(EXCEPTION_PARAMCHECK,
-            "Parameter error: ${listenerType.getValue()} is not supported.")
+            "Parameter error: ${`type`.toString()} is not supported.")
     }
 }
 
+/**
+ * Enable listening for changes in the folding angle of foldable devices.
+ * @param callbackType: Type of listening events
+ * @param callback: Callback function
+ * @since 14
+ */
+func onFoldAngleChange(callbackType: String, callback: Callback1Argument<Array<Float32>>): Unit {
+    synchronized(REGISTER_MUTEX) {
+        var v = CALLBACK_MAP.entryView(callbackType)
+        if (v.value.isNone()) {
+            DisplayLog.error("[display] ERROR: Failed to register callback with type ${callbackType}")
+            return
+        }
+        if (findCallbackObject(v.value.getOrThrow(), callback) >= 0) {
+            DisplayLog.info("[Display] INFO: The callback obj already registered!")
+            return
+        }
+        unsafe {
+            let wrapper = {
+                value: CPointer<Unit> =>
+                let ffiList = FFIVectorFloat32(value)
+                let list = Array<Float32>(ffiList.getSize(), {i => ffiList.getElement(i)})
+                ffiList.free()
+                callback.invoke(list)
+            }
+            let registerCall = Callback1Param<CPointer<Unit>, Unit>(wrapper)
+            let callbackCType = LibC.mallocCString(callbackType)
+            let ret = FfiOHOSRegisterDisplayManagerCallback(callbackCType, registerCall.getID())
+            LibC.free(callbackCType)
+            if (ret != 0) {
+                DisplayLog.error("[display] ERROR: ${ret} Failed to register callback with type ${callbackType}")
+                throw BusinessException(ret, "ERROR: Failed to register callback with type ${callbackType}")
+            }
+            v.value.getOrThrow().add((callback, registerCall.getID()))
+        }
+    }
+}
+
+/**
+ * Disable listening for changes in the folding angle of foldable devices.
+ * @param `type`: Type of listening events
+ * @param callback: Callback function
+ * @since 14
+ */
+@!APILevel[
+    19,
+    atomicservice: true,
+    crossplatform: true,
+    stagemodelonly: true,
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
+]
+public func off(`type`: ListenerType, callback: Callback1Argument<Array<Float32>>): Unit {
+    match (`type`) {
+        case LISTNER_TYPE_FOLD_ANGLE_CHANGE => offFoldAngleChange(`type`.toString(), callback)
+        case _ => throw BusinessException(EXCEPTION_PARAMCHECK,
+            "Parameter error: ${`type`.toString()} is not supported.")
+    }
+}
+
+/**
+ * Disable listening for changes in the folding angle of foldable devices.
+ * @param callbackType: Type of listening events
+ * @param callback: Callback function
+ * @since 14
+ */
+func offFoldAngleChange(callbackType: String, callback: Callback1Argument<Array<Float32>>): Unit {
+    synchronized(REGISTER_MUTEX) {
+        var v = CALLBACK_MAP.entryView(callbackType)
+        if (v.value.isNone()) {
+            DisplayLog.error("[display] ERROR: Failed to unregister callback with type ${callbackType}")
+            return
+        }
+        let idx = findCallbackObject(v.value.getOrThrow(), callback)
+        if (idx == -1) {
+            DisplayLog.info("[Display] INFO: The callback obj is not registered!")
+            return
+        }
+        unsafe {
+            let callbackId = v.value.getOrThrow()[idx][1]
+            let callbackCType = LibC.mallocCString(callbackType)
+            let ret = FfiOHOSUnRegisterDisplayManagerCallback(callbackCType, callbackId)
+            LibC.free(callbackCType)
+            if (ret != 0) {
+                DisplayLog.error("[display] ERROR: ${ret} Failed to unregister callback with type ${callbackType}")
+                throw BusinessException(ret, "ERROR: Failed to unregister callback with type ${callbackType}")
+            }
+            v.value.getOrThrow().remove(at: idx)
+        }
+    }
+}
+
+/**
+ * Enable listening for changes in screen capture, screen casting, and screen recording states.
+ * @param `type`: Type of listening events
+ * @param callback: Callback function
+ * @since 14
+ */
+@!APILevel[
+    19,
+    atomicservice: true,
+    crossplatform: true,
+    stagemodelonly: true,
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
+]
+public func on(`type`: ListenerType, callback: Callback1Argument<Bool>): Unit {
+    match (`type`) {
+        case LISTNER_TYPE_CAPTURE_STATUS_CHANGE => onCaptureStatusChange(`type`.toString(), callback)
+        case _ => throw BusinessException(EXCEPTION_PARAMCHECK,
+            "Parameter error: ${`type`.toString()} is not supported.")
+    }
+}
+
+/**
+ * Enable listening for changes in screen capture, screen casting, and screen recording states.
+ * @param callbackType: Type of listening events
+ * @param callback: Callback function
+ * @since 14
+ */
+func onCaptureStatusChange(callbackType: String, callback: Callback1Argument<Bool>): Unit {
+    synchronized(REGISTER_MUTEX) {
+        var v = CALLBACK_MAP.entryView(callbackType)
+        if (v.value.isNone()) {
+            DisplayLog.error("[display] ERROR: Failed to register callback with type ${callbackType}")
+            return
+        }
+        if (findCallbackObject(v.value.getOrThrow(), callback) >= 0) {
+            DisplayLog.info("[Display] INFO: The callback obj already registered!")
+            return
+        }
+        unsafe {
+            let wrapper = {
+                value: CPointer<Unit> =>
+                let argv = CPointer<Bool>(value).read()
+                callback.invoke(argv)
+            }
+            let registerCall = Callback1Param<CPointer<Unit>, Unit>(wrapper)
+            let callbackCType = LibC.mallocCString(callbackType)
+            let ret = FfiOHOSRegisterDisplayManagerCallback(callbackCType, registerCall.getID())
+            LibC.free(callbackCType)
+            if (ret != 0) {
+                DisplayLog.error("[display] ERROR: ${ret} Failed to register callback with type ${callbackType}")
+                throw BusinessException(ret, "ERROR: Failed to register callback with type ${callbackType}")
+            }
+            v.value.getOrThrow().add((callback, registerCall.getID()))
+        }
+    }
+}
+
+/**
+ * Disable listening for changes in screen capture, screen casting, and screen recording states.
+ * @param `type`: Type of listening events
+ * @param callback: Callback function
+ * @since 14
+ */
+@!APILevel[
+    19,
+    atomicservice: true,
+    crossplatform: true,
+    stagemodelonly: true,
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
+]
+public func off(`type`: ListenerType, callback: Callback1Argument<Bool>): Unit {
+    match (`type`) {
+        case LISTNER_TYPE_CAPTURE_STATUS_CHANGE => offCaptureStatusChange(`type`.toString(), callback)
+        case _ => throw BusinessException(EXCEPTION_PARAMCHECK,
+            "Parameter error: ${`type`.toString()} is not supported.")
+    }
+}
+
+/**
+ * Disable listening for changes in screen capture, screen casting, and screen recording states.
+ * @param callbackType: Type of listening events
+ * @param callback: Callback function
+ * @since 14
+ */
+func offCaptureStatusChange(callbackType: String, callback: Callback1Argument<Bool>): Unit {
+    synchronized(REGISTER_MUTEX) {
+        var v = CALLBACK_MAP.entryView(callbackType)
+        if (v.value.isNone()) {
+            DisplayLog.error("[display] ERROR: Failed to register callback with type ${callbackType}")
+            return
+        }
+        let idx = findCallbackObject(v.value.getOrThrow(), callback)
+        if (idx == -1) {
+            DisplayLog.info("[Display] INFO: The callback obj is not registered!")
+            return
+        }
+        unsafe {
+            let callbackId = v.value.getOrThrow()[idx][1]
+            let callbackCType = LibC.mallocCString(callbackType)
+            let ret = FfiOHOSUnRegisterDisplayManagerCallback(callbackCType, callbackId)
+            LibC.free(callbackCType)
+            if (ret != 0) {
+                DisplayLog.error("[display] ERROR: ${ret} Failed to unregister callback with type ${callbackType}")
+                throw BusinessException(ret, "ERROR: Failed to unregister callback with type ${callbackType}")
+            }
+            v.value.getOrThrow().remove(at: idx)
+        }
+    }
+}
+
+/**
+ * Enable listening for changes in the display mode of foldable devices.
+ * @param `type`: Type of listening events
+ * @param callback: Callback function
+ * @since 14
+ */
+@!APILevel[
+    19,
+    atomicservice: true,
+    crossplatform: true,
+    stagemodelonly: true,
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
+]
+public func on(`type`: ListenerType, callback: Callback1Argument<FoldDisplayMode>): Unit {
+    match (`type`) {
+        case LISTNER_TYPE_FOLD_DISPLAY_MODE_CHANGE => onFoldDisplayModeChange(`type`.toString(), callback)
+        case _ => throw BusinessException(EXCEPTION_PARAMCHECK,
+            "Parameter error: ${`type`.toString()} is not supported.")
+    }
+}
+
+/**
+ * Enable listening for changes in the display mode of foldable devices.
+ * @param callbackType: Type of listening events
+ * @param callback: Callback function
+ * @since 14
+ */
 func onFoldDisplayModeChange(callbackType: String, callback: Callback1Argument<FoldDisplayMode>): Unit {
     synchronized(REGISTER_MUTEX) {
         var v = CALLBACK_MAP.entryView(callbackType)
@@ -444,29 +918,40 @@ func onFoldDisplayModeChange(callbackType: String, callback: Callback1Argument<F
 }
 
 /**
-* Unregister the callback for fold display mode changes.
-*
-* @param {ListenerType} listenerType - the event of fold display mode changes
-* @param {Callback1Argument<FoldStatus>} callback - Callback used to return the current fold display mode
-* @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified. 
-*                                                                       2. Incorrect parameter types.
-* @throws { BusinessException } 1400003 - This display manager service works abnormally.
-* @relation export function off(type: 'foldDisplayModeChange', callback?: Callback<FoldDisplayMode>): void
-*/
+ * Disable listening for changes in the display mode of foldable devices.
+ * @param `type`: Type of listening events
+ * @param callback: Callback function
+ * @since 14
+ */
 @!APILevel[
-    21,
+    12,
+    atomicservice: true,
+    crossplatform: true,
     stagemodelonly: true,
-    syscap: "SystemCapability.Window.SessionManager"
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
-public func off(listenerType: ListenerType, callback: Callback1Argument<FoldDisplayMode>): Unit {
-    match (listenerType) {
-        case ListnerTypeFoldDisplayModeChange => offFoldDisplayModeChange(listenerType.getValue(), callback)
+public func off(`type`: ListenerType, callback: Callback1Argument<FoldDisplayMode>): Unit {
+    match (`type`) {
+        case LISTNER_TYPE_FOLD_DISPLAY_MODE_CHANGE => offFoldDisplayModeChange(`type`.toString(), callback)
         case _ => throw BusinessException(EXCEPTION_PARAMCHECK,
-            "Parameter error: ${listenerType.getValue()} is not supported.")
+            "Parameter error: ${`type`.toString()} is not supported.")
     }
 }
 
-func offFoldDisplayModeChange(callbackType: String, callback: Callback1Argument<FoldDisplayMode>): Unit {
+/**
+ * Disable listening for changes in the display mode of foldable devices.
+ * @param callbackType: Type of listening events
+ * @param callback: Callback function
+ * @since 14
+ */
+@!APILevel[
+    19,
+    atomicservice: true,
+    crossplatform: true,
+    stagemodelonly: true,
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
+]
+public func offFoldDisplayModeChange(callbackType: String, callback: Callback1Argument<FoldDisplayMode>): Unit {
     synchronized(REGISTER_MUTEX) {
         var v = CALLBACK_MAP.entryView(callbackType)
         if (v.value.isNone()) {
@@ -492,13 +977,10 @@ func offFoldDisplayModeChange(callbackType: String, callback: Callback1Argument<
     }
 }
 
-/**
-* Define properties of the display. They cannot be updated automatically.
-*
-* @relation export interface Display
-*/
 @!APILevel[
-    21,
+    12,
+    atomicservice: true,
+    crossplatform: true,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
@@ -506,13 +988,10 @@ public class Display <: RemoteDataLite {
     static let instanceMap = HashMap<Int64, Display>()
     static let REGISTER_MUTEX = Mutex()
 
-    /**
-    * Display ID.
-    *
-    * @relation id: number
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -522,13 +1001,10 @@ public class Display <: RemoteDataLite {
         }
     }
 
-    /**
-    * Display name.
-    *
-    * @relation name: string
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -542,13 +1018,10 @@ public class Display <: RemoteDataLite {
         }
     }
 
-    /**
-    * Whether the display is alive.
-    *
-    * @relation alive: boolean
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -558,13 +1031,10 @@ public class Display <: RemoteDataLite {
         }
     }
 
-    /**
-    * The state of display.
-    *
-    * @relation state: DisplayState
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -576,13 +1046,10 @@ public class Display <: RemoteDataLite {
         }
     }
 
-    /**
-    * Refresh rate, in Hz.
-    *
-    * @relation refreshRate: number
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -592,17 +1059,10 @@ public class Display <: RemoteDataLite {
         }
     }
 
-    /**
-    * An enumeration value for rotation degrees of the display.
-    * The value 0 indicates that the screen of the display rotates clockwise by 0°.
-    * The value 1 indicates that the screen of the display rotates clockwise by 90°.
-    * The value 2 indicates that the screen of the display rotates clockwise by 180°.
-    * The value 3 indicates that the screen of the display rotates clockwise by 270°.
-    *
-    * @relation rotation: number
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -612,13 +1072,10 @@ public class Display <: RemoteDataLite {
         }
     }
 
-    /**
-    * Display orientation.
-    *
-    * @relation orientation: Orientation
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -630,13 +1087,10 @@ public class Display <: RemoteDataLite {
         }
     }
 
-    /**
-    * Display width, in pixels.
-    *
-    * @relation width: number
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -646,13 +1100,10 @@ public class Display <: RemoteDataLite {
         }
     }
 
-    /**
-    * Display height, in pixels.
-    *
-    * @relation height: number
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -662,13 +1113,10 @@ public class Display <: RemoteDataLite {
         }
     }
 
-    /**
-    * Display density, in pixels. which is the scaling coefficient between physical pixels and logical pixels. The value for a low-resolution display is 1.0.
-    *
-    * @relation densityDPI: number
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -678,13 +1126,10 @@ public class Display <: RemoteDataLite {
         }
     }
 
-    /**
-    * Display resolution, that is, the number of pixels per inch.
-    *
-    * @relation densityPixels: number
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -694,13 +1139,10 @@ public class Display <: RemoteDataLite {
         }
     }
 
-    /**
-    * Text scale density of the display.
-    *
-    * @relation scaledDensity: number
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -710,13 +1152,10 @@ public class Display <: RemoteDataLite {
         }
     }
 
-    /**
-    * DPI on the x-axis.
-    *
-    * @relation xDPI: number
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -726,19 +1165,109 @@ public class Display <: RemoteDataLite {
         }
     }
 
-    /**
-    * DPI on the y-axis.
-    *
-    * @relation yDPI: number
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop yDPI: Float32 {
         get() {
             unsafe { FfiOHOSDisplayGetYDPI(getID()) }
+        }
+    }
+
+    /**
+     * All color gamut types supported by the display device
+     *
+     * @since 14
+     */
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public prop colorSpaces: Array<ColorSpace> {
+        get() {
+            let retData = unsafe { FfiOHOSDisplayGetColorSpaces(getID()) }
+            if (retData.code != 0) {
+                DisplayLog.error("[Display] ERROR: ${retData.code} Failed to get cutout info.")
+                throw BusinessException(retData.code, "ERROR: Failed to get cutout info.")
+            }
+            unsafe {
+                let ptr = CPointer<UInt32>(retData.data)
+                let colorSpaces_ = Array<ColorSpace>(retData.len, {i => ColorSpace.parseFromDisplay(ptr.read(i))})
+                LibC.free<UInt32>(ptr)
+                return colorSpaces_
+            }
+        }
+    }
+
+    /**
+     * All HDR formats supported by the display device
+     *
+     * @since 14
+     */
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public prop hdrFormats: Array<HDRFormat> {
+        get() {
+            let retData = unsafe { FfiOHOSDisplayGetHdrFormats(getID()) }
+            if (retData.code != 0) {
+                DisplayLog.error("[Display] ERROR: ${retData.code} Failed to get cutout info.")
+                throw BusinessException(retData.code, "ERROR: Failed to get cutout info.")
+            }
+            unsafe {
+                let ptr = CPointer<UInt32>(retData.data)
+                let len = retData.len
+                let hdrFormats_ = Array<HDRFormat>(len, {i => HDRFormat.parse(ptr.read(i))})
+                LibC.free<UInt32>(ptr)
+                return hdrFormats_
+            }
+        }
+    }
+
+    /**
+     * The width of the available area of ​​the screen on 2in1 devices, in px
+     *
+     * @since 14
+     */
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public prop availableWidth: UInt32 {
+        get() {
+            unsafe { FfiOHOSDisplayGetAvailableWidth(getID()) }
+        }
+    }
+
+    /**
+     * The height of the available area of ​​the screen on 2in1 devices, in px
+     *
+     * @since 14
+     */
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public prop availableHeight: UInt32 {
+        get() {
+            unsafe { FfiOHOSDisplayGetAvailableHeight(getID()) }
         }
     }
 
@@ -752,14 +1281,12 @@ public class Display <: RemoteDataLite {
     }
 
     /**
-    * Obtain the cutout info of the display.
-    *
-    * @throws { BusinessException } 1400001 - Invalid display or screen.
-    * @throws { BusinessException } 1400003 - This display manager service works abnormally.
-    * @relation getCutoutInfo(): Promise<CutoutInfo>
-    */
+     * @brief  getCutoutInfo(): Promise<CutoutInfo>
+     */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -781,6 +1308,36 @@ public class Display <: RemoteDataLite {
         unsafe {
             LibC.free<CRect>(cutoutInfo.boundingRects)
             LibC.free<CCutoutInfo>(ptr)
+        }
+        return ret
+    }
+
+    /**
+     * Get the current available area of the 2-in-1 device's screen.
+     *
+     * @return The current screen's available rectangular area.
+     * @since 14
+     */
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func getAvailableArea(): Rect {
+        let retData = unsafe {
+            FfiOHOSDisplayGetAvailableArea(getID())
+        }
+        if (retData.code != 0) {
+            DisplayLog.error("[Display] ERROR: ${retData.code} Failed to get available area.")
+            throw BusinessException(retData.code, "ERROR: Failed to get available area.")
+        }
+        let ptr = unsafe { CPointer<CRect>(retData.data) }
+        let rect = unsafe { ptr.read() }
+        let ret = Rect(rect)
+        unsafe {
+            LibC.free<CRect>(ptr)
         }
         return ret
     }

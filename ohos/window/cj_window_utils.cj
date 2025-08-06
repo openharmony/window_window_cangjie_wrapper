@@ -37,6 +37,17 @@ let ErrCodeMap = HashMap<Int32, String>(
     ]
 )
 
+func toWindowType(value: UInt32): WindowType {
+    return match (value) {
+        case 0 => TYPE_APP
+        case 1 => TYPE_SYSTEM_ALERT
+        case 8 => TYPE_FLOAT
+        case 16 => TYPE_DIALOG
+        case 32 => TYPE_APP
+        case _ => throw Exception("Unrecognizable WindowType: ${value}!")
+    }
+}
+
 func checkRet(errCode: Int32, message: String) {
     if (errCode != 0) {
         if (let Some(errMsg) <- ErrCodeMap.get(errCode)) {

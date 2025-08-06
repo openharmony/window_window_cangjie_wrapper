@@ -37,81 +37,55 @@ struct CRect {
     ) {}
 }
 
-/**
-* Rectangle
-*
-* @relation interface Rect
-*/
 @!APILevel[
-    21,
+    12,
+    atomicservice: true,
+    crossplatform: true,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class Rect {
-    /**
-    * The Y-axis coordinate of the upper left vertex of the rectangle, in pixels.
-    *
-    * @relation left: number
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public var left: Int32
-    /**
-    * The Y-axis coordinate of the upper left vertex of the rectangle, in pixels.
-    *
-    * @relation top: number
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var top: Int32
-    /**
-    * Width of the rectangle, in pixels.
-    *
-    * @relation width: number
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var width: UInt32
-    /**
-    * Height of the rectangle, in pixels.
-    *
-    * @relation height: number
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var height: UInt32
-
-    /**
-    * Rect constructor.
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public init(
-        left!: Int32,
-        top!: Int32,
-        width!: UInt32,
-        height!: UInt32
-    ) {
-        this.left = left
-        this.top = top
-        this.width = width
-        this.height = height
-    }
+    public Rect(
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var left: Int32,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var top: Int32,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var width: UInt32,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var height: UInt32
+    ) {}
 
     init(cRect: CRect) {
         this.left = cRect.left
@@ -131,81 +105,55 @@ struct CWaterfallDisplayAreaRects {
     ) {}
 }
 
-/**
-* Curved area rects of the waterfall display.
-*
-* @relation export interface WaterfallDisplayAreaRects
-*/
 @!APILevel[
-    21,
+    12,
+    atomicservice: true,
+    crossplatform: true,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class WaterfallDisplayAreaRects {
-    /**
-    * Indicates the size of left side curved area of the waterfall screen.
-    *
-    * @relation readonly left: Rect
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public let left: Rect
-    /**
-    * Indicates the size of top side curved area of the waterfall screen.
-    *
-    * @relation readonly top: Rect
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public let top: Rect
-    /**
-    * Indicates the size of right side curved area of the waterfall screen.
-    *
-    * @relation readonly right: Rect
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public let right: Rect
-    /**
-    * Indicates the size of bottom side curved area of the waterfall screen.
-    *
-    * @relation readonly bottom: Rect
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public let bottom: Rect
-
-    /**
-    * WaterfallDisplayAreaRects constructor.
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public init(
-        left!: Rect,
-        top!: Rect,
-        right!: Rect,
-        bottom!: Rect
-    ) {
-        this.left = left
-        this.top = top
-        this.right = right
-        this.bottom = bottom
-    }
+    public WaterfallDisplayAreaRects(
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public let left: Rect,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public let top: Rect,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public let right: Rect,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public let bottom: Rect
+    ) {}
 
     init(cWaterfallDisplayAreaRects: CWaterfallDisplayAreaRects) {
         this.left = Rect(cWaterfallDisplayAreaRects.left)
@@ -224,55 +172,11 @@ struct CCutoutInfo {
     ) {}
 }
 
-/**
-* Cutout information of the display.
-*
-* @relation export interface CutoutInfo
-*/
-@!APILevel[
-    21,
-    stagemodelonly: true,
-    syscap: "SystemCapability.WindowManager.WindowManager.Core"
-]
 public class CutoutInfo {
-    /**
-    * Bounding rectangles of the cutout areas of the display.
-    *
-    * @relation readonly boundingRects: Array<Rect>
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public let boundingRects: Array<Rect>
-    /**
-    * Rectangles of curved parts on each side of a waterfall display.
-    *
-    * @relation readonly waterfallDisplayAreaRects: WaterfallDisplayAreaRects
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public let waterfallDisplayAreaRects: WaterfallDisplayAreaRects
-
-    /**
-    * CutoutInfo constructor.
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public init(
-        boundingRects!: Array<Rect>,
-        waterfallDisplayAreaRects!: WaterfallDisplayAreaRects
-    ) {
-        this.boundingRects = boundingRects
-        this.waterfallDisplayAreaRects = waterfallDisplayAreaRects
-    }
+    public CutoutInfo(
+        public let boundingRects: Array<Rect>,
+        public let waterfallDisplayAreaRects: WaterfallDisplayAreaRects
+    ) {}
 
     init(cCutoutInfo: CCutoutInfo) {
         let ptr = cCutoutInfo.boundingRects
@@ -292,55 +196,39 @@ struct CFoldCreaseRegion {
     ) {}
 }
 
-/**
-* Fold Crease Region
-*
-* @relation export interface FoldCreaseRegion
-*/
 @!APILevel[
-    21,
+    12,
+    atomicservice: true,
+    crossplatform: true,
     stagemodelonly: true,
-    syscap: "SystemCapability.Window.SessionManager"
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class FoldCreaseRegion {
-    /**
-    * The display ID is used to identify the screen where the crease is located.
-    *
-    * @relation readonly displayId: number
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
-        syscap: "SystemCapability.Window.SessionManager"
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public let displayId: UInt32
-    /**
-    * Crease Region.
-    *
-    * @relation readonly creaseRects: Array<Rect>
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Window.SessionManager"
-    ]
-    public let creaseRects: Array<Rect>
-
-    /**
-    * FoldCreaseRegion constructor.
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Window.SessionManager"
-    ]
-    public init(
-        displayId!: UInt32,
-        creaseRects!: Array<Rect>
-    ) {
-        this.displayId = displayId
-        this.creaseRects = creaseRects
-    }
+    public FoldCreaseRegion(
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public let displayId: UInt32,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public let creaseRects: Array<Rect>
+    ) {}
 
     init(cFoldCreaseRegion: CFoldCreaseRegion) {
         let ptr = cFoldCreaseRegion.creaseRects
@@ -358,4 +246,53 @@ struct CDisplayPhysicalResolution {
         let physicalWidth: UInt32,
         let physicalHeight: UInt32
     ) {}
+}
+
+@!APILevel[
+    19,
+    atomicservice: true,
+    crossplatform: true,
+    stagemodelonly: true,
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
+]
+public class DisplayPhysicalResolution {
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public DisplayPhysicalResolution(
+        @!APILevel[
+            19,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public let foldDisplayMode: FoldDisplayMode,
+        @!APILevel[
+            19,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public let physicalWidth: UInt32,
+        @!APILevel[
+            19,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public let physicalHeight: UInt32
+    ) {}
+
+    init(cDisplayPhysicalResolution: CDisplayPhysicalResolution) {
+        this.foldDisplayMode = FoldDisplayMode.parse(cDisplayPhysicalResolution.foldDisplayMode)
+        this.physicalWidth = cDisplayPhysicalResolution.physicalWidth
+        this.physicalHeight = cDisplayPhysicalResolution.physicalHeight
+    }
 }

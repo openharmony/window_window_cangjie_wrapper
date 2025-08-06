@@ -17,55 +17,39 @@ package ohos.window
 
 internal import ohos.labels.*
 
-/**
-* Window size
-*
-* @relation export interface Size
-*/
 @!APILevel[
-    21,
+    12,
+    atomicservice: true,
+    crossplatform: true,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class Size {
-    /**
-    * The width of the window.
-    *
-    * @relation width: number
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public var width: UInt32
-    /**
-    * The height of the window.
-    *
-    * @relation height: number
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var height: UInt32
-
-    /**
-    * Size constructor.
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public init(
-        width!: UInt32,
-        height!: UInt32
-    ) {
-        this.width = width
-        this.height = height
-    }
+    public Size(
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var width: UInt32,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var height: UInt32
+    ) {}
 
     func toExternal(): CSize {
         return CSize(width, height)
@@ -85,85 +69,59 @@ struct CSize {
     ) {}
 
     func toSize(): Size {
-        return Size(width: width, height: height)
+        return Size(width, height)
     }
 }
 
-/**
-* Rectangular area of the title buttons relative to the upper right corner of the window.
-*
-* @relation export interface TitleButtonRect
-*/
 @!APILevel[
-    21,
+    12,
+    atomicservice: true,
+    crossplatform: true,
     stagemodelonly: true,
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public class TitleButtonRect {
-    /**
-    * The right of the Rect.
-    *
-    * @relation right: number
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.Window.SessionManager"
     ]
-    public var right: Int32
-    /**
-    * The top of the Rect.
-    *
-    * @relation top: number
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Window.SessionManager"
-    ]
-    public var top: Int32
-    /**
-    * The width of the Rect.
-    *
-    * @relation width: number
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Window.SessionManager"
-    ]
-    public var width: UInt32
-    /**
-    * The height of the Rect.
-    *
-    * @relation height: number
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Window.SessionManager"
-    ]
-    public var height: UInt32
-    
-    /**
-    * TitleButtonRect constructor.
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Window.SessionManager"
-    ]
-    public init(
-        right!: Int32,
-        top!: Int32,
-        width!: UInt32,
-        height!: UInt32
-    ) {
-        this.right = right
-        this.top = top
-        this.width = width
-        this.height = height
-    }
+    public TitleButtonRect(
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.Window.SessionManager"
+        ]
+        public var right: Int32,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.Window.SessionManager"
+        ]
+        public var top: Int32,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.Window.SessionManager"
+        ]
+        public var width: UInt32,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.Window.SessionManager"
+        ]
+        public var height: UInt32
+    ) {}
 
     func toExternal(): CTitleButtonRect {
         return CTitleButtonRect(right, top, width, height)
@@ -187,7 +145,7 @@ struct CTitleButtonRect {
     ) {}
 
     func toTitleButtonRect(): TitleButtonRect {
-        return TitleButtonRect(right: right, top: top, width: width, height: height)
+        return TitleButtonRect(right, top, width, height)
     }
 }
 
@@ -200,171 +158,130 @@ struct RetStruct {
     ) {}
 }
 
-/**
-* Configuration parameters for window creation.
-*
-* @relation export interface Configuration
-*/
 @!APILevel[
-    21,
+    12,
+    atomicservice: true,
+    crossplatform: true,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class Configuration {
-    /**
-    * Indicates window id.
-    *
-    * @relation name: string
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public var name: String
-    /**
-    * Indicates window type
-    *
-    * @relation windowType: WindowType
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var windowType: WindowType
-    /**
-    * Indicates window context.
-    *
-    * @relation ctx?: StageContext
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var ctx: StageContext
-    /**
-    * Indicates display ID.
-    *
-    * @relation displayId?: number
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var displayId: Int64 = -1
-    /**
-    * Indicates Parent window id
-    *
-    * @relation parentId?: number
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var parentId: Int64 = -1
-
-    /**
-    * Configuration constructor.
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public init(
-        name!: String,
-        windowType!: WindowType,
-        ctx!: StageContext,
-        displayId!: Int64 = -1,
-        parentId!: Int64 = -1
-    ) {
-        this.name = name
-        this.windowType = windowType
-        this.ctx = ctx
-        this.displayId = displayId
-        this.parentId = parentId
-    }
+    public Configuration(
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public let name: String,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public let windowType: WindowType,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public let ctx: StageContext,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var displayId!: Int64 = -1,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var parentId!: Int64 = -1,
+        @!APILevel[
+            19,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var decorEnabled!: Bool = false,
+        @!APILevel[
+            19,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var title!: String = ""
+    ) {}
 }
 
-/**
-* Rectangle
-*
-* @relation export interface Rect
-*/
 @!APILevel[
-    21,
+    12,
+    atomicservice: true,
+    crossplatform: true,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class Rect {
-    /**
-    * The left of the Rect.
-    *
-    * @relation left: number
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public var left: Int32
-    /**
-    * The top of the Rect.
-    *
-    * @relation top: number
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var top: Int32
-    /**
-    * The width of the Rect.
-    *
-    * @relation width: number
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var width: UInt32
-    /**
-    * The height of the Rect.
-    *
-    * @relation height: number
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var height: UInt32
-
-    /**
-    * Rect constructor.
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public init(
-        left!: Int32,
-        top!: Int32,
-        width!: UInt32,
-        height!: UInt32
-    ) {
-        this.left = left
-        this.top = top
-        this.width = width
-        this.height = height
-    }
+    public Rect(
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var left: Int32,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var top: Int32,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var width: UInt32,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var height: UInt32
+    ) {}
 
     func toExternal(): CRect {
         return CRect(left, top, width, height)
@@ -388,189 +305,187 @@ struct CRect {
     ) {}
 
     func toRect(): Rect {
-        return Rect(left: left, top: top, width: width, height: height)
+        return Rect(left, top, width, height)
     }
 }
 
-/**
-* Properties of window, it couldn't update automatically
-*
-* @relation export interface WindowProperties
-*/
 @!APILevel[
-    21,
+    19,
+    atomicservice: true,
+    crossplatform: true,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Window.SessionManager"
+]
+public class RectChangeOptions {
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.Window.SessionManager"
+    ]
+    public RectChangeOptions(
+        @!APILevel[
+            19,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.Window.SessionManager"
+        ]
+        public var rect: Rect,
+        @!APILevel[
+            19,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.Window.SessionManager"
+        ]
+        public var reason: RectChangeReason
+    ) {}
+
+    func toExternal(): CRectChangeOptions {
+        return CRectChangeOptions(rect.toExternal(), Int32(reason.getValue()))
+    }
+
+    init(cRectChangeOptions: CRectChangeOptions) {
+        this.rect = cRectChangeOptions.rect.toRect()
+        this.reason = RectChangeReason.parse(cRectChangeOptions.reason)
+    }
+}
+
+@C
+struct CRectChangeOptions {
+    CRectChangeOptions(
+        let rect: CRect,
+        let reason: Int32
+    ) {}
+
+    func toRectChangeOptions(): RectChangeOptions {
+        return RectChangeOptions(rect.toRect(), RectChangeReason.parse(reason))
+    }
+}
+
+@!APILevel[
+    12,
+    atomicservice: true,
+    crossplatform: true,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class WindowProperties {
-    /**
-    * The position and size of the window
-    *
-    * @relation windowRect: Rect
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public var windowRect: Rect
-    /**
-    * The position relative to the window and size of drawable area
-    *
-    * @relation drawableRect: Rect
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var drawableRect: Rect
-    /**
-    * Window type
-    *
-    * @relation type: WindowType
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var winType: WindowType
-    /**
-    * Whether the window is displayed in full screen mode. The default value is false.
-    *
-    * @relation isFullScreen: boolean
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var isFullScreen: Bool
-    /**
-    * Whether the window layout is in full screen mode(whether the window is immersive). The default value is false.
-    *
-    * @relation isLayoutFullScreen: boolean
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var isLayoutFullScreen: Bool
-    /**
-    * Whether the window can gain focus. The default value is true
-    *
-    * @relation focusable: boolean
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var focusable: Bool
-    /**
-    * Whether the window is touchable. The default value is false
-    *
-    * @relation touchable: boolean
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var touchable: Bool
-    /**
-    * Brightness value of window.
-    *
-    * @relation brightness: number
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var brightness: Float32
-    /**
-    * Whether keep screen on.
-    *
-    * @relation isKeepScreenOn: boolean;
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var isKeepScreenOn: Bool
-    /**
-    * Whether make window in privacy mode or not.
-    *
-    * @relation isPrivacyMode: boolean
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var isPrivacyMode: Bool
-    /**
-    * Whether is transparent or not.
-    *
-    * @relation isTransparent: boolean
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var isTransparent: Bool
-    /**
-    * isTransparent: boolean
-    *
-    * @relation id: number
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var id: UInt32
-
-    /**
-    * WindowProperties constructor.
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public init(
-        windowRect!: Rect,
-        drawableRect!: Rect,
-        winType!: WindowType,
-        isFullScreen!: Bool,
-        isLayoutFullScreen!: Bool,
-        focusable!: Bool,
-        touchable!: Bool,
-        brightness!: Float32,
-        isKeepScreenOn!: Bool,
-        isPrivacyMode!: Bool,
-        isTransparent!: Bool,
-        id!: UInt32
-    ) {
-        this.windowRect = windowRect
-        this.drawableRect = drawableRect
-        this.winType = winType
-        this.isFullScreen = isFullScreen
-        this.isLayoutFullScreen = isLayoutFullScreen
-        this.focusable = focusable
-        this.touchable = touchable
-        this.brightness = brightness
-        this.isKeepScreenOn = isKeepScreenOn
-        this.isPrivacyMode = isPrivacyMode
-        this.isTransparent = isTransparent
-        this.id = id
-    }
+    public WindowProperties(
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public let windowRect: Rect,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public let drawableRect: Rect,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public let winType: WindowType,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public let isFullScreen: Bool,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public let isLayoutFullScreen: Bool,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public let focusable: Bool,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public let touchable: Bool,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public let brightness: Float32,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public let isKeepScreenOn: Bool,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public let isPrivacyMode: Bool,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public let isRoundCorner: Bool,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public let isTransparent: Bool,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public let id: UInt32
+    ) {}
 }
 
 @C
@@ -592,110 +507,69 @@ struct CWindowProperties {
     ) {}
 
     func toWindowProperties(): WindowProperties {
-        return WindowProperties(
-            windowRect: windowRect.toRect(), 
-            drawableRect: drawableRect.toRect(), 
-            winType: WindowType.parse(winType), 
-            isFullScreen: isFullScreen,
-            isLayoutFullScreen: isLayoutFullScreen, 
-            focusable: focusable, 
-            touchable: touchable, 
-            brightness: brightness, 
-            isKeepScreenOn: isKeepScreenOn, 
-            isPrivacyMode: isPrivacyMode,
-            isTransparent: isTransparent, 
-            id: id)
+        return WindowProperties(windowRect.toRect(), drawableRect.toRect(), toWindowType(winType), isFullScreen,
+            isLayoutFullScreen, focusable, touchable, brightness, isKeepScreenOn, isPrivacyMode, isRoundCorner,
+            isTransparent, id)
     }
 }
 
-/**
-* Avoid area
-*
-* @relation export interface AvoidArea
-*/
 @!APILevel[
-    21,
+    12,
+    atomicservice: true,
+    crossplatform: true,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class AvoidArea {
-    /**
-    * Whether avoidArea is visible on screen
-    *
-    * @relation visible: boolean
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public var visible: Bool
-    /**
-    * Rectangle on the left of the screen
-    *
-    * @relation leftRect: Rect
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var leftRect: Rect
-    /**
-    * Rectangle on the top of the screen
-    *
-    * @relation topRect: Rect
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var topRect: Rect
-    /**
-    * Rectangle on the right of the screen
-    *
-    * @relation rightRect: Rect
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var rightRect: Rect
-    /**
-    * Rectangle on the bottom of the screen
-    *
-    * @relation bottomRect: Rect
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var bottomRect: Rect
-
-    /**
-    * AvoidArea constructor.
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public init(
-        visible!: Bool,
-        leftRect!: Rect,
-        topRect!: Rect,
-        rightRect!: Rect,
-        bottomRect!: Rect
-    ) {
-       this.visible = visible
-       this.leftRect = leftRect
-       this.topRect = topRect
-       this.rightRect = rightRect
-       this.bottomRect = bottomRect
-    }
+    public AvoidArea(
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var visible: Bool,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var leftRect: Rect,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var topRect: Rect,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var rightRect: Rect,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var bottomRect: Rect
+    ) {}
 
     func toExternal(): CAvoidArea {
         return CAvoidArea(visible, leftRect.toExternal(), topRect.toExternal(), rightRect.toExternal(),
@@ -722,137 +596,143 @@ struct CAvoidArea {
     ) {}
 }
 
-/**
-* Properties of status bar and navigation bar, it couldn't update automatically
-*
-* @relation export interface SystemBarProperties
-*/
 @!APILevel[
-    21,
+    19,
+    atomicservice: true,
+    crossplatform: true,
+    stagemodelonly: true,
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
+]
+public class AvoidAreaOptions {
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public AvoidAreaOptions(
+        @!APILevel[
+            19,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var areaType: AvoidAreaType,
+        @!APILevel[
+            19,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var area: AvoidArea
+    ) {}
+
+    func toExternal(): CAvoidAreaOptions {
+        return CAvoidAreaOptions(Int32(this.areaType.getValue()), this.area.toExternal())
+    }
+
+    init(cAvoidAreaOptions: CAvoidAreaOptions) {
+        this.areaType = AvoidAreaType.parse(cAvoidAreaOptions.areaType)
+        this.area = AvoidArea(cAvoidAreaOptions.area)
+    }
+}
+
+@C
+struct CAvoidAreaOptions {
+    CAvoidAreaOptions(
+        var areaType: Int32,
+        var area: CAvoidArea
+    ) {}
+
+    func toAvoidAreaOptions(): AvoidAreaOptions {
+        return AvoidAreaOptions(this)
+    }
+}
+
+@!APILevel[
+    12,
+    atomicservice: true,
+    crossplatform: true,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class SystemBarProperties {
-    /**
-    * The color of the status bar.
-    *
-    * @relation statusBarColor?: string
-    */
     @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var statusBarColor: String = "#66000000"
-    /**
-    * The light icon of the status bar.
-    *
-    * @relation isStatusBarLightIcon?: boolean
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var isStatusBarLightIcon: Bool = false
-    /**
-    * The content color of the status bar
-    *
-    * @relation statusBarContentColor?: string
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var statusBarContentColor: String = "#E5FFFFFF"
-    /**
-    * statusBarContentColor?: string
-    *
-    * @relation navigationBarColor?: string
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var navigationBarColor: String = "#66000000"
-    /**
-    * navigationBarColor?: string
-    *
-    * @relation isNavigationBarLightIcon?: boolean
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var isNavigationBarLightIcon: Bool = false
-    /**
-    * The content color of the navigation bar
-    *
-    * @relation navigationBarContentColor?: string
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var navigationBarContentColor: String = "#E5FFFFFF"
-    /**
-    * Enable the animation of the status bar.
-    *
-    * @relation enableStatusBarAnimation?: boolean
-    */
-    @!APILevel[
-        21,
+        12,
         atomicservice: true,
         crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public var enableStatusBarAnimation: Bool = false
-    /**
-    * Enable the animation of the navigation bar.
-    *
-    * @relation enableNavigationBarAnimation?: boolean
-    */
-    @!APILevel[
-        21,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public var enableNavigationBarAnimation: Bool = false
-
-    /**
-    * SystemBarProperties constructor.
-    */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public init(
-        statusBarColor!: String = "#66000000",
-        isStatusBarLightIcon!: Bool = false,
-        statusBarContentColor!: String = "#E5FFFFFF",
-        navigationBarColor!: String = "#66000000",
-        isNavigationBarLightIcon!: Bool = false,
-        navigationBarContentColor!: String = "#E5FFFFFF",
-        enableStatusBarAnimation!: Bool = false,
-        enableNavigationBarAnimation!: Bool = false
-    ) {
-        this.statusBarColor = statusBarColor
-        this.isStatusBarLightIcon = isStatusBarLightIcon
-        this.statusBarContentColor = statusBarContentColor
-        this.navigationBarColor = navigationBarColor
-        this.isNavigationBarLightIcon = isNavigationBarLightIcon
-        this.navigationBarContentColor = navigationBarContentColor
-        this.enableStatusBarAnimation = enableStatusBarAnimation
-        this.enableNavigationBarAnimation = enableNavigationBarAnimation
-    }
+    public SystemBarProperties(
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var statusBarColor!: String = "#66000000",
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var isStatusBarLightIcon!: Bool = false,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var statusBarContentColor!: String = "#E5FFFFFF",
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var navigationBarColor!: String = "#66000000",
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var isNavigationBarLightIcon!: Bool = false,
+        @!APILevel[
+            12,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var navigationBarContentColor!: String = "#E5FFFFFF",
+        @!APILevel[
+            19,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var enableStatusBarAnimation!: Bool = false,
+        @!APILevel[
+            19,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        ]
+        public var enableNavigationBarAnimation!: Bool = false
+    ) {}
 
     init(systemBarProperties: CJBarProperties) {
         this.statusBarColor = systemBarProperties.statusBarColor.toString()
@@ -889,6 +769,68 @@ struct CJBarProperties {
     } 
 }
 
+@!APILevel[
+    19,
+    atomicservice: true,
+    crossplatform: true,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Window.SessionManager"
+]
+public class WindowLimits {
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.Window.SessionManager"
+    ]
+    public WindowLimits(
+        @!APILevel[
+            19,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.Window.SessionManager"
+        ]
+        public var maxWidth!: UInt32 = UInt32.Max,
+        @!APILevel[
+            19,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.Window.SessionManager"
+        ]
+        public var maxHeight!: UInt32 = UInt32.Max,
+        @!APILevel[
+            19,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.Window.SessionManager"
+        ]
+        public var minWidth!: UInt32 = 1,
+        @!APILevel[
+            19,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.Window.SessionManager"
+        ]
+        public var minHeight!: UInt32 = 1
+    ) {}
+
+    func toExternal(): CWindowLimits {
+        return CWindowLimits(maxWidth, maxHeight, minWidth, minHeight)
+    }
+
+    init(windowLimits: CWindowLimits) {
+        this.maxWidth = windowLimits.maxWidth
+        this.maxHeight = windowLimits.maxHeight
+        this.minWidth = windowLimits.minWidth
+        this.minHeight = windowLimits.minHeight
+    }
+}
+
 @C
 struct CWindowLimits {
     CWindowLimits(
@@ -897,6 +839,61 @@ struct CWindowLimits {
         var minWidth: UInt32,
         var minHeight: UInt32
     ) {}
+}
+
+@!APILevel[
+    19,
+    atomicservice: true,
+    crossplatform: true,
+    stagemodelonly: true,
+    syscap: "SystemCapability.Window.SessionManager"
+]
+public class SubWindowOptions {
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.Window.SessionManager"
+    ]
+    public SubWindowOptions(
+        @!APILevel[
+            19,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.Window.SessionManager"
+        ]
+        public let title!: String,
+        @!APILevel[
+            19,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.Window.SessionManager"
+        ]
+        public let decorEnabled!: Bool,
+        @!APILevel[
+            19,
+            atomicservice: true,
+            crossplatform: true,
+            stagemodelonly: true,
+            syscap: "SystemCapability.Window.SessionManager"
+        ]
+        public var isModal!: Bool = false
+    ) {}
+
+    func toExternal(): CSubWindowOptions {
+        unsafe {
+            return CSubWindowOptions(LibC.mallocCString(title), decorEnabled, isModal)
+        }
+    }
+
+    init(subWindowOptions: CSubWindowOptions) {
+        this.title = subWindowOptions.title.toString()
+        this.decorEnabled = subWindowOptions.decorEnabled
+        this.isModal = subWindowOptions.isModal
+    }
 }
 
 @C

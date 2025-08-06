@@ -134,22 +134,14 @@ foreign {
     func FfiOHOSOnCallback(id: Int64, callbackId: Int64, callbackType: CString): Int32
 
     func FfiOHOSOffCallback(id: Int64, callbackId: Int64, callbackType: CString): Int32
-
-    func FFIGetContext(id: Int64): CPointer<Unit>
 }
 
 let registerMutex = Mutex()
 
-/**
-* Finds a window based on the name.
-*
-* @param { String } name - Window name, that is, the value of name in Configuration.
-* @returns { Window } Window found.
-* @throws { BusinessException } 1300002 - This window state is abnormal.
-* @relation export function findWindow(name: string): Window
-*/
 @!APILevel[
-    21,
+    12,
+    atomicservice: true,
+    crossplatform: true,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
@@ -164,23 +156,10 @@ public func findWindow(name: String): Window {
     }
 }
 
-/**
-* Create a window with a specific configuration
-* When config.windowType == TYPE_FLOAT, the "ohos.permission.SYSTEM_FLOAT_WINDOW" permission is required
-*
-* @param { Configuration } config - Parameters for window creation.
-* @returns { Window } the window created.
-* @throws { IllegalArgumentException } - The context type is not supported. Only support UIAbilityContext.
-* @throws { BusinessException } 201 - Permission verification failed. The application does not have the permission required to call the API.
-* @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified; 
-*                                                                      2. Incorrect parameter types.
-* @throws { BusinessException } 1300003 - This window manager service works abnormally.
-* @throws { BusinessException } 1300006 - This window context is abnormal.
-* @relation export function createWindow(config: Configuration): Promise<Window>
-*/
 @!APILevel[
-    21,
-    permission: "ohos.permission.SYSTEM_FLOAT_WINDOW",
+    12,
+    atomicservice: true,
+    crossplatform: true,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
@@ -198,51 +177,27 @@ public func createWindow(config: Configuration): Window {
     }
 }
 
-/**
-* Obtains the top window of the current application.
-* If no child window is available, the main window of the application is returned.
-*
-* @param { BaseContext } ctx - Current application context.
-* @returns { Window } the top window obtained.
-* @throws { IllegalArgumentException } - The context type is not supported. Only support UIAbilityContext.
-* @throws { BusinessException } 1300002 - This window state is abnormal. Top window or main window is null or destroyed.
-* @relation export function getLastWindow(ctx: BaseContext): Promise<Window>
-*/
 @!APILevel[
-    21,
+    12,
+    atomicservice: true,
+    crossplatform: true,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public func getLastWindow(ctx: StageContext): Window {
     unsafe {
-        let stageContext = ctx
-        if (stageContext.isNull()) {
-            throw IllegalArgumentException("only UIAbilityContext is supported")
-        }
-        let ret = FfiOHOSGetLastWindow(stageContext)
+        let ret = FfiOHOSGetLastWindow(ctx)
         checkRet(ret.code, "[Window] getLastWindow: ")
         getOrCreate(Window.instanceMap, ret.data, {id: Int64 => Window(id)})
     }
 }
 
-/**
-* Shifts the window focus from the source window to the target window in the same application.
-* The window focus can be shifted between the main window and a child window.
-*
-* @param { Int32 } sourceWindowId - Window id which the focus shift from.
-* @param { Int32 } targetWindowId - Window id which the focus shift to.
-* @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified; 
-*                                                                      2. Incorrect parameter types.
-* @throws { BusinessException } 801 - Capability not supported. Failed to call the API due to limited device capabilities.
-* @throws { BusinessException } 1300002 - This window state is abnormal.
-* @throws { BusinessException } 1300003 - This window manager service works abnormally.
-* @throws { BusinessException } 1300004 - Unauthorized operation.
-* @relation export function shiftAppWindowFocus(sourceWindowId: number, targetWindowId: number): Promise<void>
-*/
 @!APILevel[
-    21,
+    19,
+    atomicservice: true,
+    crossplatform: true,
     stagemodelonly: true,
-    syscap: "SystemCapability.Window.SessionManager"
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public func shiftAppWindowFocus(sourceWindowId: Int32, targetWindowId: Int32): Unit {
     unsafe {
@@ -251,13 +206,10 @@ public func shiftAppWindowFocus(sourceWindowId: Int32, targetWindowId: Int32): U
     }
 }
 
-/**
-* Window
-*
-* @relation export interface Window
-*/
 @!APILevel[
-    21,
+    19,
+    atomicservice: true,
+    crossplatform: true,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
@@ -291,16 +243,10 @@ public class Window <: RemoteDataLite {
         releaseFFIData(myDataId)
     }
 
-    /**
-    * Shows this window. 
-    * This API takes effect only for a system window or an application child window.
-    * For the main window of an application, this API moves it at the top when the main window is already displayed.
-    *
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation showWindow(): Promise<void>
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -311,16 +257,10 @@ public class Window <: RemoteDataLite {
         }
     }
 
-    /**
-    * Set the position of a window.
-    *
-    * @param { Int32 } x - Indicate the X-coordinate of the window.
-    * @param { Int32 } y - Indicate the Y-coordinate of the window.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation moveWindowTo(x: number, y: number): Promise<void>
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -331,16 +271,10 @@ public class Window <: RemoteDataLite {
         }
     }
 
-    /**
-    * Set the size of a window.
-    *
-    * @param { Int32 } width - Indicates the width of the window. The width should be greater than 0.
-    * @param { Int32 } height - Indicates the height of the window. The height should be greater than 0.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation resize(width: number, height: number): Promise<void>
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -351,15 +285,10 @@ public class Window <: RemoteDataLite {
         }
     }
 
-    /**
-    * Get the properties of current window
-    *
-    * @returns { WindowProperties } Return the window properties.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation getWindowProperties(): WindowProperties
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -372,15 +301,10 @@ public class Window <: RemoteDataLite {
         }
     }
 
-    /**
-    * Destroys this window. 
-    * This API takes effect only for a system window or an application child window.
-    *
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation destroyWindow(): Promise<void>
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -391,15 +315,10 @@ public class Window <: RemoteDataLite {
         }
     }
 
-    /**
-    * Sets whether the main window layout or the child window layout is immersive.
-    *
-    * @param { Bool } isLayoutFullScreen - Whether the window layout is immersive
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation setWindowLayoutFullScreen(isLayoutFullScreen: boolean): Promise<void>
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -410,15 +329,10 @@ public class Window <: RemoteDataLite {
         }
     }
 
-    /**
-    * Whether the window supports thr wide gamut setting.
-    *
-    * @returns { Bool } The value true means that the wide-gamut color space is supported, and false means the opposite.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation isWindowSupportWideGamut(): Promise<boolean>
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -431,15 +345,10 @@ public class Window <: RemoteDataLite {
         }
     }
 
-    /**
-    * Whether the window supports thr wide gamut setting.
-    *
-    * @returns { Bool }  Whether the window is displayed. The value true means that the window is displayed, and false means the opposite.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation isWindowShowing(): boolean
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -452,18 +361,10 @@ public class Window <: RemoteDataLite {
         }
     }
 
-
-    /**
-    * Sets the background color of window.
-    *
-    * @param { String } color - the specified color.
-    * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified; 
-    *                                                                      2. Incorrect parameter types.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation setWindowBackgroundColor(color: string | ColorMetrics): void
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -476,15 +377,10 @@ public class Window <: RemoteDataLite {
         }
     }
 
-    /**
-    * Sets the brightness of window.
-    *
-    * @param { Float32 } brightness the specified brightness value.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation setWindowBrightness(brightness: number): Promise<void>
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -495,15 +391,10 @@ public class Window <: RemoteDataLite {
         }
     }
 
-    /**
-    * Sets whether focusable or not.
-    *
-    * @param { Bool } isFocusable can be focus if true, or can not be focus if false.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation setWindowFocusable(isFocusable: boolean): Promise<void>
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -514,15 +405,10 @@ public class Window <: RemoteDataLite {
         }
     }
 
-    /**
-    * Sets whether keep screen on or not.
-    *
-    * @param { Bool } isKeepScreenOn keep screen on if true, or not if false.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation setWindowKeepScreenOn(isKeepScreenOn: boolean): Promise<void>
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -533,16 +419,10 @@ public class Window <: RemoteDataLite {
         }
     }
 
-    /**
-    * Sets whether is private mode or not.
-    *
-    * @param { Bool } isPrivacyMode in private mode if true, or not if false.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation setWindowPrivacyMode(isPrivacyMode: boolean): Promise<void>
-    */
     @!APILevel[
-        21,
-        permission: "ohos.permission.PRIVACY_WINDOW",
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -553,15 +433,10 @@ public class Window <: RemoteDataLite {
         }
     }
 
-    /**
-    * Sets whether is touchable or not
-    *
-    * @param { Bool } isTouchable is touchable if true, or not if false.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation setWindowTouchable(isTouchable: boolean): Promise<void>
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -572,19 +447,10 @@ public class Window <: RemoteDataLite {
         }
     }
 
-    /**
-    * Sets the preferred orientation for the main window.
-    * It does not take effect on devices that do not support rotation with the sensor, on 2-in-1 devices or for the child window.
-    *
-    * @param { Orientation } orientation - The orientation config of the window
-    * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified; 
-    *                                                                      2. Incorrect parameter types; 
-    *                                                                      3. Parameter verification failed.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation setPreferredOrientation(orientation: Orientation): Promise<void>
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -593,19 +459,10 @@ public class Window <: RemoteDataLite {
         checkRet(code, "[Window] setPreferredOrientation: ")
     }
 
-    /**
-    * Get the avoid area
-    *
-    * @param { AvoidAreaType } areaType - Type of the area
-    * @returns { AvoidArea } Area where the window cannot be displayed.
-    * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified; 
-    *                                                                      2. Incorrect parameter types; 
-    *                                                                      3. Parameter verification failed.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation getWindowAvoidArea(type: AvoidAreaType): AvoidArea
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -619,16 +476,10 @@ public class Window <: RemoteDataLite {
         }
     }
 
-    /**
-    * Sets the aspect ratio of window
-    *
-    * @param { Float64 } ratio - The aspect ratio of window except decoration
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @throws { BusinessException } 1300004 - Unauthorized operation.
-    * @relation setAspectRatio(ratio: number): Promise<void>
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -637,15 +488,10 @@ public class Window <: RemoteDataLite {
         checkRet(code, "[Window] setAspectRatio: ")
     }
 
-    /**
-    * Resets the aspect ratio of window
-    *
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @throws { BusinessException } 1300004 - Unauthorized operation.
-    * @relation resetAspectRatio(): Promise<void>
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -654,15 +500,10 @@ public class Window <: RemoteDataLite {
         checkRet(code, "[Window] resetAspectRatio: ")
     }
 
-    /**
-    * Sets the specified color space.
-    *
-    * @param { ColorSpace } colorSpace - the specified color space.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation setWindowColorSpace(colorSpace: ColorSpace): Promise<void>
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -673,18 +514,12 @@ public class Window <: RemoteDataLite {
         }
     }
 
-    /**
-    * Minimizes the main window if the caller is the main window. The main window can be restored in the dock bar. For 2-in-1 devices, it can be restored by calling restore().
-    * Hides the child window if the caller is a child window. The child window cannot be restored in the dock bar. It can be made visible again by calling showWindow().
-    *
-    * @throws { BusinessException } 801 - Capability not supported. Failed to call the API due to limited device capabilities.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation minimize(): Promise<void>
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
-        syscap: "SystemCapability.Window.SessionManager"
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func minimize(): Unit {
         unsafe {
@@ -693,15 +528,10 @@ public class Window <: RemoteDataLite {
         }
     }
 
-    /**
-    * Obtains the set color space.
-    *
-    * @returns { ColorSpace } Color space obtained.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation getWindowColorSpace(): ColorSpace
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -714,15 +544,10 @@ public class Window <: RemoteDataLite {
         }
     }
 
-    /**
-    * Obtains snapshot of window
-    *
-    * @returns { PixelMap } Promise that returns no value.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation snapshot(): Promise<image.PixelMap>
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -735,40 +560,26 @@ public class Window <: RemoteDataLite {
         }
     }
 
-    /**
-    * Sets whether to show the system bar of the main window.
-    *
-    * @param { Array<SystemBarType> } names - The set of system bar types
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation setWindowSystemBarEnable(names: Array<'status' | 'navigation'>): Promise<void>
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public func setWindowSystemBarEnable(names: Array<SystemBarType>): Unit {
+    public func setWindowSystemBarEnable(names: Array<String>): Unit {
         unsafe {
-            let arrNames = Array<String>(names.size, repeat: "")
-            for (i in 0..names.size) {
-                arrNames[i] = names[i].getValue()
-            }
-            let arr = toArrayCString(arrNames)
+            let arr = toArrayCString(names)
             let ret = FFiOHOSWindowSetWindowSystemBarEnable(getID(), arr)
             freeArrCString(arr)
             checkRet(ret, "[Window] setWindowSystemBarEnable: ")
         }
     }
 
-    /**
-    * Set the properties of system bar
-    *
-    * @param { SystemBarProperties } systemBarProperties - The properties of system bar
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation setWindowSystemBarProperties(systemBarProperties: SystemBarProperties): Promise<void>
-    */
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -799,24 +610,217 @@ public class Window <: RemoteDataLite {
         false
     }
 
-    /**
-    * Register the callback of keyboardHeightChange
-    *
-    * @param { WindowCallbackType } callbackType - The value is fixed at KeyboardHeightChange, indicating the keyboard height change event.
-    * @param { Callback1Argument<UInt32> } callback - Callback used to return the current keyboard height, which is an integer, in px.
-    * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified; 
-    *                                                                      2. Incorrect parameter types; 
-    *                                                                      3. Parameter verification failed.
-    * @relation on(type: 'keyboardHeightChange', callback: Callback<number>): void
-    */
+    func on(callbackType: String, callback: Callback0Argument): Unit {
+        synchronized(registerMutex) {
+            var v = callbackMaps.entryView(callbackType)
+            if (v.value.isNone() || callbackType != "keyboardHeightChange") {
+                WindowLibLog.error("[Window] Invalid param.")
+                return
+            }
+            if (findCallbackObject(v.value.getOrThrow(), callback)) {
+                WindowLibLog.info("[Window] The callback object already exists.")
+                return
+            }
+            unsafe {
+                let wrapper = {
+                    => callback.invoke()
+                }
+                let registerCall = Callback0Param<Unit>(wrapper)
+            }
+        }
+    }
+
+    func on(_: String, _: Callback1Argument<Size>): Unit {
+    }
+
     @!APILevel[
-        21,
+        12,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func on(callbackType: String, callback: Callback1Argument<UInt32>): Unit {
+        synchronized(registerMutex) {
+            var v = callbackMaps.entryView(callbackType)
+            if (v.value.isNone() || callbackType != "keyboardHeightChange") {
+                WindowLibLog.error("[Window] Invalid param.")
+                return
+            }
+            if (findCallbackObject(v.value.getOrThrow(), callback)) {
+                WindowLibLog.info("[Window] The callback object already exists.")
+                return
+            }
+            unsafe {
+                let wrapper = {
+                    data: CPointer<Unit> =>
+                    let val = CPointer<UInt32>(data).read()
+                    callback.invoke(val)
+                }
+                let registerCall = Callback1Param<CPointer<Unit>, Unit>(wrapper)
+                let ret = FfiOHOSOnKeyboardHeightChange(getID(), registerCall.getID())
+                checkRet(ret, "[Window] Register ${callbackType} failed: ")
+                v.value.getOrThrow().add((callback, registerCall.getID()))
+            }
+        }
+    }
+
+    func on(_: String, _: Callback1Argument<WindowEventType>): Unit {
+    }
+
+    func on(_: String, _: Callback1Argument<Bool>): Unit {
+    }
+
+    func on(_: String, _: Callback1Argument<WindowStatusType>): Unit {
+    }
+
+    func on(_: String, _: Callback1Argument<TitleButtonRect>): Unit {
+    }
+
+    @!APILevel[
+        12,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func off(callbackType: String): Unit {
+        synchronized(registerMutex) {
+            var v = callbackMaps.entryView(callbackType)
+            if (v.value.isNone() || callbackType != "keyboardHeightChange") {
+                WindowLibLog.error("[Window] Invalid param.")
+                return
+            }
+            unsafe {
+                let ret = FfiOHOSOffKeyboardHeightChange(getID())
+                checkRet(ret, "[Window] Unregister ${callbackType} failed: ")
+                v.value.getOrThrow().clear()
+            }
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func on(callbackType: WindowCallbackType, callback: Callback1Argument<Size>): Unit {
+        match (callbackType) {
+            case WindowSizeChange => onWindowSizeChange(callbackType.toString(), callback)
+            case _ => throw IllegalArgumentException("Invalid param.")
+        }
+    }
+
+    func onWindowSizeChange(callbackType: String, callback: Callback1Argument<Size>): Unit {
+        synchronized(registerMutex) {
+            var callbackEntryView = callbackMaps.entryView(callbackType)
+            if (callbackEntryView.value.isNone()) {
+                WindowLibLog.error("[Window] Invalid param.")
+                return
+            }
+            var callbackList = callbackEntryView.value.getOrThrow()
+            if (findCallbackObject(callbackList, callback)) {
+                WindowLibLog.info("[Window] The callback object already exists.")
+                return
+            }
+            unsafe {
+                let wrapper = {
+                    data: CPointer<Unit> =>
+                    let val = CPointer<CSize>(data).read().toSize()
+                    callback.invoke(val)
+                }
+                let registerCall = Callback1Param<CPointer<Unit>, Unit>(wrapper)
+                var callbackTypeCString = LibC.mallocCString(callbackType)
+                let ret = FfiOHOSOnCallback(getID(), registerCall.getID(), callbackTypeCString)
+                callbackTypeCString.free()
+                checkRet(ret, "[Window] Register ${callbackType} failed: ")
+                callbackList.add((callback, registerCall.getID()))
+            }
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func off(callbackType: WindowCallbackType, callback: Callback1Argument<Size>): Unit {
+        match (callbackType) {
+            case WindowSizeChange => commonUnregister<Callback1Argument<Size>>(callbackType.toString(), callback)
+            case _ => throw IllegalArgumentException("Invalid param.")
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func on(callbackType: WindowCallbackType, callback: Callback1Argument<AvoidAreaOptions>): Unit {
+        match (callbackType) {
+            case WindowAvoidAreaChange => onAvoidAreaChange(callbackType.toString(), callback)
+            case _ => throw IllegalArgumentException("Invalid param.")
+        }
+    }
+
+    func onAvoidAreaChange(callbackType: String, callback: Callback1Argument<AvoidAreaOptions>): Unit {
+        synchronized(registerMutex) {
+            var value = callbackMaps.entryView(callbackType)
+            if (value.value.isNone()) {
+                WindowLibLog.error("[Window] Invalid param.")
+                return
+            }
+            if (findCallbackObject(value.value.getOrThrow(), callback)) {
+                WindowLibLog.info("[Window] The callback object already exists.")
+                return
+            }
+            unsafe {
+                let wrapper = {
+                    data: CPointer<Unit> =>
+                    let val = CPointer<CAvoidAreaOptions>(data).read().toAvoidAreaOptions()
+                    callback.invoke(val)
+                }
+                let registerCall = Callback1Param<CPointer<Unit>, Unit>(wrapper)
+                var callbackTypeCString = LibC.mallocCString(callbackType)
+                let ret = FfiOHOSOnCallback(getID(), registerCall.getID(), callbackTypeCString)
+                callbackTypeCString.free()
+                checkRet(ret, "[Window] Register ${callbackType} failed: ")
+                value.value.getOrThrow().add((callback, registerCall.getID()))
+            }
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func off(callbackType: WindowCallbackType, callback: Callback1Argument<AvoidAreaOptions>): Unit {
+        match (callbackType) {
+            case WindowAvoidAreaChange => commonUnregister<Callback1Argument<AvoidAreaOptions>>(callbackType.toString(),
+                callback)
+            case _ => throw IllegalArgumentException("Invalid param.")
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func on(callbackType: WindowCallbackType, callback: Callback1Argument<UInt32>): Unit {
         match (callbackType) {
-            case KeyboardHeightChange => onKeyboardHeightChange(callbackType.getValue(), callback)
+            case KeyboardHeightChange => onKeyboardHeightChange(callbackType.toString(), callback)
             case _ => throw IllegalArgumentException("Invalid param.")
         }
     }
@@ -848,38 +852,400 @@ public class Window <: RemoteDataLite {
         }
     }
 
-    /**
-    * Unregister the callback of keyboardHeightChange
-    *
-    * @param { WindowCallbackType } callbackType - The value is fixed at KeyboardHeightChange, indicating the keyboard height change event.
-    * @param { Callback1Argument<UInt32> } callback - Callback used to return the current keyboard height, which is an integer, in px.
-    * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified; 
-    *                                                                      2. Incorrect parameter types; 
-    *                                                                      3. Parameter verification failed.
-    * @relation off(type: 'keyboardHeightChange', callback?: Callback<number>): void
-    */
     @!APILevel[
-        21,
+        19,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func off(callbackType: WindowCallbackType, callback: Callback1Argument<UInt32>): Unit {
         match (callbackType) {
-            case KeyboardHeightChange => commonUnregister<Callback1Argument<UInt32>>(callbackType.getValue(), callback)
+            case KeyboardHeightChange => commonUnregister<Callback1Argument<UInt32>>(callbackType.toString(), callback)
             case _ => throw IllegalArgumentException("Invalid param.")
         }
     }
 
-    /**
-    * Unregister the callback of the specified event
-    *
-    * @param { WindowCallbackType } callbackType - the event type
-    * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified; 
-    *                                                                      2. Incorrect parameter types; 
-    *                                                                      3. Parameter verification failed.
-    */
     @!APILevel[
-        21,
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func on(callbackType: WindowCallbackType, callback: Callback0Argument): Unit {
+        match (callbackType) {
+            case TouchOutside | Screenshot | DialogTargetTouch | SubWindowClose => onCallbackUnit(
+                callbackType.toString(), callback)
+            case _ => throw IllegalArgumentException("Invalid param.")
+        }
+    }
+
+    func onCallbackUnit(callbackType: String, callback: Callback0Argument): Unit {
+        synchronized(registerMutex) {
+            var value = callbackMaps.entryView(callbackType)
+            if (value.value.isNone()) {
+                WindowLibLog.error("[Window] Invalid param.")
+                return
+            }
+            if (findCallbackObject(value.value.getOrThrow(), callback)) {
+                WindowLibLog.info("[Window] The callback object already exists.")
+                return
+            }
+            unsafe {
+                let wrapper = {
+                    data: CPointer<Unit> => callback.invoke()
+                }
+                let registerCall = Callback1Param<CPointer<Unit>, Unit>(wrapper)
+                var callbackTypeCString = LibC.mallocCString(callbackType)
+                WindowLibLog.info("[Window] QDY screenshot ${registerCall.getID()}")
+                let ret = FfiOHOSOnCallback(getID(), registerCall.getID(), callbackTypeCString)
+                callbackTypeCString.free()
+                checkRet(ret, "[Window] Register ${callbackType} failed: ")
+                value.value.getOrThrow().add((callback, registerCall.getID()))
+            }
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func off(callbackType: WindowCallbackType, callback: Callback0Argument): Unit {
+        match (callbackType) {
+            case TouchOutside | Screenshot | DialogTargetTouch | SubWindowClose | NoInteractionDetected => commonUnregister<Callback0Argument>(
+                callbackType.toString(), callback)
+            case _ => throw IllegalArgumentException("Invalid param.")
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func on(callbackType: WindowCallbackType, timeout: Int64, callback: Callback0Argument): Unit {
+        match (callbackType) {
+            case NoInteractionDetected => onNoInteractionDetected(callbackType.toString(), timeout, callback)
+            case _ => throw IllegalArgumentException("Invalid param.")
+        }
+    }
+
+    func onNoInteractionDetected(callbackType: String, timeout: Int64, callback: Callback0Argument): Unit {
+        synchronized(registerMutex) {
+            var value = callbackMaps.entryView(callbackType)
+            if (value.value.isNone() || callbackType != "noInteractionDetected") {
+                WindowLibLog.error("[Window] Invalid param.")
+                return
+            }
+            if (findCallbackObject(value.value.getOrThrow(), callback)) {
+                WindowLibLog.info("[Window] The callback object already exists.")
+                return
+            }
+            unsafe {
+                let wrapper = {
+                    data: CPointer<Unit> => callback.invoke()
+                }
+                let registerCall = Callback1Param<CPointer<Unit>, Unit>(wrapper)
+                let ret = FfiOHOSOnNoInteractionDetected(getID(), timeout, registerCall.getID())
+                checkRet(ret, "[Window] Register ${callbackType} failed: ")
+                value.value.getOrThrow().add((callback, registerCall.getID()))
+            }
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func on(callbackType: WindowCallbackType, callback: Callback1Argument<WindowEventType>): Unit {
+        match (callbackType) {
+            case WindowEvent => onWindowEvent(callbackType.toString(), callback)
+            case _ => throw IllegalArgumentException("Invalid param.")
+        }
+    }
+
+    func onWindowEvent(callbackType: String, callback: Callback1Argument<WindowEventType>): Unit {
+        synchronized(registerMutex) {
+            var callbackEntryView = callbackMaps.entryView(callbackType)
+            if (callbackEntryView.value.isNone()) {
+                WindowLibLog.error("[Window] Invalid param.")
+                return
+            }
+            var callbackList = callbackEntryView.value.getOrThrow()
+            if (findCallbackObject(callbackList, callback)) {
+                WindowLibLog.info("[Window] The callback object already exists.")
+                return
+            }
+            unsafe {
+                let wrapper = {
+                    data: CPointer<Unit> =>
+                    let val = CPointer<Int32>(data).read()
+                    callback.invoke(WindowEventType.parse(val))
+                }
+                let registerCall = Callback1Param<CPointer<Unit>, Unit>(wrapper)
+                var callbackTypeCString = LibC.mallocCString(callbackType)
+                let ret = FfiOHOSOnCallback(getID(), registerCall.getID(), callbackTypeCString)
+                callbackTypeCString.free()
+                checkRet(ret, "[Window] Register ${callbackType} failed: ")
+                callbackList.add((callback, registerCall.getID()))
+            }
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func off(callbackType: WindowCallbackType, callback: Callback1Argument<WindowEventType>): Unit {
+        match (callbackType) {
+            case WindowEvent => commonUnregister<Callback1Argument<WindowEventType>>(callbackType.toString(), callback)
+            case _ => throw IllegalArgumentException("Invalid param.")
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func on(callbackType: WindowCallbackType, callback: Callback1Argument<Bool>): Unit {
+        match (callbackType) {
+            case WindowVisibilityChange => onWindowVisibilityChange(callbackType.toString(), callback)
+            case _ => throw IllegalArgumentException("Invalid param.")
+        }
+    }
+
+    func onWindowVisibilityChange(callbackType: String, callback: Callback1Argument<Bool>): Unit {
+        synchronized(registerMutex) {
+            var callbackEntryView = callbackMaps.entryView(callbackType)
+            if (callbackEntryView.value.isNone()) {
+                WindowLibLog.error("[Window] Invalid param.")
+                return
+            }
+            var callbackList = callbackEntryView.value.getOrThrow()
+            if (findCallbackObject(callbackList, callback)) {
+                WindowLibLog.info("[Window] The callback object already exists.")
+                return
+            }
+            unsafe {
+                let wrapper = {
+                    data: CPointer<Unit> =>
+                    let val = CPointer<Bool>(data).read()
+                    callback.invoke(val)
+                }
+                let registerCall = Callback1Param<CPointer<Unit>, Unit>(wrapper)
+                var callbackTypeCString = LibC.mallocCString(callbackType)
+                let ret = FfiOHOSOnCallback(getID(), registerCall.getID(), callbackTypeCString)
+                callbackTypeCString.free()
+                checkRet(ret, "[Window] Register ${callbackType} failed: ")
+                callbackList.add((callback, registerCall.getID()))
+            }
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func off(callbackType: WindowCallbackType, callback: Callback1Argument<Bool>): Unit {
+        match (callbackType) {
+            case WindowVisibilityChange => commonUnregister<Callback1Argument<Bool>>(callbackType.toString(), callback)
+            case _ => throw IllegalArgumentException("Invalid param.")
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func on(callbackType: WindowCallbackType, callback: Callback1Argument<WindowStatusType>): Unit {
+        match (callbackType) {
+            case WindowStatusChange => onWindowStatusChange(callbackType.toString(), callback)
+            case _ => throw IllegalArgumentException("Invalid param.")
+        }
+    }
+
+    func onWindowStatusChange(callbackType: String, callback: Callback1Argument<WindowStatusType>): Unit {
+        synchronized(registerMutex) {
+            var callbackEntryView = callbackMaps.entryView(callbackType)
+            if (callbackEntryView.value.isNone()) {
+                WindowLibLog.error("[Window] Invalid param.")
+                return
+            }
+            var callbackList = callbackEntryView.value.getOrThrow()
+            if (findCallbackObject(callbackList, callback)) {
+                WindowLibLog.info("[Window] The callback object already exists.")
+                return
+            }
+            unsafe {
+                let wrapper = {
+                    data: CPointer<Unit> =>
+                    let val = CPointer<Int32>(data).read()
+                    callback.invoke(WindowStatusType.parse(val))
+                }
+                let registerCall = Callback1Param<CPointer<Unit>, Unit>(wrapper)
+                var callbackTypeCString = LibC.mallocCString(callbackType)
+                let ret = FfiOHOSOnCallback(getID(), registerCall.getID(), callbackTypeCString)
+                callbackTypeCString.free()
+                checkRet(ret, "[Window] Register ${callbackType} failed: ")
+                callbackList.add((callback, registerCall.getID()))
+            }
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func off(callbackType: WindowCallbackType, callback: Callback1Argument<WindowStatusType>): Unit {
+        match (callbackType) {
+            case WindowStatusChange => commonUnregister<Callback1Argument<WindowStatusType>>(callbackType.toString(),
+                callback)
+            case _ => throw IllegalArgumentException("Invalid param.")
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func on(callbackType: WindowCallbackType, callback: Callback1Argument<TitleButtonRect>): Unit {
+        match (callbackType) {
+            case WindowTitleButtonRectChange => onWindowTitleButtonRectChange(callbackType.toString(), callback)
+            case _ => throw IllegalArgumentException("Invalid param.")
+        }
+    }
+
+    func onWindowTitleButtonRectChange(callbackType: String, callback: Callback1Argument<TitleButtonRect>): Unit {
+        synchronized(registerMutex) {
+            var callbackEntryView = callbackMaps.entryView(callbackType)
+            if (callbackEntryView.value.isNone()) {
+                WindowLibLog.error("[Window] Invalid param.")
+                return
+            }
+            var callbackList = callbackEntryView.value.getOrThrow()
+            if (findCallbackObject(callbackList, callback)) {
+                WindowLibLog.info("[Window] The callback object already exists.")
+                return
+            }
+            unsafe {
+                let wrapper = {
+                    data: CPointer<Unit> =>
+                    let val = CPointer<CTitleButtonRect>(data).read().toTitleButtonRect()
+                    callback.invoke(val)
+                }
+                let registerCall = Callback1Param<CPointer<Unit>, Unit>(wrapper)
+                var callbackTypeCString = LibC.mallocCString(callbackType)
+                let ret = FfiOHOSOnCallback(getID(), registerCall.getID(), callbackTypeCString)
+                callbackTypeCString.free()
+                checkRet(ret, "[Window] Register ${callbackType} failed: ")
+                callbackList.add((callback, registerCall.getID()))
+            }
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func off(callbackType: WindowCallbackType, callback: Callback1Argument<TitleButtonRect>): Unit {
+        match (callbackType) {
+            case WindowTitleButtonRectChange => commonUnregister<Callback1Argument<TitleButtonRect>>(
+                callbackType.toString(), callback)
+            case _ => throw IllegalArgumentException("Invalid param.")
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func on(callbackType: WindowCallbackType, callback: Callback1Argument<RectChangeOptions>): Unit {
+        match (callbackType) {
+            case WindowRectChange => onWindowRectChange(callbackType.toString(), callback)
+            case _ => throw IllegalArgumentException("Invalid param.")
+        }
+    }
+
+    func onWindowRectChange(callbackType: String, callback: Callback1Argument<RectChangeOptions>): Unit {
+        synchronized(registerMutex) {
+            var callbackEntryView = callbackMaps.entryView(callbackType)
+            if (callbackEntryView.value.isNone()) {
+                WindowLibLog.error("[Window] Invalid param.")
+                return
+            }
+            var callbackList = callbackEntryView.value.getOrThrow()
+            if (findCallbackObject(callbackList, callback)) {
+                WindowLibLog.info("[Window] The callback object already exists.")
+                return
+            }
+            unsafe {
+                let wrapper = {
+                    data: CPointer<Unit> =>
+                    let val = CPointer<CRectChangeOptions>(data).read().toRectChangeOptions()
+                    callback.invoke(val)
+                }
+                let registerCall = Callback1Param<CPointer<Unit>, Unit>(wrapper)
+                var callbackTypeCString = LibC.mallocCString(callbackType)
+                let ret = FfiOHOSOnCallback(getID(), registerCall.getID(), callbackTypeCString)
+                callbackTypeCString.free()
+                checkRet(ret, "[Window] Register ${callbackType} failed: ")
+                callbackList.add((callback, registerCall.getID()))
+            }
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func off(callbackType: WindowCallbackType, callback: Callback1Argument<RectChangeOptions>): Unit {
+        match (callbackType) {
+            case WindowRectChange => commonUnregister<Callback1Argument<RectChangeOptions>>(callbackType.toString(),
+                callback)
+            case _ => throw IllegalArgumentException("Invalid param.")
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -888,7 +1254,7 @@ public class Window <: RemoteDataLite {
             case WindowRectChange | WindowTitleButtonRectChange | WindowStatusChange | WindowEvent | WindowSizeChange
                 | KeyboardHeightChange | TouchOutside | SubWindowClose | DialogTargetTouch | Screenshot
                 | NoInteractionDetected | WindowVisibilityChange | WindowAvoidAreaChange => commonUnregister(
-                callbackType.getValue())
+                callbackType.toString())
             case _ => throw IllegalArgumentException("Invalid param.")
         }
     }
@@ -937,6 +1303,362 @@ public class Window <: RemoteDataLite {
                 callbackTypeCString.free()
                 checkRet(ret, "[Window] Unregister ${callbackType} failed: ")
             }
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func setSubWindowModal(isModal: Bool): Unit {
+        unsafe {
+            let ret = FfiOHOSSetSubWindowModal(getID(), isModal)
+            checkRet(ret, "[Window] setSubWindowModal: ")
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func isFocused(): Bool {
+        unsafe {
+            var errCode: Int32 = 0
+            let ret = FfiOHOSIsFocused(getID(), inout errCode)
+            checkRet(errCode, "[Window] IsFocused: ")
+            return ret
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func setWindowLimits(windowLimits: WindowLimits): WindowLimits {
+        unsafe {
+            var cWindowLimits: CWindowLimits = CWindowLimits(UInt32.Max, UInt32.Max, 1, 1)
+            let ret = FfiOHOSSetWindowLimits(getID(), windowLimits.toExternal(), inout cWindowLimits)
+            checkRet(ret, "[Window] setWindowLimits: ")
+            return WindowLimits(cWindowLimits)
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func getWindowLimits(): WindowLimits {
+        unsafe {
+            var cWindowLimits: CWindowLimits = CWindowLimits(UInt32.Max, UInt32.Max, 1, 1)
+            let code = FfiOHOSGetWindowLimits(getID(), inout cWindowLimits)
+            checkRet(code, "[Window] getWindowAvoidArea: ")
+            return WindowLimits(cWindowLimits)
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func getImmersiveModeEnabledState(): Bool {
+        unsafe {
+            var errCode: Int32 = 0
+            let ret = FfiOHOSGetImmersiveModeEnabledState(getID(), inout errCode)
+            checkRet(errCode, "[Window] getImmersiveModeEnabledState: ")
+            return ret
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func setImmersiveModeEnabledState(enabled: Bool): Unit {
+        unsafe {
+            let ret = FfiOHOSSetImmersiveModeEnabledState(getID(), enabled)
+            checkRet(ret, "[Window] setImmersiveModeEnabledState: ")
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func keepKeyboardOnFocus(keepKeyboardFlag: Bool): Unit {
+        unsafe {
+            let ret = FfiOHOSKeepKeyboardOnFocus(getID(), keepKeyboardFlag)
+            checkRet(ret, "[Window] keepKeyboardOnFocus: ")
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func getWindowDecorHeight(): Int32 {
+        unsafe {
+            var height: Int32 = 0
+            let ret = FfiOHOSGetWindowDecorHeight(getID(), inout height)
+            checkRet(ret, "[Window] getWindowDecorHeight: ")
+            return ret
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func setWindowDecorHeight(height: Int32): Unit {
+        unsafe {
+            let ret = FfiOHOSSetWindowDecorHeight(getID(), height)
+            checkRet(ret, "[Window] setWindowDecorHeight: ")
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func recover(): Unit {
+        unsafe {
+            let ret = FfiOHOSRecover(getID())
+            checkRet(ret, "[Window] Recover: ")
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func setWindowDecorVisible(isVisible: Bool): Unit {
+        unsafe {
+            let ret = FfiOHOSSetWindowDecorVisible(getID(), isVisible)
+            checkRet(ret, "[Window] setWindowDecorVisible: ")
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func getTitleButtonRect(): TitleButtonRect {
+        unsafe {
+            var cTitleButtonRect: CTitleButtonRect = CTitleButtonRect(0, 0, 0, 0)
+            let ret = FfiOHOSGetTitleButtonRect(getID(), inout cTitleButtonRect)
+            checkRet(ret, "[Window] getWindowDecorHeight: ")
+            return TitleButtonRect(cTitleButtonRect)
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func setDialogBackGestureEnabled(enabled: Bool): Unit {
+        unsafe {
+            let ret = FfiOHOSSetDialogBackGestureEnabled(getID(), enabled)
+            checkRet(ret, "[Window] setDialogBackGestureEnabled: ")
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func disableLandscapeMultiWindow(): Unit {
+        unsafe {
+            let ret = FfiOHOSDisableLandscapeMultiWindow(getID())
+            checkRet(ret, "[Window] disableLandscapeMultiWindow: ")
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func enableLandscapeMultiWindow(): Unit {
+        unsafe {
+            let ret = FfiOHOSEnableLandscapeMultiWindow(getID())
+            checkRet(ret, "[Window] enableLandscapeMultiWindow: ")
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func setWindowGrayScale(grayScale: Float32): Unit {
+        unsafe {
+            let ret = FfiOHOSSetWindowGrayScale(getID(), grayScale)
+            checkRet(ret, "[Window] setWindowGrayScale: ")
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func setSpecificSystemBarEnabled(name: SpecificSystemBar, enable: Bool, enableAnimation: Bool): Unit {
+        unsafe {
+            let ret = FfiOHOSSpecificSystemBarEnabled(getID(), name.getValue(), enable, enableAnimation)
+            checkRet(ret, "[Window] setSpecificSystemBarEnabled: ")
+        }
+    }
+
+    func getCJBarProperties(): CJBarProperties {
+        var v1: ?CString = None
+        var v2: ?CString = None
+        var v3: ?CString = None
+        var v4: ?CString = None
+        unsafe {
+            try {
+                v1 = LibC.mallocCString("")
+                v2 = LibC.mallocCString("")
+                v3 = LibC.mallocCString("")
+                v4 = LibC.mallocCString("")
+                CJBarProperties(v1.getOrThrow(), false, v2.getOrThrow(), v3.getOrThrow(), false, v4.getOrThrow(), false,
+                    false)
+            } catch (e: Exception) {
+                v1?.free()
+                v2?.free()
+                v3?.free()
+                v4?.free()
+                throw e
+            }
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func getWindowSystemBarProperties(): SystemBarProperties {
+        var systemBarProperties: CJBarProperties = getCJBarProperties()
+        unsafe {
+            let ret = FfiOHOSGetWindowSystemBarProperties(getID(), inout systemBarProperties)
+            checkRet(ret, "[Window] getWindowSystemBarProperties: ")
+            let res =  SystemBarProperties(systemBarProperties)
+            systemBarProperties.freeCStringMember()
+            res
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func getPreferredOrientation(): Orientation {
+        unsafe {
+            var errCode: Int32 = 0
+            let ret = FfiOHOSGetPreferredOrientation(getID(), inout errCode)
+            checkRet(errCode, "[Window] getPreferredOrientation: ")
+            return Orientation.parse(ret)
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func getWindowStatus(): WindowStatusType {
+        unsafe {
+            var errCode: Int32 = 0
+            let ret = FfiOHOSGetWindowStatus(getID(), inout errCode)
+            checkRet(errCode, "[Window] getWindowStatus: ")
+            return WindowStatusType.parse(ret)
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func maximize(presentation!: MaximizePresentation = MaximizePresentation.ENTER_IMMERSIVE): Unit {
+        unsafe {
+            let ret = FfiOHOSMaximize(getID(), presentation.getValue())
+            checkRet(ret, "[Window] maximize: ")
+        }
+    }
+
+    @!APILevel[
+        19,
+        atomicservice: true,
+        crossplatform: true,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    public func createSubWindowWithOptions(name: String, option: SubWindowOptions): Window {
+        unsafe {
+            let cname = LibC.mallocCString(name)
+            var cOption = option.toExternal()
+            let ret = FfiOHOSCreateSubWindowWithOptions(getID(), cname, cOption)
+            LibC.free(cOption.title)
+            LibC.free(cname)
+            checkRet(ret.code, "[WindowStage] create subwindow: ")
+            getOrCreate(Window.instanceMap, ret.data, {id: Int64 => Window(id)})
         }
     }
 }
