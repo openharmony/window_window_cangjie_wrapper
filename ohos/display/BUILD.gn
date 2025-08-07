@@ -32,4 +32,6 @@ ohos_cj_library("ohos.display") {
   external_deps = [ "window_manager:cj_display_ffi" ]
 
   lib_name = "display"
+  subsystem_name = "window"
+  part_name = "window_cangjie_api"
 }
