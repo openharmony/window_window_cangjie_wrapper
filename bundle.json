@@ -1,16 +1,16 @@
 {
-    "name": "@ohos/window_cangjie_api",
+    "name": "@ohos/window_window_cangjie_wrapper",
     "description": "library for window",
     "version": "6.0",
     "license": "Apache License 2.0",
     "publishAs": "code-segment",
     "segment": {
-      "destPath": "foundation/window/window_cangjie_api"
+      "destPath": "foundation/window/window_window_cangjie_wrapper"
     },
     "dirs": {},
     "scripts": {},
     "component": {
-      "name": "window_cangjie_api",
+      "name": "window_window_cangjie_wrapper",
       "subsystem": "window",
       "syscap": [],
       "features": [],
@@ -30,15 +30,15 @@
       },
       "build": {
         "sub_component": [
-          "//foundation/window/window_cangjie_api/ohos/window:ohos.window",
-          "//foundation/window/window_cangjie_api/ohos/display:ohos.display"
+          "//foundation/window/window_window_cangjie_wrapper/ohos/window:ohos.window",
+          "//foundation/window/window_window_cangjie_wrapper/ohos/display:ohos.display"
         ],
         "inner_kits": [
           {
-            "name": "//foundation/window/window_cangjie_api/ohos/window:ohos.window"
+            "name": "//foundation/window/window_window_cangjie_wrapper/ohos/window:ohos.window"
           },
           {
-            "name": "//foundation/window/window_cangjie_api/ohos/display:ohos.display"
+            "name": "//foundation/window/window_window_cangjie_wrapper/ohos/display:ohos.display"
           }
         ],
         "test": [
