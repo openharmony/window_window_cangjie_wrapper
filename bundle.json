@@ -1,0 +1,48 @@
+{
+    "name": "@ohos/window_cangjie_api",
+    "description": "library for window",
+    "version": "6.0",
+    "license": "Apache License 2.0",
+    "publishAs": "code-segment",
+    "segment": {
+      "destPath": "foundation/window/window_cangjie_api"
+    },
+    "dirs": {},
+    "scripts": {},
+    "component": {
+      "name": "window_cangjie_api",
+      "subsystem": "window",
+      "syscap": [],
+      "features": [],
+      "adapted_system_type": [ "standard" ],
+      "rom": "8000KB",
+      "ram": "8000KB",
+      "hisysevent_config": [],
+      "deps": {
+        "components": [
+          "cangjie_api",
+          "arkui_cangjie_api",
+          "multimedia_cangjie_api",
+          "hiviewdfx_cangjie_api",
+
+          "window_manager"
+        ]
+      },
+      "build": {
+        "sub_component": [
+          "//foundation/window/window_cangjie_api/ohos/window:ohos.window",
+          "//foundation/window/window_cangjie_api/ohos/display:ohos.display"
+        ],
+        "inner_kits": [
+          {
+            "name": "//foundation/window/window_cangjie_api/ohos/window:ohos.window"
+          },
+          {
+            "name": "//foundation/window/window_cangjie_api/ohos/display:ohos.display"
+          }
+        ],
+        "test": [
+        ]
+      }
+    }
+}
