@@ -7,7 +7,7 @@ The Window Manager subsystem provides basic capabilities of window and display m
 ## Directory Structure
 
 ```
-foundation/window/window_cangjie_api/
+foundation/window/window_cangjie_wrapper/
 ├── ohos                    # Stores Cangjie Window Api implementation code 
 ```
 

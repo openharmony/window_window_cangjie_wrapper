@@ -22,16 +22,16 @@ ohos_cj_library("ohos.display") {
   ]
 
   cj_external_deps = [
-    "cangjie_api:ohos.ffi",
-    "cangjie_api:ohos.labels",
-    "arkui_cangjie_api:ohos.base",
-    "graphic_cangjie_api:ohos.color_manager",
-    "hiviewdfx_cangjie_api:ohos.hilog",
+    "cangjie_ark_interop:ohos.ffi",
+    "cangjie_ark_interop:ohos.labels",
+    "arkui_cangjie_wrapper:ohos.base",
+    "graphic_cangjie_wrapper:ohos.color_manager",
+    "hiviewdfx_cangjie_wrapper:ohos.hilog",
   ]
 
   external_deps = [ "window_manager:cj_display_ffi" ]
 
   lib_name = "display"
   subsystem_name = "window"
-  part_name = "window_cangjie_api"
+  part_name = "window_cangjie_wrapper"
 }

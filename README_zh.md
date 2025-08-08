@@ -1,4 +1,4 @@
-# window_cangjie_api
+# window_cangjie_wrapper
 
 -   [简介](#简介)
 -   [目录](#目录)
@@ -12,7 +12,7 @@
 
 ## 目录
 ```
-foundation/window/window_cangjie_api/
+foundation/window/window_cangjie_wrapper/
 ├── ohos                              # Cangjie Window Manager 接口实现代码    
 ```
 
