@@ -1,6 +1,6 @@
 {
     "name": "@ohos/window_cangjie_wrapper",
-    "description": "library for window",
+    "description": "Cangjie library for window",
     "version": "6.0",
     "license": "Apache License 2.0",
     "publishAs": "code-segment",
@@ -15,8 +15,8 @@
       "syscap": [],
       "features": [],
       "adapted_system_type": [ "standard" ],
-      "rom": "8000KB",
-      "ram": "8000KB",
+      "rom": "1000KB",
+      "ram": "1000KB",
       "hisysevent_config": [],
       "deps": {
         "components": [
