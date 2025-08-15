@@ -7,17 +7,20 @@
 
 ## 简介
 
-**窗口子系统** 提供窗口管理和Display管理的基础能力，是系统图形界面显示所需的基础子系统，此代码仓提供了仓颉相关接口库
+**仓颉窗口子系统封装层** 提供窗口管理和Display管理的基础能力，此代码仓提供了仓颉相关接口库
+
+其主要结构如下图所示：
+
+![仓颉window封装层](./figures/window_window_cangjie_wrapper.png)
 
 
 ## 目录
 ```
 foundation/window/window_cangjie_wrapper/
-├── ohos                              # Cangjie Window Manager 接口实现代码    
+├── ohos                               
+|   |── display                        # 仓颉 display 接口代码实现目录
+|   |── window                         # 仓颉 window 接口代码实现目录
 ```
 
 ## 相关仓
-- [graphic_graphic_2d](https://gitee.com/openharmony/graphic_graphic_2d)
-- [arkui_ace_engine](https://gitee.com/openharmony/arkui_ace_engine)
-- [ability_ability_runtime](https://gitee.com/openharmony/ability_ability_runtime)
-- [multimodalinput_input](https://gitee.com/openharmony/multimodalinput_input)
+- [window_manager](https://gitee.com/openharmony/window_window_manager)
