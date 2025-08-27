@@ -17,10 +17,8 @@ package ohos.window
 
 internal import ohos.ffi.*
 
-public type WindowStageNativeHandler = Int64
-
 foreign {
-    func FfiOHOSBindWindowStage(handler: WindowStageNativeHandler): RetDataI64
+    func FfiOHOSBindWindowStage(handler: Int64): RetDataI64
 
     func FfiOHOSGetMainWindow(id: Int64): RetDataI64
 
@@ -48,17 +46,20 @@ foreign {
 
 let stageRegisterMutex = Mutex()
 
+/**
+* WindowStage
+*
+* @relation export interface WindowStage
+*/
 @!APILevel[
-    12,
-    atomicservice: true,
-    crossplatform: true,
+    21,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class WindowStage <: RemoteDataLite {
     let callbackMaps = HashMap<String, ArrayList<(CallbackObject, Int64)>>(
         [("windowStageEvent", ArrayList<(CallbackObject, Int64)>())])
-    protected init(windowStageHandler: WindowStageNativeHandler) {
+    protected init(windowStageHandler: Int64) {
         let ret = unsafe { FfiOHOSBindWindowStage(windowStageHandler) }
         checkRet(ret.code, "[WindowStage] bind WindowStage: ")
         dataInit(ret.data)
@@ -68,10 +69,15 @@ public class WindowStage <: RemoteDataLite {
         releaseFFIData(myDataId)
     }
 
+    /**
+    * Obtains the main window of this window stage.
+    *
+    * @returns { Window } the main window.
+    * @throws { BusinessException } 1300002 - This window state is abnormal.
+    * @relation getMainWindow(): Promise<Window>
+    */
     @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -83,27 +89,39 @@ public class WindowStage <: RemoteDataLite {
         }
     }
 
+    /**
+    * Creates a child window for this window stage.
+    *
+    * @param { String } name - Name of the child window.
+    * @returns { Window } the child window.
+    * @throws { BusinessException } 1300002 - This window state is abnormal.
+    * @relation createSubWindow(name: string): Promise<Window>
+    */
     @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func createSubWindow(name: String): Window {
         unsafe {
-            let cname = LibC.mallocCString(name)
-            let ret = FfiOHOSCreateSubWindow(getID(), cname)
-            LibC.free(cname)
-            checkRet(ret.code, "[WindowStage] create subwindow: ")
-            getOrCreate(Window.instanceMap, ret.data, {id: Int64 => Window(id)})
+            var ret: ?RetDataI64 = None
+            try (cname = LibC.mallocCString(name).asResource()) {
+                ret = FfiOHOSCreateSubWindow(getID(), cname.value)
+            }
+            checkRet(ret.getOrThrow().code, "[WindowStage] create subwindow: ")
+            getOrCreate(Window.instanceMap, ret.getOrThrow().data, {id: Int64 => Window(id)})
         }
     }
 
+    /**
+    * Obtains all the child windows of this window stage.
+    *
+    * @returns { Array<Window> } all the child windows.
+    * @throws { BusinessException } 1300002 - This window state is abnormal.
+    * @relation getSubWindow(): Promise<Array<Window>>
+    */
     @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -120,10 +138,15 @@ public class WindowStage <: RemoteDataLite {
         }
     }
 
+    /**
+    * Loads content from a page to this window. You are advised to call this API during UIAbility startup.
+    * If called multiple times, this API will destroy the existing page content (UIContent) before loading the new content. Exercise caution when using it.
+    *
+    * @param { String } path - Path of the page to which the content will be loaded
+    * @relation loadContent(path: string, storage?: LocalStorage): Promise<void>
+    */
     @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -131,172 +154,6 @@ public class WindowStage <: RemoteDataLite {
         unsafe {
             try (cpath = LibC.mallocCString(path).asResource()) {
                 FfiOHOSLoadContent(getID(), cpath.value)
-            }
-        }
-    }
-
-    /**
-     * @brief  loadContentByName(name: string, storage?: LocalStorage): Promise<void>
-     */
-    func loadContentByName(name: String): Unit {
-        unsafe {
-            try (cname = LibC.mallocCString(name).asResource()) {
-                FfiOHOSLoadContentByName(getID(), cname.value)
-            }
-        }
-    }
-
-    /**
-     * @brief  disableWindowDecor(): void
-     */
-    func disableWindowDecor(): Unit {
-        let ret = unsafe { FfiOHOSDisableWindowDecor(getID()) }
-        checkRet(ret, "[WindowStage] disableWindowDecor: ")
-    }
-
-    /**
-     * @brief  setShowOnLockScreen(showOnLockScreen: boolean): void
-     */
-    func setShowOnLockScreen(showOnLockScreen: Bool): Unit {
-        let ret = unsafe { FfiOHOSSetShowOnLockScreen(getID(), showOnLockScreen) }
-        checkRet(ret, "[WindowStage] setShowOnLockScreen: ")
-    }
-
-    @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public func setDefaultDensityEnabled(enabled: Bool): Unit {
-        unsafe {
-            let ret = FfiOHOSSetDefaultDensityEnabled(getID(), enabled)
-            checkRet(ret, "[Window] setDefaultDensityEnabled: ")
-        }
-    }
-
-    @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public func on(callbackType: WindowCallbackType, callback: Callback1Argument<WindowStageEventType>): Unit {
-        match (callbackType) {
-            case WindowStageEvent => onWindowStageEvent(callbackType.toString(), callback)
-            case _ => throw IllegalArgumentException("Invalid param.")
-        }
-    }
-
-    func onWindowStageEvent(callbackType: String, callback: Callback1Argument<WindowStageEventType>): Unit {
-        synchronized(stageRegisterMutex) {
-            var callbackEntryView = callbackMaps.entryView(callbackType)
-            if (callbackEntryView.value.isNone()) {
-                return
-            }
-            var callbackList = callbackEntryView.value.getOrThrow()
-            if (findCallbackObject(callbackList, callback)) {
-                WindowLibLog.info("[WindowStage] The callback object already exists.")
-                return
-            }
-            unsafe {
-                let wrapper = {
-                    data: CPointer<Unit> =>
-                    let val = CPointer<Int32>(data).read()
-                    callback.invoke(WindowStageEventType.parse(val))
-                }
-                let registerCall = Callback1Param<CPointer<Unit>, Unit>(wrapper)
-                let ret = FfiOHOSStageOn(getID(), registerCall.getID())
-                checkRet(ret, "[WindowStage] Register ${callbackType.toString()} failed: ")
-                callbackList.add((callback, registerCall.getID()))
-            }
-        }
-    }
-
-    @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public func off(
-        callbackType: WindowCallbackType,
-        callback!: ?Callback1Argument<WindowStageEventType> = None
-    ): Unit {
-        match (callbackType) {
-            case WindowStageEvent => offWindowStage(callbackType.toString(), callback)
-            case _ => throw IllegalArgumentException("Invalid eventType.")
-        }
-    }
-
-    func offWindowStage(key: String, callback: ?Callback1Argument<WindowStageEventType>): Unit {
-        synchronized(registerMutex) {
-            var callbackEntryView = callbackMaps.entryView(key)
-            if (callbackEntryView.value.isNone()) {
-                WindowLibLog.error("[WindowStage] Invalid param.")
-                return
-            }
-            var callbackList = callbackEntryView.value.getOrThrow()
-            if (callback.isNone()) { // clear all callback
-                unsafe {
-                    let ret = FfiOHOSStageOff(getID(), -1)
-                    checkRet(ret, "[WindowStage] Unregister ${key.toString()} failed: ")
-                }
-                callbackList.clear()
-                return;
-            }
-            var callbackId: Option<Int64> = None
-            for (idx in 0..callbackList.size) {
-                if (refEq(callback.getOrThrow(), callbackList[idx][0])) {
-                    callbackId = callbackList[idx][1]
-                    callbackList.remove(idx..idx + 1)
-                    break
-                }
-            }
-            if (callbackId.isNone()) {
-                WindowLibLog.info("[WindowStage] The callback object not exists.")
-                return
-            }
-            unsafe {
-                let ret = FfiOHOSStageOff(getID(), callbackId.getOrThrow())
-                checkRet(ret, "[WindowStage] Unregister ${key.toString()} failed: ")
-            }
-        }
-    }
-
-    func findCallbackObject(list: ArrayList<(CallbackObject, Int64)>, callback: CallbackObject): Bool {
-        for (item in list) {
-            if (refEq(callback, item[0])) {
-                return true
-            }
-        }
-        false
-    }
-
-    @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    public func createSubWindowWithOptions(name: String, option: SubWindowOptions): Window {
-        unsafe {
-            var cname: ?CString = None
-            var ctitle: ?CString = None
-            try {
-                cname = LibC.mallocCString(name)
-                ctitle = LibC.mallocCString(option.title)
-                let ret: RetDataI64 = FfiOHOSCreateSubWindowWithOptionsStage(getID(), cname.getOrThrow(),
-                    ctitle.getOrThrow(), option.decorEnabled, option.isModal)
-                checkRet(ret.code, "[WindowStage] create subwindow: ")
-                getOrCreate(Window.instanceMap, ret.data, {id: Int64 => Window(id)})
-            } finally {
-                cname?.free()
-                ctitle?.free()
             }
         }
     }

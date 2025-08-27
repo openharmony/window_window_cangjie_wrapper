@@ -15,984 +15,891 @@
 
 package ohos.window
 
+import std.deriving.Derive
+
+/**
+ * The type of a window.
+ *
+ * @relation export enum WindowType
+ */
+ @Derive[Equatable]
 @!APILevel[
-    12,
-    atomicservice: true,
-    crossplatform: true,
+    21,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum WindowType {
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    TYPE_APP
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    TYPE_SYSTEM_ALERT
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    TYPE_FLOAT
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    TYPE_DIALOG
-    | ...
-
-    func getValue(): UInt32 {
-        return match (this) {
-            case TYPE_APP => 0
-            case TYPE_SYSTEM_ALERT => 1
-            case TYPE_FLOAT => 8
-            case TYPE_DIALOG => 16
-            case _ => throw IllegalArgumentException("The type is not supported.")
-        }
-    }
-
-    func toString(): String {
-        return match (this) {
-            case TYPE_APP => "TYPE_APP"
-            case TYPE_SYSTEM_ALERT => "TYPE_SYSTEM_ALERT"
-            case TYPE_FLOAT => "TYPE_FLOAT"
-            case TYPE_DIALOG => "TYPE_DIALOG"
-            case _ => throw IllegalArgumentException("The type is not supported.")
-        }
-    }
-
-    operator func ==(r: WindowType): Bool {
-        return this.getValue() == r.getValue()
-    }
-
-    operator func !=(r: WindowType): Bool {
-        return this.getValue() != r.getValue()
-    }
-}
-
-@!APILevel[
-    12,
-    atomicservice: true,
-    crossplatform: true,
-    stagemodelonly: true,
-    syscap: "SystemCapability.WindowManager.WindowManager.Core"
-]
-public enum Orientation {
+    /**
+    * App.
+    *
+    * @relation TYPE_APP = 0
+    */
     @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    UNSPECIFIED
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+    TypeApp
+    |
+    /**
+    * Float.
+    * Require "ohos.permission.SYSTEM_FLOAT_WINDOW" permission
+    *
+    * @relation TYPE_FLOAT = 8
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    PORTRAIT
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+    TypeFloat
+    |
+    /**
+    * Dialog.
+    *
+    * @relation TYPE_DIALOG= 16
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    LANDSCAPE
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    PORTRAIT_INVERTED
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    LANDSCAPE_INVERTED
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    AUTO_ROTATION
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    AUTO_ROTATION_PORTRAIT
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    AUTO_ROTATION_LANDSCAPE
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    AUTO_ROTATION_RESTRICTED
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    AUTO_ROTATION_PORTRAIT_RESTRICTED
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    AUTO_ROTATION_LANDSCAPE_RESTRICTED
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    LOCKED
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    AUTO_ROTATION_UNSPECIFIED
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    USER_ROTATION_PORTRAIT
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    USER_ROTATION_LANDSCAPE
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    USER_ROTATION_PORTRAIT_INVERTED
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    USER_ROTATION_LANDSCAPE_INVERTED
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
-    ]
-    FOLLOW_DESKTOP
+    TypeDialog
     | ...
 
     func getValue(): UInt32 {
-        match (this) {
-            case UNSPECIFIED => 0
-            case PORTRAIT => 1
-            case LANDSCAPE => 2
-            case PORTRAIT_INVERTED => 3
-            case LANDSCAPE_INVERTED => 4
-            case AUTO_ROTATION => 5
-            case AUTO_ROTATION_PORTRAIT => 6
-            case AUTO_ROTATION_LANDSCAPE => 7
-            case AUTO_ROTATION_RESTRICTED => 8
-            case AUTO_ROTATION_PORTRAIT_RESTRICTED => 9
-            case AUTO_ROTATION_LANDSCAPE_RESTRICTED => 10
-            case LOCKED => 11
-            case AUTO_ROTATION_UNSPECIFIED => 12
-            case USER_ROTATION_PORTRAIT => 13
-            case USER_ROTATION_LANDSCAPE => 14
-            case USER_ROTATION_PORTRAIT_INVERTED => 15
-            case USER_ROTATION_LANDSCAPE_INVERTED => 16
-            case FOLLOW_DESKTOP => 17
+        return match (this) {
+            case TypeApp => 0
+            case TypeFloat => 8
+            case TypeDialog => 16
             case _ => throw IllegalArgumentException("The type is not supported.")
         }
     }
 
     static func parse(val: UInt32) {
         match (val) {
-            case 0 => UNSPECIFIED
-            case 1 => PORTRAIT
-            case 2 => LANDSCAPE
-            case 3 => PORTRAIT_INVERTED
-            case 4 => LANDSCAPE_INVERTED
-            case 5 => AUTO_ROTATION
-            case 6 => AUTO_ROTATION_PORTRAIT
-            case 7 => AUTO_ROTATION_LANDSCAPE
-            case 8 => AUTO_ROTATION_RESTRICTED
-            case 9 => AUTO_ROTATION_PORTRAIT_RESTRICTED
-            case 10 => AUTO_ROTATION_LANDSCAPE_RESTRICTED
-            case 11 => LOCKED
-            case 12 => AUTO_ROTATION_UNSPECIFIED
-            case 13 => USER_ROTATION_PORTRAIT
-            case 14 => USER_ROTATION_LANDSCAPE
-            case 15 => USER_ROTATION_PORTRAIT_INVERTED
-            case 16 => USER_ROTATION_LANDSCAPE_INVERTED
-            case 17 => FOLLOW_DESKTOP
+            case 0 => TypeApp
+            case 8 => TypeFloat
+            case 16 => TypeDialog
+            case 32 => TypeApp
+            case _ => throw Exception("Unrecognizable WindowType: ${val}!")
+        }
+    }
+}
+
+/**
+* Display orientation
+*
+* @relation export enum Orientation
+*/
+@Derive[Equatable]
+@!APILevel[
+    21,
+    stagemodelonly: true,
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
+]
+public enum Orientation {
+    /**
+    * Default value. The direction mode is not clearly defined. It is determined by the system.
+    *
+    * @relation UNSPECIFIED = 0
+    */
+    @!APILevel[
+        21,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    Unspecified
+    |
+    /**
+    * Display in portrait orientation.
+    *
+    * @relation PORTRAIT = 1
+    */
+    @!APILevel[
+        21,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    Portrait
+    |
+    /**
+    * Display in landscape orientation.
+    *
+    * @relation LANDSCAPE = 2
+    */
+    @!APILevel[
+        21,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    Landscape
+    |
+    /**
+    * Display in inverted portrait orientation.
+    *
+    * @relation PORTRAIT_INVERTED = 3
+    */
+    @!APILevel[
+        21,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    PortraitInverted
+    |
+    /**
+    * Display in inverted landscape orientation.
+    *
+    * @relation LANDSCAPE_INVERTED = 4
+    */
+    @!APILevel[
+        21,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    LandscapeInverted
+    |
+    /**
+    * Follow the rotation of the sensor, ignore auto rotation lock.
+    *
+    * @relation AUTO_ROTATION = 5
+    */
+    @!APILevel[
+        21,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    AutoRotation
+    |
+    /**
+    * Follow the rotation of the sensor, only work in the vertical direction, ignore auto rotation lock.
+    *
+    * @relation AUTO_ROTATION_PORTRAIT = 6
+    */
+    @!APILevel[
+        21,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    AutoRotationPortrait
+    |
+    /**
+    * Follow the rotation of the sensor, only work in the horizontal direction, ignore auto rotation lock.
+    *
+    * @relation AUTO_ROTATION_LANDSCAPE = 7
+    */
+    @!APILevel[
+        21,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    AutoRotationLandscape
+    |
+    /**
+    * Follow the rotation of the sensor, controlled by auto rotation lock.
+    *
+    * @relation AUTO_ROTATION_RESTRICTED = 8
+    */
+    @!APILevel[
+        21,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    AutoRotationRestricted
+    |
+    /**
+    * Follow the rotation of the sensor, only work in the vertical direction, controlled by auto rotation lock.
+    *
+    * @relation AUTO_ROTATION_PORTRAIT_RESTRICTED = 9
+    */
+    @!APILevel[
+        21,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    AutoRotationPortraitRestricted
+    |
+    /**
+    * Follow the rotation of the sensor, only work in the horizontal direction, controlled by auto rotation lock.
+    *
+    * @relation AUTO_ROTATION_LANDSCAPE_RESTRICTED = 10
+    */
+    @!APILevel[
+        21,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    AutoRotationLandscapeRestricted
+    |
+    /**
+    * Locked mode, keep the same direction as previous one.
+    *
+    * @relation LOCKED = 11
+    */
+    @!APILevel[
+        21,
+        stagemodelonly: true,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    Locked
+    | ...
+
+    func getValue(): UInt32 {
+        match (this) {
+            case Unspecified => 0
+            case Portrait => 1
+            case Landscape => 2
+            case PortraitInverted => 3
+            case LandscapeInverted => 4
+            case AutoRotation => 5
+            case AutoRotationPortrait => 6
+            case AutoRotationLandscape => 7
+            case AutoRotationRestricted => 8
+            case AutoRotationPortraitRestricted => 9
+            case AutoRotationLandscapeRestricted => 10
+            case Locked => 11
             case _ => throw IllegalArgumentException("The type is not supported.")
         }
     }
 
-    func toString(): String {
-        match (this) {
-            case UNSPECIFIED => "UNSPECIFIED"
-            case PORTRAIT => "PORTRAIT"
-            case LANDSCAPE => "LANDSCAPE"
-            case PORTRAIT_INVERTED => "PORTRAIT_INVERTED"
-            case LANDSCAPE_INVERTED => "LANDSCAPE_INVERTED"
-            case AUTO_ROTATION => "AUTO_ROTATION"
-            case AUTO_ROTATION_PORTRAIT => "AUTO_ROTATION_PORTRAIT"
-            case AUTO_ROTATION_LANDSCAPE => "AUTO_ROTATION_LANDSCAPE"
-            case AUTO_ROTATION_RESTRICTED => "AUTO_ROTATION_RESTRICTED"
-            case AUTO_ROTATION_PORTRAIT_RESTRICTED => "AUTO_ROTATION_PORTRAIT_RESTRICTED"
-            case AUTO_ROTATION_LANDSCAPE_RESTRICTED => "AUTO_ROTATION_LANDSCAPE_RESTRICTED"
-            case LOCKED => "LOCKED"
-            case AUTO_ROTATION_UNSPECIFIED => "AUTO_ROTATION_UNSPECIFIED"
-            case USER_ROTATION_PORTRAIT => "USER_ROTATION_PORTRAIT"
-            case USER_ROTATION_LANDSCAPE => "USER_ROTATION_LANDSCAPE"
-            case USER_ROTATION_PORTRAIT_INVERTED => "USER_ROTATION_PORTRAIT_INVERTED"
-            case USER_ROTATION_LANDSCAPE_INVERTED => "USER_ROTATION_LANDSCAPE_INVERTED"
-            case FOLLOW_DESKTOP => "FOLLOW_DESKTOP"
+    static func parse(val: UInt32) {
+        match (val) {
+            case 0 => Unspecified
+            case 1 => Portrait
+            case 2 => Landscape
+            case 3 => PortraitInverted
+            case 4 => LandscapeInverted
+            case 5 => AutoRotation
+            case 6 => AutoRotationPortrait
+            case 7 => AutoRotationLandscape
+            case 8 => AutoRotationRestricted
+            case 9 => AutoRotationPortraitRestricted
+            case 10 => AutoRotationLandscapeRestricted
+            case 11 => Locked
             case _ => throw IllegalArgumentException("The type is not supported.")
         }
     }
 }
 
+/**
+* Describes the type of avoid area
+*
+* @relation export enum AvoidAreaType
+*/
+@Derive[Equatable]
 @!APILevel[
-    12,
-    atomicservice: true,
-    crossplatform: true,
+    21,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum AvoidAreaType {
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+    /**
+    * Default area of the system
+    *
+    * @relation Default area of the system
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    TYPE_SYSTEM
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+    TypeSystem
+    |
+    /**
+    * Notch
+    *
+    * @relation TYPE_CUTOUT = 1
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    TYPE_CUTOUT
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+    TypeCutout
+    |
+    /**
+    * Area for system gesture
+    *
+    * @relation TYPE_SYSTEM_GESTURE = 2
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    TYPE_SYSTEM_GESTURE
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+    TypeSystemGesture
+    |
+    /**
+    * Area for keyboard
+    *
+    * @relation TYPE_KEYBOARD = 3
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    TYPE_KEYBOARD
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+    TypeKeyboard
+    |
+    /**
+    * Area for navigation indicator
+    *
+    * @relation TYPE_NAVIGATION_INDICATOR = 4
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    TYPE_NAVIGATION_INDICATOR
+    TypeNavigationIndicator
     | ...
 
     func getValue(): UInt32 {
         match (this) {
-            case TYPE_SYSTEM => 0
-            case TYPE_CUTOUT => 1
-            case TYPE_SYSTEM_GESTURE => 2
-            case TYPE_KEYBOARD => 3
-            case TYPE_NAVIGATION_INDICATOR => 4
+            case TypeSystem => 0
+            case TypeCutout => 1
+            case TypeSystemGesture => 2
+            case TypeKeyboard => 3
+            case TypeNavigationIndicator => 4
             case _ => throw IllegalArgumentException("The type is not supported.")
         }
     }
 
     static func parse(val: Int32) {
         match (val) {
-            case 0 => TYPE_SYSTEM
-            case 1 => TYPE_CUTOUT
-            case 2 => TYPE_SYSTEM_GESTURE
-            case 3 => TYPE_KEYBOARD
-            case 4 => TYPE_NAVIGATION_INDICATOR
-            case _ => throw IllegalArgumentException("The type is not supported.")
-        }
-    }
-
-    func toString(): String {
-        match (this) {
-            case TYPE_SYSTEM => "TYPE_SYSTEM"
-            case TYPE_CUTOUT => "TYPE_CUTOUT"
-            case TYPE_SYSTEM_GESTURE => "TYPE_SYSTEM_GESTURE"
-            case TYPE_KEYBOARD => "TYPE_KEYBOARD"
-            case TYPE_NAVIGATION_INDICATOR => "TYPE_NAVIGATION_INDICATOR"
+            case 0 => TypeSystem
+            case 1 => TypeCutout
+            case 2 => TypeSystemGesture
+            case 3 => TypeKeyboard
+            case 4 => TypeNavigationIndicator
             case _ => throw IllegalArgumentException("The type is not supported.")
         }
     }
 }
 
+/**
+* Enum for window callback event type
+*
+* @relation export enum WindowEventType
+*/
+@Derive[Equatable]
 @!APILevel[
-    12,
-    atomicservice: true,
-    crossplatform: true,
+    21,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum WindowEventType {
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+    /**
+    * The value of window event is window show
+    *
+    * @relation WINDOW_SHOWN = 1
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    WINDOW_SHOWN
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+    WindowShown
+    |
+    /**
+    * The value of window event is window active
+    *
+    * @relation WINDOW_ACTIVE = 2
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    WINDOW_ACTIVE
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+    WindowActive
+    |
+    /**
+    * The value of window event is window inactive
+    *
+    * @relation WINDOW_INACTIVE = 3
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    WINDOW_INACTIVE
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+    WindowInactive
+    |
+    /**
+    * The value of window event is window hide
+    *
+    * @relation WINDOW_HIDDEN = 4
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    WINDOW_HIDDEN
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+    WindowHidden
+    |
+    /**
+    * The value of window event is window destroy
+    *
+    * @relation WINDOW_DESTROYED = 7
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        syscap: "SystemCapability.Window.SessionManager"
     ]
-    WINDOW_DESTROYED
+    WindowDestroyed
     | ...
 
     func getValue(): UInt32 {
         match (this) {
-            case WINDOW_SHOWN => 1
-            case WINDOW_ACTIVE => 2
-            case WINDOW_INACTIVE => 3
-            case WINDOW_HIDDEN => 4
-            case WINDOW_DESTROYED => 7
+            case WindowShown => 1
+            case WindowActive => 2
+            case WindowInactive => 3
+            case WindowHidden => 4
+            case WindowDestroyed => 7
             case _ => throw IllegalArgumentException("The type is not supported.")
         }
     }
 
     static func parse(val: Int32) {
         match (val) {
-            case 1 => WINDOW_SHOWN
-            case 2 => WINDOW_ACTIVE
-            case 3 => WINDOW_INACTIVE
-            case 4 => WINDOW_HIDDEN
-            case 7 => WINDOW_DESTROYED
-            case _ => throw IllegalArgumentException("The type is not supported.")
-        }
-    }
-
-    func toString(): String {
-        match (this) {
-            case WINDOW_SHOWN => "WINDOW_SHOWN"
-            case WINDOW_ACTIVE => "WINDOW_ACTIVE"
-            case WINDOW_INACTIVE => "WINDOW_INACTIVE"
-            case WINDOW_HIDDEN => "WINDOW_HIDDEN"
-            case WINDOW_DESTROYED => "WINDOW_DESTROYED"
+            case 1 => WindowShown
+            case 2 => WindowActive
+            case 3 => WindowInactive
+            case 4 => WindowHidden
+            case 7 => WindowDestroyed
             case _ => throw IllegalArgumentException("The type is not supported.")
         }
     }
 }
 
+/**
+* Window stage callback event type
+*
+* @relation export enum WindowStageEventType
+*/
+@Derive[Equatable]
 @!APILevel[
-    12,
-    atomicservice: true,
-    crossplatform: true,
+    21,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum WindowStageEventType {
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+    /**
+    * The window stage is running in the foreground.
+    *
+    * @relation SHOWN = 1
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    SHOWN
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+    Shown
+    |
+    /**
+    * The window stage gains focus.
+    *
+    * @relation ACTIVE = 2
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    ACTIVE
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+    Active
+    |
+    /**
+    * The window stage loses focus.
+    *
+    * @relation INACTIVE = 3
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    INACTIVE
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+    Inactive
+    |
+    /**
+    * The window stage is running in the background.
+    *
+    * @relation HIDDEN = 4
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    HIDDEN
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+    Hidden
+    |
+    /**
+    * The window stage is interactive in the foreground.
+    *
+    * @relation RESUMED = 5
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    RESUMED
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+    Resumed
+    |
+    /**
+    * The window stage is not interactive in the foreground.
+    *
+    * @relation PAUSED = 6
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    PAUSED
+    Paused
     | ...
 
     func getValue(): UInt32 {
         match (this) {
-            case SHOWN => 1
-            case ACTIVE => 2
-            case INACTIVE => 3
-            case HIDDEN => 4
-            case RESUMED => 5
-            case PAUSED => 6
+            case Shown => 1
+            case Active => 2
+            case Inactive => 3
+            case Hidden => 4
+            case Resumed => 5
+            case Paused => 6
             case _ => throw IllegalArgumentException("The type is not supported.")
         }
     }
 
     static func parse(val: Int32) {
         match (val) {
-            case 1 => SHOWN
-            case 2 => ACTIVE
-            case 3 => INACTIVE
-            case 4 => HIDDEN
-            case 5 => RESUMED
-            case 6 => PAUSED
-            case _ => throw IllegalArgumentException("The type is not supported.")
-        }
-    }
-
-    operator func ==(r: WindowStageEventType): Bool {
-        return this.getValue() == r.getValue()
-    }
-
-    operator func !=(r: WindowStageEventType): Bool {
-        return this.getValue() != r.getValue()
-    }
-
-    func toString(): String {
-        match (this) {
-            case SHOWN => "SHOWN"
-            case ACTIVE => "ACTIVE"
-            case INACTIVE => "INACTIVE"
-            case HIDDEN => "HIDDEN"
-            case RESUMED => "RESUMED"
-            case PAUSED => "PAUSED"
+            case 1 => Shown
+            case 2 => Active
+            case 3 => Inactive
+            case 4 => Hidden
+            case 5 => Resumed
+            case 6 => Paused
             case _ => throw IllegalArgumentException("The type is not supported.")
         }
     }
 }
 
+/**
+* Describes the window status of an application
+*
+* @relation export enum WindowStatusType
+*/
+@Derive[Equatable]
 @!APILevel[
-    12,
-    atomicservice: true,
-    crossplatform: true,
+    21,
     stagemodelonly: true,
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public enum WindowStatusType {
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+    /**
+    * Undefined status of the window
+    *
+    * @relation UNDEFINED = 0
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.Window.SessionManager"
     ]
-    UNDEFINED
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+    Undefined
+    |
+    /**
+    * Full screen status of the window
+    *
+    * @relation FULL_SCREEN = 1
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.Window.SessionManager"
     ]
-    FULL_SCREEN
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+    FullScreen
+    |
+    /**
+    * Maximize status of the window
+    *
+    * @relation MAXIMIZE = 2
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.Window.SessionManager"
     ]
-    MAXIMIZE
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+    Maximize
+    |
+    /**
+    * Minimize status of the window
+    *
+    * @relation MINIMIZE = 3
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.Window.SessionManager"
     ]
-    MINIMIZE
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+    Minimize
+    |
+    /**
+    * Floating status of the window
+    *
+    * @relation FLOATING = 4
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.Window.SessionManager"
     ]
-    FLOATING
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+    Floating
+    |
+    /**
+    * Split screen status of the window
+    *
+    * @relation SPLIT_SCREEN = 5
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.Window.SessionManager"
     ]
-    SPLIT_SCREEN
+    SplitScreen
     | ...
 
     func getValue(): UInt32 {
         match (this) {
-            case UNDEFINED => 0
-            case FULL_SCREEN => 1
-            case MAXIMIZE => 2
-            case MINIMIZE => 3
-            case FLOATING => 4
-            case SPLIT_SCREEN => 5
+            case Undefined => 0
+            case FullScreen => 1
+            case Maximize => 2
+            case Minimize => 3
+            case Floating => 4
+            case SplitScreen => 5
             case _ => throw IllegalArgumentException("The type is not supported.")
         }
     }
 
     static func parse(val: Int32) {
         match (val) {
-            case 0 => UNDEFINED
-            case 1 => FULL_SCREEN
-            case 2 => MAXIMIZE
-            case 3 => MINIMIZE
-            case 4 => FLOATING
-            case 5 => SPLIT_SCREEN
-            case _ => throw IllegalArgumentException("The type is not supported.")
-        }
-    }
-
-    operator func ==(r: WindowStatusType): Bool {
-        return this.getValue() == r.getValue()
-    }
-
-    operator func !=(r: WindowStatusType): Bool {
-        return this.getValue() != r.getValue()
-    }
-
-    func toString(): String {
-        match (this) {
-            case UNDEFINED => "UNDEFINED"
-            case FULL_SCREEN => "FULL_SCREEN"
-            case MAXIMIZE => "MAXIMIZE"
-            case MINIMIZE => "MINIMIZE"
-            case FLOATING => "FLOATING"
-            case SPLIT_SCREEN => "SPLIT_SCREEN"
+            case 0 => Undefined
+            case 1 => FullScreen
+            case 2 => Maximize
+            case 3 => Minimize
+            case 4 => Floating
+            case 5 => SplitScreen
             case _ => throw IllegalArgumentException("The type is not supported.")
         }
     }
 }
 
+/**
+* Type of allowing the specified of color space.
+*
+* @relation export enum ColorSpace
+*/
+@Derive[Equatable]
 @!APILevel[
-    12,
-    atomicservice: true,
-    crossplatform: true,
+    21,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum ColorSpace {
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+    /**
+    * Default color space.
+    *
+    * @relation DEFAULT = 0
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    DEFAULT
-    | @!APILevel[
-        12,
-        atomicservice: true,
-        crossplatform: true,
+    Default
+    |
+    /**
+    * Wide gamut color space. The specific wide color gamut depends on thr screen.
+    *
+    * @relation WIDE_GAMUT = 1
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    WIDE_GAMUT
+    WideGamut
     | ...
 
     func getValue(): UInt32 {
         return match (this) {
-            case DEFAULT => 0
-            case WIDE_GAMUT => 1
+            case Default => 0
+            case WideGamut => 1
             case _ => throw IllegalArgumentException("The type is not supported.")
         }
     }
 
     static func parse(val: Int32): ColorSpace {
         return match (val) {
-            case 0 => DEFAULT
-            case 1 => WIDE_GAMUT
-            case _ => throw IllegalArgumentException("The type is not supported.")
-        }
-    }
-
-    operator func ==(that: ColorSpace): Bool {
-        return this.getValue() == that.getValue()
-    }
-
-    operator func !=(that: ColorSpace): Bool {
-        return this.getValue() != that.getValue()
-    }
-
-    func toString(): String {
-        match (this) {
-            case DEFAULT => "DEFAULT"
-            case WIDE_GAMUT => "WIDE_GAMUT"
+            case 0 => Default
+            case 1 => WideGamut
             case _ => throw IllegalArgumentException("The type is not supported.")
         }
     }
 }
 
+
+/**
+* Enumerates of listening event
+*/
+@Derive[Equatable]
 @!APILevel[
-    19,
-    atomicservice: true,
-    crossplatform: true,
-    stagemodelonly: true,
-    syscap: "SystemCapability.Window.SessionManager"
-]
-public enum SpecificSystemBar {
-    @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Window.SessionManager"
-    ]
-    status
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Window.SessionManager"
-    ]
-    navigation
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Window.SessionManager"
-    ]
-    navigationIndicator
-    | ...
-
-    func getValue(): Int32 {
-        match (this) {
-            case status => 0
-            case navigation => 1
-            case navigationIndicator => 2
-            case _ => throw IllegalArgumentException("The type is not supported.")
-        }
-    }
-
-    static func parse(val: Int32) {
-        match (val) {
-            case 0 => status
-            case 1 => navigation
-            case 2 => navigationIndicator
-            case _ => throw IllegalArgumentException("The type is not supported.")
-        }
-    }
-
-    func toString(): String {
-        match (this) {
-            case status => "status"
-            case navigation => "navigation"
-            case navigationIndicator => "navigationIndicator"
-            case _ => throw IllegalArgumentException("The type is not supported.")
-        }
-    }
-}
-
-@!APILevel[
-    19,
-    atomicservice: true,
-    crossplatform: true,
-    stagemodelonly: true,
-    syscap: "SystemCapability.Window.SessionManager"
-]
-public enum MaximizePresentation {
-    @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Window.SessionManager"
-    ]
-    FOLLOW_APP_IMMERSIVE_SETTING
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Window.SessionManager"
-    ]
-    EXIT_IMMERSIVE
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Window.SessionManager"
-    ]
-    ENTER_IMMERSIVE
-    | ...
-
-    func getValue(): Int32 {
-        match (this) {
-            case FOLLOW_APP_IMMERSIVE_SETTING => 0
-            case EXIT_IMMERSIVE => 1
-            case ENTER_IMMERSIVE => 2
-            case _ => throw IllegalArgumentException("The type is not supported.")
-        }
-    }
-
-    static func parse(val: Int32) {
-        match (val) {
-            case 0 => FOLLOW_APP_IMMERSIVE_SETTING
-            case 1 => EXIT_IMMERSIVE
-            case 2 => ENTER_IMMERSIVE
-            case _ => throw IllegalArgumentException("The type is not supported.")
-        }
-    }
-
-    func toString(): String {
-        match (this) {
-            case FOLLOW_APP_IMMERSIVE_SETTING => "FOLLOW_APP_IMMERSIVE_SETTING"
-            case EXIT_IMMERSIVE => "EXIT_IMMERSIVE"
-            case ENTER_IMMERSIVE => "ENTER_IMMERSIVE"
-            case _ => throw IllegalArgumentException("The type is not supported.")
-        }
-    }
-}
-
-@!APILevel[
-    19,
-    atomicservice: true,
-    crossplatform: true,
+    21,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum WindowCallbackType {
+    /**
+    * indicating the window stage lifecycle change event.
+    */
     @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowStageEvent
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
+    |
+    /**
+    * indicating the window size change event.
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowSizeChange
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
+    |
+    /**
+    * indicating the event of changes to the avoid area.
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowAvoidAreaChange
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
+    |
+    /**
+    * indicating the keyboard height change event.
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     KeyboardHeightChange
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
+    |
+    /**
+    * indicating the click event outside this window.
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     TouchOutside
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
+    |
+    /**
+    * indicating the window visibility change.
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowVisibilityChange
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
+    |
+    /**
+    * indicating the window has no interaction for a long time.
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     NoInteractionDetected
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
+    |
+    /**
+    * indicating the screenshot event.
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Screenshot
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
+    |
+    /**
+    * indicating the click event of the target window in the modal window mode.
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     DialogTargetTouch
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
+    |
+    /**
+    * indicating the window lifecycle change event.
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowEvent
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
+    |
+    /**
+    * indicating the window status change event.
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowStatusChange
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
+    |
+    /**
+    * indicating the child window close event.
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     SubWindowClose
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
+    |
+    /**
+    * indicating the title buttons area change event.
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowTitleButtonRectChange
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
+    |
+    /**
+    * indicating the window rect change event.
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowRectChange
     | ...
 
-    func toString(): String {
+    func getValue(): String {
         match (this) {
             case WindowStageEvent => "windowStageEvent"
             case WindowSizeChange => "windowSizeChange"
@@ -1013,95 +920,42 @@ public enum WindowCallbackType {
     }
 }
 
+/**
+* Enumerates of system bar type
+*/
+@Derive[Equatable]
 @!APILevel[
-    19,
-    atomicservice: true,
-    crossplatform: true,
+    21,
     stagemodelonly: true,
-    syscap: "SystemCapability.Window.SessionManager"
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
-public enum RectChangeReason {
+public enum SystemBarType {
+    /**
+    * status bar
+    */
     @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
+        21,
         stagemodelonly: true,
-        syscap: "SystemCapability.Window.SessionManager"
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    UNDEFINED
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
+    Status
+    |
+    /**
+    * navigation
+    */
+    @!APILevel[
+        21,
         stagemodelonly: true,
-        syscap: "SystemCapability.Window.SessionManager"
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    MAXIMIZE
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Window.SessionManager"
-    ]
-    RECOVER
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Window.SessionManager"
-    ]
-    MOVE
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Window.SessionManager"
-    ]
-    DRAG
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Window.SessionManager"
-    ]
-    DRAG_START
-    | @!APILevel[
-        19,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Window.SessionManager"
-    ]
-    DRAG_END
+    Navigation
     | ...
 
-    func getValue(): UInt32 {
+    func getValue(): String {
         return match (this) {
-            case UNDEFINED => 0
-            case MAXIMIZE => 1
-            case RECOVER => 2
-            case MOVE => 3
-            case DRAG => 4
-            case DRAG_START => 5
-            case DRAG_END => 6
-            case _ => throw IllegalArgumentException("The type is not supported.")
-        }
-    }
-
-    static func parse(val: Int32) {
-        match (val) {
-            case 0 => UNDEFINED
-            case 1 => MAXIMIZE
-            case 2 => RECOVER
-            case 3 => MOVE
-            case 4 => DRAG
-            case 5 => DRAG_START
-            case 6 => DRAG_END
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case Status => "status"
+            case Navigation => "navigation"
+            case _ => throw IllegalArgumentException("The type is not supported yet.")
         }
     }
 }

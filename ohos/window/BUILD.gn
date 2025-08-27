@@ -13,7 +13,7 @@
 
 import("//build/cangjie/cjc.gni")
 
-ohos_cj_library("ohos.window") {
+ohos_cangjie_shared_library("ohos.window") {
   sources = [
     "cj_window_common.cj",
     "cj_window_enum.cj",
@@ -24,16 +24,21 @@ ohos_cj_library("ohos.window") {
   ]
 
   cj_external_deps = [
+    "ability_cangjie_wrapper:ohos.app.ability",
     "arkui_cangjie_wrapper:ohos.base",
     "cangjie_ark_interop:ohos.ffi",
+    "cangjie_ark_interop:ohos.labels",
+    "cangjie_ark_interop:ohos.callback_invoke",
+    "cangjie_ark_interop:ohos.business_exception",
     "hiviewdfx_cangjie_wrapper:ohos.hilog",
-    "multimedia_cangjie_wrapper:ohos.image",
-    "cangjie_ark_interop:ohos.labels",    
+    "multimedia_cangjie_wrapper:ohos.multimedia.image",
   ]
 
-  external_deps = [ "window_manager:cj_window_ffi" ]
+  external_deps = [
+    "ability_runtime:abilitykit_native",
+    "window_manager:cj_window_ffi",
+  ]
 
   subsystem_name = "window"
   part_name = "window_cangjie_wrapper"
-  lib_name = "window"
 }
