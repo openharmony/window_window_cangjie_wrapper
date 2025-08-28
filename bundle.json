@@ -1,6 +1,6 @@
 {
     "name": "@ohos/window_cangjie_wrapper",
-    "description": "library for window",
+    "description": "cangjie wrapper for window",
     "version": "6.0",
     "license": "Apache License 2.0",
     "publishAs": "code-segment",
@@ -15,16 +15,17 @@
       "syscap": [],
       "features": [],
       "adapted_system_type": [ "standard" ],
-      "rom": "8000KB",
-      "ram": "8000KB",
+      "rom": "1024KB",
+      "ram": "2048KB",
       "hisysevent_config": [],
       "deps": {
         "components": [
-          "cangjie_ark_interop",
+          "ability_cangjie_wrapper",
           "arkui_cangjie_wrapper",
-          "multimedia_cangjie_wrapper",
+          "cangjie_ark_interop",
           "hiviewdfx_cangjie_wrapper",
-
+          "multimedia_cangjie_wrapper",
+          "ability_runtime",
           "window_manager"
         ]
       },
