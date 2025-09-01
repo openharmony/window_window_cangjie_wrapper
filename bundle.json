@@ -1,6 +1,6 @@
 {
     "name": "@ohos/window_cangjie_wrapper",
-    "description": "cangjie wrapper for window",
+    "description": "cangjie wrapper for window, provide window manage and display manage",
     "version": "6.0",
     "license": "Apache License 2.0",
     "publishAs": "code-segment",
@@ -12,7 +12,10 @@
     "component": {
       "name": "window_cangjie_wrapper",
       "subsystem": "window",
-      "syscap": [],
+      "syscap": [
+        "SystemCapability.WindowManager.WindowManager.Core",
+        "SystemCapability.Window.SessionManager"
+      ],
       "features": [],
       "adapted_system_type": [ "standard" ],
       "rom": "1024KB",
