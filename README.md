@@ -24,6 +24,7 @@ foundation/window/window_cangjie_wrapper/
 ├── ohos                               
 |   |── display                        # Cangjie display implement
 |   |── window                         # Cangjie window implement
+├── test                               # Test case for window cangjie API
 ```
 
 ## When to Use<a name="section171384529150"></a>

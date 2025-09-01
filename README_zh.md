@@ -27,6 +27,7 @@ foundation/window/window_cangjie_wrapper/
 ├── ohos                               
 |   |── display                        # 仓颉 display 接口代码实现目录
 |   |── window                         # 仓颉 window 接口代码实现目录
+├── test                               # 测试用例存放目录
 ```
 
 ## 使用说明<a name="section171384529150"></a>
