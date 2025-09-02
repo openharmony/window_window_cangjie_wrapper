@@ -2,7 +2,6 @@
 
 -   [Introduction](#section15701932113019)
 -   [Directory Structure](#section1791423143211)
--   [How to Build](#section171384529151)
 -   [When to Use](#section171384529150)
 -   [Developer Document](#section171384529152)
 -   [How to contribute](#section171384529153)
@@ -51,7 +50,7 @@ The following features are not provided yet:
 
 Developers are welcome to contribute code, documentation, etc. For specific contribution processes and methods, please refer to [Code Contribution](https://gitcode.com/openharmony/docs/blob/master/en/contribute/how-to-contribute.md).
 
-## Repositories Involved
+## Repositories Involved<a name="section1447164910172"></a>
 
 [ability_ability_cangjie_wrapper](https://gitcode.com/openharmony-sig/ability_ability_cangjie_wrapper)
 
