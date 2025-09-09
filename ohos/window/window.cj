@@ -797,7 +797,6 @@ public class Window <: RemoteDataLite {
                     systemBarProperties.enableNavigationBarAnimation)
                 let ret = FFiOHOSWindowSetWindowSystemBarProperties(getID(), properties)
                 checkRet(ret, "[Window] setWindowSystemBarProperties: ")
-                properties.freeCStringMember()
             }
         }
     }
