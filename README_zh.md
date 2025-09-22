@@ -65,6 +65,6 @@ foundation/window/window_cangjie_wrapper/
 
 [multimedia_multimedia_cangjie_wrapper](https://gitcode.com/openharmony-sig/multimedia_multimedia_cangjie_wrapper)
 
-[ability_ability_runtime](https://gitee.com/openharmony/ability_ability_runtime)
+[ability_ability_runtime](https://gitcode.com/openharmony/ability_ability_runtime)
 
-[window_window_manager](https://gitee.com/openharmony/window_window_manager)
+[window_window_manager](https://gitcode.com/openharmony/window_window_manager)
