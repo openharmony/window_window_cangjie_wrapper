@@ -19,11 +19,11 @@ Framework architecture:
 
 ```
 foundation/window/window_cangjie_wrapper/
-├── figures                            # Architectural diagram
-├── ohos                               
-|   |── display                        # Cangjie display implement
-|   |── window                         # Cangjie window implement
-├── test                               # Test case for window cangjie API
+├── figures                           # Architectural diagrams for README
+├── ohos                              # Cangjie interface implementation source code directory
+│   ├── display                       # Display device management related interface implementation
+│   └── window                        # Window management related interface implementation
+└── test                              # Test cases directory
 ```
 
 ## When to Use<a name="section171384529150"></a>

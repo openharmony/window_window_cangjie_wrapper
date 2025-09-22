@@ -23,11 +23,11 @@
 ## 目录<a name="section1791423143211"></a>
 ```
 foundation/window/window_cangjie_wrapper/
-├── figures                            # 存放readme中的架构图
-├── ohos                               
-|   |── display                        # 仓颉 display 接口代码实现目录
-|   |── window                         # 仓颉 window 接口代码实现目录
-├── test                               # 测试用例存放目录
+├── figures                           # 存放readme中的架构图
+├── ohos                              # 仓颉接口实现源码目录
+│   ├── display                       # 显示设备管理相关接口实现
+│   └── window                        # 窗口管理相关接口实现
+└── test                              # 测试用例存放目录
 ```
 
 ## 使用说明<a name="section171384529150"></a>
