@@ -17,8 +17,20 @@
 
 如架构图所示：
 
-- 窗口服务：提供窗口实例管理能力，提供上层查询接口
-- 显示设备服务：提供显示设备管理服务，提供上层查询接口
+- Window：当前窗口实例，窗口管理器管理的基本单元。
+- WindowStage：窗口管理器。管理各个基本窗口单元。
+- Display：屏幕属性提供管理显示设备的一些基础能力，包括获取默认显示设备的信息，获取所有显示设备的信息以及监听显示设备的插拔行为。
+- 仓颉窗口FFI接口定义：负责定义C语言互操作仓颉接口，用于实现仓颉窗口能力
+
+架构图中依赖部件引入说明：
+
+- 窗口管理部件：仓颉接口封装依赖窗口管理部件提供的窗口服务和显示设备服务
+- 元能力部件：依赖元能力部件提供的BaseContext查询能力
+- arkui_cangjie_wrapper：依赖ArkUI仓颉部件提供的基础类型
+- ability_cangjie_wrapper：依赖Ability仓颉部件提供获取AbilityContext接口
+- cangjie_ark_interop：依赖仓颉互操作部件提供的APILevel能力进行API管理
+- multimedia_cangjie_wrapper：依赖多媒体仓颉部件提供的image接口
+- hiviewdfx_cangjie_wrapper：依赖DFX仓颉部件提供的Hilog接口
 
 ## 目录<a name="section1791423143211"></a>
 ```
@@ -35,9 +47,9 @@ foundation/window/window_cangjie_wrapper/
 窗口仓颉接口，目前提供窗口管理器，显示设备管理等API。
 
 提供的能力范围包括：
-- Window接口：窗口实例，获取应用窗口实例，相关接口参考[Window](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/API_Reference/source_zh_cn/arkui-cj/cj-apis-window.md)。
-- WindowStage接口：窗口管理器，管理各个窗口基本单元。
-- Display接口：管理显示设备的能力，获取所有显示设备的信息以及监听显示设备的插拔行为。
+- Window接口：窗口实例，提供获取应用窗口实例的接口，相关接口参考[Window](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/API_Reference/source_zh_cn/arkui-cj/cj-apis-window.md)。
+- WindowStage接口：窗口管理器，提供管理各个窗口基本单元的接口。
+- Display接口：管理显示设备的能力，提供获取所有显示设备的信息以及监听显示设备的插拔行为的接口。
 
 与ArkTS相比，暂未提供以下能力：
 - Pipwindow：画中画能力。
