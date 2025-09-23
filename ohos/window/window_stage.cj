@@ -52,8 +52,7 @@ let stageRegisterMutex = Mutex()
 * @relation export interface WindowStage
 */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    since: "21",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class WindowStage <: RemoteDataLite {
@@ -77,8 +76,7 @@ public class WindowStage <: RemoteDataLite {
     * @relation getMainWindow(): Promise<Window>
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        since: "21",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func getMainWindow(): Window {
@@ -98,8 +96,7 @@ public class WindowStage <: RemoteDataLite {
     * @relation createSubWindow(name: string): Promise<Window>
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        since: "21",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func createSubWindow(name: String): Window {
@@ -121,8 +118,7 @@ public class WindowStage <: RemoteDataLite {
     * @relation getSubWindow(): Promise<Array<Window>>
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        since: "21",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func getSubWindow(): Array<Window> {
@@ -146,8 +142,7 @@ public class WindowStage <: RemoteDataLite {
     * @relation loadContent(path: string, storage?: LocalStorage): Promise<void>
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        since: "21",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func loadContent(path: String): Unit {

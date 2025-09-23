@@ -126,8 +126,7 @@ func findCallbackObject(list: ArrayList<(CallbackObject, Int64)>, callback: Call
 * @relation export function getDefaultDisplaySync(): Display
 */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    since: "21",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public func getDefaultDisplaySync(): Display {
@@ -153,8 +152,7 @@ public func getDefaultDisplaySync(): Display {
 * @relation function getAllDisplays(): Promise<Array<Display>>
 */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    since: "21",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public func getAllDisplays(): Array<Display> {
@@ -180,8 +178,7 @@ public func getAllDisplays(): Array<Display> {
 * @relation export function isFoldable(): boolean
 */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    since: "21",
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func isFoldable(): Bool {
@@ -195,8 +192,7 @@ public func isFoldable(): Bool {
 * @relation export function getFoldStatus(): FoldStatus
 */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    since: "21",
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func getFoldStatus(): FoldStatus {
@@ -213,8 +209,7 @@ public func getFoldStatus(): FoldStatus {
 * @relation export function getFoldDisplayMode(): FoldDisplayMode
 */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    since: "21",
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func getFoldDisplayMode(): FoldDisplayMode {
@@ -232,8 +227,7 @@ public func getFoldDisplayMode(): FoldDisplayMode {
 * @relation export function getCurrentFoldCreaseRegion(): FoldCreaseRegion
 */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    since: "21",
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func getCurrentFoldCreaseRegion(): FoldCreaseRegion {
@@ -264,8 +258,7 @@ public func getCurrentFoldCreaseRegion(): FoldCreaseRegion {
 * @param {ListenerType} listenerType - Type of listening event
 */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    since: "21",
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func off(listenerType: ListenerType): Unit {
@@ -303,8 +296,7 @@ func offAllCallback(callbackType: String): Unit {
 * @relation export function on(type: 'foldStatusChange', callback: Callback<FoldStatus>): void
 */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    since: "21",
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func on(listenerType: ListenerType, callback: Callback1Argument<FoldStatus>): Unit {
@@ -356,8 +348,7 @@ func onFoldStatusChange(callbackType: String, callback: Callback1Argument<FoldSt
 * @relation export function off(type: 'foldStatusChange', callback?: Callback<FoldStatus>): void
 */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    since: "21",
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func off(listenerType: ListenerType, callback: Callback1Argument<FoldStatus>): Unit {
@@ -405,8 +396,7 @@ func offFoldStatusChange(callbackType: String, callback: Callback1Argument<FoldS
 * @relation export function on(type: 'foldDisplayModeChange', callback: Callback<FoldDisplayMode>): void
 */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    since: "21",
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func on(listenerType: ListenerType, callback: Callback1Argument<FoldDisplayMode>): Unit {
@@ -458,8 +448,7 @@ func onFoldDisplayModeChange(callbackType: String, callback: Callback1Argument<F
 * @relation export function off(type: 'foldDisplayModeChange', callback?: Callback<FoldDisplayMode>): void
 */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    since: "21",
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func off(listenerType: ListenerType, callback: Callback1Argument<FoldDisplayMode>): Unit {
@@ -502,8 +491,7 @@ func offFoldDisplayModeChange(callbackType: String, callback: Callback1Argument<
 * @relation export interface Display
 */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    since: "21",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class Display <: RemoteDataLite {
@@ -516,8 +504,7 @@ public class Display <: RemoteDataLite {
     * @relation id: number
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        since: "21",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop id: UInt32 {
@@ -532,8 +519,7 @@ public class Display <: RemoteDataLite {
     * @relation name: string
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        since: "21",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop name: String {
@@ -552,8 +538,7 @@ public class Display <: RemoteDataLite {
     * @relation alive: boolean
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        since: "21",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop alive: Bool {
@@ -568,8 +553,7 @@ public class Display <: RemoteDataLite {
     * @relation state: DisplayState
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        since: "21",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop state: DisplayState {
@@ -586,8 +570,7 @@ public class Display <: RemoteDataLite {
     * @relation refreshRate: number
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        since: "21",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop refreshRate: UInt32 {
@@ -606,8 +589,7 @@ public class Display <: RemoteDataLite {
     * @relation rotation: number
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        since: "21",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop rotation: UInt32 {
@@ -622,8 +604,7 @@ public class Display <: RemoteDataLite {
     * @relation orientation: Orientation
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        since: "21",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop orientation: Orientation {
@@ -640,8 +621,7 @@ public class Display <: RemoteDataLite {
     * @relation width: number
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        since: "21",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop width: Int32 {
@@ -656,8 +636,7 @@ public class Display <: RemoteDataLite {
     * @relation height: number
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        since: "21",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop height: Int32 {
@@ -672,8 +651,7 @@ public class Display <: RemoteDataLite {
     * @relation densityDPI: number
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        since: "21",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop densityDPI: Float32 {
@@ -688,8 +666,7 @@ public class Display <: RemoteDataLite {
     * @relation densityPixels: number
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        since: "21",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop densityPixels: Float32 {
@@ -704,8 +681,7 @@ public class Display <: RemoteDataLite {
     * @relation scaledDensity: number
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        since: "21",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop scaledDensity: Float32 {
@@ -720,8 +696,7 @@ public class Display <: RemoteDataLite {
     * @relation xDPI: number
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        since: "21",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop xDPI: Float32 {
@@ -736,8 +711,7 @@ public class Display <: RemoteDataLite {
     * @relation yDPI: number
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        since: "21",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop yDPI: Float32 {
@@ -763,8 +737,7 @@ public class Display <: RemoteDataLite {
     * @relation getCutoutInfo(): Promise<CutoutInfo>
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        since: "21",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func getCutoutInfo(): CutoutInfo {
