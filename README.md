@@ -15,6 +15,23 @@ Framework architecture:
 
 ![Cangjie window wrapper](./figures/window_window_cangjie_wrapper_en.png)
 
+As illustrated in the architecture:
+
+- Window: The current window instance, which is the fundamental unit managed by the window manager.
+- WindowStage: The window manager. It manages the various basic window units.
+- Display: Screen properties; provides basic capabilities for managing display devices. This includes obtaining information about the default display device, retrieving information for all display devices, and monitoring the connection and removal of display devices.
+- Cangjie Window FFI Interface: Responsible for defining the C-language interoperation Cangjie interfaces, used to implement Cangjie window capabilities.
+
+Dependency Component Introduction in the Architecture:
+
+- Window Management: The encapsulation of Cangjie interfaces relies on the window services and display device services provided by the Window Management.
+- Ability Runtime: It depends on the BaseContext query capability provided by Ability Runtime.
+- arkui_cangjie_wrapper: Relies on the basic types provided by arkui_cangjie_wrapper.
+- ability_cangjie_wrapper: Relies on the AbilityContext interface provided by ability_cangjie_wrapper.
+- cangjie_ark_interop: Relies on the API Level capability provided by the cangjie_ark_interop for API management.
+- multimedia_cangjie_wrapper: Relies on the Image interface provided by multimedia_cangjie_wrapper.
+- hiviewdfx_cangjie_wrapper: Relies on the Hilog interface provided by hiviewdfx_cangjie_wrapper.
+
 ## Directory Structure<a name="section1791423143211"></a>
 
 ```
