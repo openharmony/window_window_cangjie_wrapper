@@ -13,7 +13,7 @@ Framework architecture:
 
 As illustrated in the architecture:
 
-Interface Layer
+Interface Layer: Provides a window declaration interface for developers.
 
 - Window: The current window instance, which is the basic unit managed by the window manager. It includes the creation, destruction, and configuration of various properties of the current window.
 
@@ -21,7 +21,7 @@ Interface Layer
 
 - Display: Manages screen properties and provides basic capabilities for handling display devices, including retrieving information about the default display device, obtaining information about all display devices, and monitoring the plugging and unplugging of display devices.
 
-Framework Layer
+Framework Layer: Based on the underlying window service and display device management service, it encapsulates and implements the Cangjie window management and display device management.
 
 - Window Wrapper: Implemented in Cangjie to encapsulate window instances, interfacing with the window subsystem via Cangjie's C language interoperation.
 
