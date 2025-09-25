@@ -1,15 +1,11 @@
 # Window Cangjie Interface<a name="EN-US_TOPIC_0000001076213364"></a>
 
--   [Introduction](#section15701932113019)
--   [Directory Structure](#section1791423143211)
--   [When to Use](#section171384529150)
--   [Developer Document](#section171384529152)
--   [How to contribute](#section171384529153)
--   [Repositories Involved](#section1447164910172)
 
 ## Introduction<a name="section15701932113019"></a>
 
 The Window Manager subsystem provides basic capabilities of window and display management. Window Cangjie Interface is only available for standard devices.
+
+## System Architecture
 
 Framework architecture:
 
@@ -17,15 +13,28 @@ Framework architecture:
 
 As illustrated in the architecture:
 
-- Window: The current window instance, which is the fundamental unit managed by the window manager.
-- WindowStage: The window manager. It manages the various basic window units.
-- Display: Screen properties; provides basic capabilities for managing display devices. This includes obtaining information about the default display device, retrieving information for all display devices, and monitoring the connection and removal of display devices.
-- Cangjie Window FFI Interface: Responsible for defining the C-language interoperation Cangjie interfaces, used to implement Cangjie window capabilities.
+Interface Layer
+
+- Window: The current window instance, which is the basic unit managed by the window manager. It includes the creation, destruction, and configuration of various properties of the current window.
+
+- WindowStage: The window manager, used to manage Window instances.
+
+- Display: Manages screen properties and provides basic capabilities for handling display devices, including retrieving information about the default display device, obtaining information about all display devices, and monitoring the plugging and unplugging of display devices.
+
+Framework Layer
+
+- Window Wrapper: Implemented in Cangjie to encapsulate window instances, interfacing with the window subsystem via Cangjie's C language interoperation.
+
+- WindowStage Wrapper: Implemented in Cangjie to encapsulate the window manager, interfacing with the window subsystem via Cangjie's C language interoperation.
+
+- Display Wrapper: Implemented in Cangjie to encapsulate screen property management capabilities, interfacing with the window subsystem via Cangjie's C language interoperation.
+
+- Cangjie Window FFI Interface Definition: Defines the C language interoperation interfaces in Cangjie, enabling the integration of the Window Wrapper, WindowStage Wrapper, and Display Wrapper with the window subsystem.
 
 Dependency Component Introduction in the Architecture:
 
-- Window Management: The encapsulation of Cangjie interfaces relies on the window services and display device services provided by the Window Management.
-- Ability Runtime: It depends on the BaseContext query capability provided by Ability Runtime.
+- window_window_manager: The encapsulation of Cangjie interfaces relies on the window services and display device services provided by the Window Management.
+- ability_ability_runtime: It depends on the BaseContext query capability provided by Ability Runtime.
 - arkui_cangjie_wrapper: Relies on the basic types provided by arkui_cangjie_wrapper.
 - ability_cangjie_wrapper: Relies on the AbilityContext interface provided by ability_cangjie_wrapper.
 - cangjie_ark_interop: Relies on the API Level capability provided by the cangjie_ark_interop for API management.
@@ -52,10 +61,11 @@ The following features are provided:
 - WindowStage API: Manage window units.
 - Display API: manage display devices, obtain all display devices info and subscribe display devices
 
+## Limitation
+
 The following features are not provided yet:
 - Pipwindow: provides basic APIs for manipulating Picture in Picture (PiP)
 - Screenshot: provides the screen capture capability
-
 
 ## Developer Document<a name="section171384529152"></a>
 
