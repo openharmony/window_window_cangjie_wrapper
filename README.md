@@ -29,8 +29,6 @@ Framework Layer: Based on the underlying window service and display device manag
 
 - Display Wrapper: Implemented in Cangjie to encapsulate screen property management capabilities, interfacing with the window subsystem via Cangjie's C language interoperation.
 
-- Cangjie Window FFI Interface Definition: Defines the C language interoperation interfaces in Cangjie, enabling the integration of the Window Wrapper, WindowStage Wrapper, and Display Wrapper with the window subsystem.
-
 Dependency Component Introduction in the Architecture:
 
 - window_window_manager: The encapsulation of Cangjie interfaces relies on the window services and display device services provided by the Window Management.
