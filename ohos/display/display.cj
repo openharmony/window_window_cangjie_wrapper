@@ -19,7 +19,6 @@ import ohos.ffi.*
 import ohos.base.*
 import std.sync.*
 import std.collection.*
-import ohos.graphics.color_space_manager.*
 import ohos.labels.*
 import ohos.callback_invoke.*
 import ohos.business_exception.*
