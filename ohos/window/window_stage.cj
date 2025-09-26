@@ -49,12 +49,11 @@ foreign {
 let stageRegisterMutex = Mutex()
 
 /**
-* WindowStage
-*
-*/
+ * WindowStage
+ *
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class WindowStage <: RemoteDataLite {
@@ -71,15 +70,15 @@ public class WindowStage <: RemoteDataLite {
     }
 
     /**
-    * Obtains the main window of this window stage.
-    *
-    * @returns { Window } the main window.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    */
+     * Obtains the main window of this window stage.
+     *
+     * @returns { Window } the main window.
+     * @throws { BusinessException } 1300002 - This window state is abnormal.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        22,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core",
+        workerthread: true
     ]
     public func getMainWindow(): Window {
         unsafe {
@@ -90,16 +89,16 @@ public class WindowStage <: RemoteDataLite {
     }
 
     /**
-    * Creates a child window for this window stage.
-    *
-    * @param { String } name - Name of the child window.
-    * @returns { Window } the child window.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    */
+     * Creates a child window for this window stage.
+     *
+     * @param { String } name - Name of the child window.
+     * @returns { Window } the child window.
+     * @throws { BusinessException } 1300002 - This window state is abnormal.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        22,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core",
+        workerthread: true
     ]
     public func createSubWindow(name: String): Window {
         unsafe {
@@ -113,15 +112,15 @@ public class WindowStage <: RemoteDataLite {
     }
 
     /**
-    * Obtains all the child windows of this window stage.
-    *
-    * @returns { Array<Window> } all the child windows.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    */
+     * Obtains all the child windows of this window stage.
+     *
+     * @returns { Array<Window> } all the child windows.
+     * @throws { BusinessException } 1300002 - This window state is abnormal.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        22,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core",
+        workerthread: true
     ]
     public func getSubWindow(): Array<Window> {
         unsafe {
@@ -137,15 +136,15 @@ public class WindowStage <: RemoteDataLite {
     }
 
     /**
-    * Loads content from a page to this window. You are advised to call this API during UIAbility startup.
-    * If called multiple times, this API will destroy the existing page content (UIContent) before loading the new content. Exercise caution when using it.
-    *
-    * @param { String } path - Path of the page to which the content will be loaded
-    */
+     * Loads content from a page to this window. You are advised to call this API during UIAbility startup.
+     * If called multiple times, this API will destroy the existing page content (UIContent) before loading the new content. Exercise caution when using it.
+     *
+     * @param { String } path - Path of the page to which the content will be loaded
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        22,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core",
+        workerthread: true
     ]
     public func loadContent(path: String): Unit {
         unsafe {

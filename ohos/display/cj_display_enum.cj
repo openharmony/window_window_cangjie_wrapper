@@ -24,59 +24,45 @@ import std.deriving.Derive
 /**
  * Enum for cause of disconnect.
  *
- * @relation enum Orientation
  */
 @Derive[Equatable]
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum Orientation {
     /**
     * Indicate that the display content is in portrait mode.
-    *
-    * @relation PORTRAIT = 0
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Portrait
     |
     /**
     * Indicate that the display content is in landscape mode.
-    *
-    * @relation LANDSCAPE = 1
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Landscape
     |
     /**
     * Indicate that the display content is in the opposite direction of the portrait mode.
-    *
-    * @relation PORTRAIT_INVERTED = 2
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     PortraitInverted
     |
     /**
     * Indicate that the display content is in the opposite direction of the landscape mode.
-    *
-    * @relation LANDSCAPE_INVERTED = 3
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     LandscapeInverted
@@ -88,7 +74,7 @@ public enum Orientation {
             case 1 => Landscape
             case 2 => PortraitInverted
             case 3 => LandscapeInverted
-            case _ => throw IllegalArgumentException("The type is not supported yet.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 }
@@ -96,95 +82,72 @@ public enum Orientation {
 /**
  * Enumerates the display states.
  *
- * @relation export enum DisplayState
  */
 @Derive[Equatable]
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum DisplayState {
     /**
     * Unknown.
-    *
-    * @relation STATE_UNKNOWN = 0
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     StateUnknown
     |
     /**
     * Screen off.
-    *
-    * @relation STATE_OFF = 1
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     StateOff
     |
     /**
     * Screen on
-    *
-    * @relation STATE_ON = 2
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     StateOn
     |
     /**
     * Doze, but it will update for some important system messages.
-    *
-    * @relation STATE_DOZE = 3
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     StateDoze
     |
     /**
     * Doze and not update.
-    *
-    * @relation STATE_DOZE_SUSPEND = 4
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     StateDozeSuspend
     |
     /**
     * VR node.
-    *
-    * @relation STATE_VR = 5
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     StateVr
     |
     /**
     * Screen on and not update.
-    *
-    * @relation STATE_ON_SUSPEND = 6
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     StateOnSuspend
@@ -199,7 +162,7 @@ public enum DisplayState {
             case 4 => StateDozeSuspend
             case 5 => StateVr
             case 6 => StateOnSuspend
-            case _ => throw IllegalArgumentException("The type is not supported yet.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 }
@@ -207,59 +170,45 @@ public enum DisplayState {
 /**
 * Enumerates the fold status.
 *
-* @relation export enum FoldStatus
 */
 @Derive[Equatable]
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public enum FoldStatus {
     /**
     * Fold Status Unknown.
-    *
-    * @relation FOLD_STATUS_UNKNOWN = 0
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     FoldStatusUnknown
     |
     /**
     * Fold Status Expanded.
-    *
-    * @relation FOLD_STATUS_EXPANDED = 1
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     FoldStatusExpanded
     |
     /**
     * Fold Status Folded. For dual-fold axis devices, the first fold axis is folded, and the second fold axis is folded.
-    *
-    * @relation FOLD_STATUS_FOLDED = 2
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     FoldStatusFolded
     |
     /**
     * Fold Status Half Folded.
-    *
-    * @relation FOLD_STATUS_HALF_FOLDED = 3
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     FoldStatusHalfFolded
@@ -271,7 +220,7 @@ public enum FoldStatus {
             case 1 => FoldStatusExpanded
             case 2 => FoldStatusFolded
             case 3 => FoldStatusHalfFolded
-            case _ => throw IllegalArgumentException("The type is not supported yet.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 }
@@ -279,71 +228,54 @@ public enum FoldStatus {
 /**
 * Enumerates the fold display mode.
 *
-* @relation export enum FoldDisplayMode
 */
 @Derive[Equatable]
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public enum FoldDisplayMode {
     /**
     * Unknown Display.
-    *
-    * @relation FOLD_DISPLAY_MODE_UNKNOWN = 0
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     FoldDisplayModeUnknown
     |
     /**
     * Full Display.
-    *
-    * @relation FOLD_DISPLAY_MODE_FULL = 1
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     FoldDisplayModeFull
     |
     /**
     * Main Display.
-    *
-    * @relation FOLD_DISPLAY_MODE_MAIN= 2
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     FoldDisplayModeMain
     |
     /**
     * Sub Display.
-    *
-    * @relation FOLD_DISPLAY_MODE_SUB= 3
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     FoldDisplayModeSub
     |
     /**
     * Coordination Display.
-    *
-    * @relation FOLD_DISPLAY_MODE_COORDINATION
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     FoldDisplayModeCoordination
@@ -356,7 +288,7 @@ public enum FoldDisplayMode {
             case FoldDisplayModeMain => 2
             case FoldDisplayModeSub => 3
             case FoldDisplayModeCoordination => 4
-            case _ => throw IllegalArgumentException("The type is not supported yet.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 
@@ -367,19 +299,17 @@ public enum FoldDisplayMode {
             case 2 => FoldDisplayModeMain
             case 3 => FoldDisplayModeSub
             case 4 => FoldDisplayModeCoordination
-            case _ => throw IllegalArgumentException("The type is not supported yet.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 }
-
 
 /**
 * Enumerates of listening event
 */
 @Derive[Equatable]
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public enum ListenerType {
@@ -387,8 +317,7 @@ public enum ListenerType {
     * add type the event of display change
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     ListnerTypeAdd
@@ -397,8 +326,7 @@ public enum ListenerType {
     * remove type the event of display change
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     ListnerTypeRemove
@@ -407,8 +335,7 @@ public enum ListenerType {
     * change type the event of display change
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     ListnerTypeChange
@@ -417,8 +344,7 @@ public enum ListenerType {
     * foldStatusChange type the event of display change
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     ListnerTypeFoldStatusChange
@@ -427,8 +353,7 @@ public enum ListenerType {
     * foldAngleChange type the event of display change
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     ListnerTypeFoldAngleChange
@@ -437,8 +362,7 @@ public enum ListenerType {
     * captureStatusChange type the event of display change
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     ListnerTypeCaptureStatusChange
@@ -447,8 +371,7 @@ public enum ListenerType {
     * foldDisplayModeChange type the event of display change
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     ListnerTypeFoldDisplayModeChange
@@ -457,8 +380,7 @@ public enum ListenerType {
     * availableAreaChange type the event of display change
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     ListnerTypeAvailableAreaChange
@@ -474,7 +396,7 @@ public enum ListenerType {
             case ListnerTypeCaptureStatusChange => "captureStatusChange"
             case ListnerTypeFoldDisplayModeChange => "foldDisplayModeChange"
             case ListnerTypeAvailableAreaChange => "availableAreaChange"
-            case _ => throw IllegalArgumentException("The type is not supported yet.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 }

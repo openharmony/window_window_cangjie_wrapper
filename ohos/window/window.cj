@@ -146,15 +146,14 @@ foreign {
 let registerMutex = Mutex()
 
 /**
-* Finds a window based on the name.
-*
-* @param { String } name - Window name, that is, the value of name in Configuration.
-* @returns { Window } Window found.
-* @throws { BusinessException } 1300002 - This window state is abnormal.
-*/
+ * Finds a window based on the name.
+ *
+ * @param { String } name - Window name, that is, the value of name in Configuration.
+ * @returns { Window } Window found.
+ * @throws { BusinessException } 1300002 - This window state is abnormal.
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public func findWindow(name: String): Window {
@@ -170,23 +169,22 @@ public func findWindow(name: String): Window {
 }
 
 /**
-* Create a window with a specific configuration
-* When config.windowType == TYPE_FLOAT, the "ohos.permission.SYSTEM_FLOAT_WINDOW" permission is required
-*
-* @param { Configuration } config - Parameters for window creation.
-* @returns { Window } the window created.
-* @throws { IllegalArgumentException } - The context type is not supported. Only support UIAbilityContext.
-* @throws { BusinessException } 201 - Permission verification failed. The application does not have the permission required to call the API.
-* @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified;
-*                                                                      2. Incorrect parameter types.
-* @throws { BusinessException } 1300003 - This window manager service works abnormally.
-* @throws { BusinessException } 1300006 - This window context is abnormal.
-*/
+ * Create a window with a specific configuration
+ * When config.windowType == TYPE_FLOAT, the "ohos.permission.SYSTEM_FLOAT_WINDOW" permission is required
+ *
+ * @param { Configuration } config - Parameters for window creation.
+ * @returns { Window } the window created.
+ * @throws { BusinessException } 201 - Permission verification failed. The application does not have the permission required to call the API.
+ * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified;
+ *                                                                      2. Incorrect parameter types.
+ * @throws { BusinessException } 1300003 - This window manager service works abnormally.
+ * @throws { BusinessException } 1300006 - This window context is abnormal.
+ */
 @!APILevel[
-    21,
+    22,
     permission: "ohos.permission.SYSTEM_FLOAT_WINDOW",
-    stagemodelonly: true,
-    syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    syscap: "SystemCapability.WindowManager.WindowManager.Core",
+    workerthread: true
 ]
 public func createWindow(config: Configuration): Window {
     unsafe {
@@ -194,14 +192,15 @@ public func createWindow(config: Configuration): Window {
             FFIGetContext(config.ctx.getID())
         }
         if (stageContext.isNull()) {
-            throw IllegalArgumentException("only UIAbilityContext is supported")
+            throw BusinessException(1300006, "only UIAbilityContext is supported")
         }
         if (config.name.isEmpty()) {
             checkRet(401, "[Window] createWindow: ")
         }
         var ret: ?RetDataI64 = None
         try (cname = LibC.mallocCString(config.name).asResource()) {
-            ret = FfiOHOSCreateWindow(cname.value, config.windowType.getValue(), stageContext, config.displayID, config.parentID)
+            ret = FfiOHOSCreateWindow(cname.value, config.windowType.getValue(), stageContext, config.displayId,
+                config.parentId)
         }
         checkRet(ret.getOrThrow().code, "[Window] createWindow: ")
         getOrCreate(Window.instanceMap, ret.getOrThrow().data, {id: Int64 => Window(id)})
@@ -209,18 +208,18 @@ public func createWindow(config: Configuration): Window {
 }
 
 /**
-* Obtains the top window of the current application.
-* If no child window is available, the main window of the application is returned.
-*
-* @param { BaseContext } ctx - Current application context.
-* @returns { Window } the top window obtained.
-* @throws { IllegalArgumentException } - The context type is not supported. Only support UIAbilityContext.
-* @throws { BusinessException } 1300002 - This window state is abnormal. Top window or main window is null or destroyed.
-*/
+ * Obtains the top window of the current application.
+ * If no child window is available, the main window of the application is returned.
+ *
+ * @param { BaseContext } ctx - Current application context.
+ * @returns { Window } the top window obtained.
+ * @throws { BusinessException } 1300006 - This window context is abnormal.
+ * @throws { BusinessException } 1300002 - This window state is abnormal. Top window or main window is null or destroyed.
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
-    syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    22,
+    syscap: "SystemCapability.WindowManager.WindowManager.Core",
+    workerthread: true
 ]
 public func getLastWindow(ctx: BaseContext): Window {
     unsafe {
@@ -228,7 +227,7 @@ public func getLastWindow(ctx: BaseContext): Window {
             FFIGetContext(ctx.getID())
         }
         if (stageContext.isNull()) {
-            throw IllegalArgumentException("only UIAbilityContext is supported")
+            throw BusinessException(130006, "only UIAbilityContext is supported")
         }
         let ret = FfiOHOSGetLastWindow(stageContext)
         checkRet(ret.code, "[Window] getLastWindow: ")
@@ -237,22 +236,22 @@ public func getLastWindow(ctx: BaseContext): Window {
 }
 
 /**
-* Shifts the window focus from the source window to the target window in the same application.
-* The window focus can be shifted between the main window and a child window.
-*
-* @param { Int32 } sourceWindowID - Window id which the focus shift from.
-* @param { Int32 } targetWindowID - Window id which the focus shift to.
-* @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified;
-*                                                                      2. Incorrect parameter types.
-* @throws { BusinessException } 801 - Capability not supported. Failed to call the API due to limited device capabilities.
-* @throws { BusinessException } 1300002 - This window state is abnormal.
-* @throws { BusinessException } 1300003 - This window manager service works abnormally.
-* @throws { BusinessException } 1300004 - Unauthorized operation.
-*/
+ * Shifts the window focus from the source window to the target window in the same application.
+ * The window focus can be shifted between the main window and a child window.
+ *
+ * @param { Int32 } sourceWindowId - Window id which the focus shift from.
+ * @param { Int32 } targetWindowId - Window id which the focus shift to.
+ * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified;
+ *                                                                      2. Incorrect parameter types.
+ * @throws { BusinessException } 801 - Capability not supported. Failed to call the API due to limited device capabilities.
+ * @throws { BusinessException } 1300002 - This window state is abnormal.
+ * @throws { BusinessException } 1300003 - This window manager service works abnormally.
+ * @throws { BusinessException } 1300004 - Unauthorized operation.
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
-    syscap: "SystemCapability.Window.SessionManager"
+    22,
+    syscap: "SystemCapability.Window.SessionManager",
+    workerthread: true
 ]
 public func shiftAppWindowFocus(sourceWindowID: Int32, targetWindowID: Int32): Unit {
     unsafe {
@@ -262,12 +261,11 @@ public func shiftAppWindowFocus(sourceWindowID: Int32, targetWindowID: Int32): U
 }
 
 /**
-* Window
-*
-*/
+ * Window
+ *
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class Window <: RemoteDataLite {
@@ -301,16 +299,16 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-    * Shows this window.
-    * This API takes effect only for a system window or an application child window.
-    * For the main window of an application, this API moves it at the top when the main window is already displayed.
-    *
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    */
+     * Shows this window.
+     * This API takes effect only for a system window or an application child window.
+     * For the main window of an application, this API moves it at the top when the main window is already displayed.
+     *
+     * @throws { BusinessException } 1300002 - This window state is abnormal.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        22,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core",
+        workerthread: true
     ]
     public func showWindow(): Unit {
         unsafe {
@@ -320,16 +318,16 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-    * Set the position of a window.
-    *
-    * @param { Int32 } x - Indicate the X-coordinate of the window.
-    * @param { Int32 } y - Indicate the Y-coordinate of the window.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    */
+     * Set the position of a window.
+     *
+     * @param { Int32 } x - Indicate the X-coordinate of the window.
+     * @param { Int32 } y - Indicate the Y-coordinate of the window.
+     * @throws { BusinessException } 1300002 - This window state is abnormal.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        22,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core",
+        workerthread: true
     ]
     public func moveWindowTo(x: Int32, y: Int32): Unit {
         unsafe {
@@ -339,16 +337,16 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-    * Set the size of a window.
-    *
-    * @param { Int32 } width - Indicates the width of the window. The width should be greater than 0.
-    * @param { Int32 } height - Indicates the height of the window. The height should be greater than 0.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    */
+     * Set the size of a window.
+     *
+     * @param { Int32 } width - Indicates the width of the window. The width should be greater than 0.
+     * @param { Int32 } height - Indicates the height of the window. The height should be greater than 0.
+     * @throws { BusinessException } 1300002 - This window state is abnormal.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        22,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core",
+        workerthread: true
     ]
     public func resize(width: UInt32, height: UInt32): Unit {
         unsafe {
@@ -358,14 +356,13 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-    * Get the properties of current window
-    *
-    * @returns { WindowProperties } Return the window properties.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    */
+     * Get the properties of current window
+     *
+     * @returns { WindowProperties } Return the window properties.
+     * @throws { BusinessException } 1300002 - This window state is abnormal.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func getWindowProperties(): WindowProperties {
@@ -378,15 +375,15 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-    * Destroys this window.
-    * This API takes effect only for a system window or an application child window.
-    *
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    */
+     * Destroys this window.
+     * This API takes effect only for a system window or an application child window.
+     *
+     * @throws { BusinessException } 1300002 - This window state is abnormal.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        22,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core",
+        workerthread: true
     ]
     public func destroyWindow(): Unit {
         unsafe {
@@ -396,15 +393,15 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-    * Sets whether the main window layout or the child window layout is immersive.
-    *
-    * @param { Bool } isLayoutFullScreen - Whether the window layout is immersive
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    */
+     * Sets whether the main window layout or the child window layout is immersive.
+     *
+     * @param { Bool } isLayoutFullScreen - Whether the window layout is immersive
+     * @throws { BusinessException } 1300002 - This window state is abnormal.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        22,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core",
+        workerthread: true
     ]
     public func setWindowLayoutFullScreen(isLayoutFullScreen: Bool): Unit {
         unsafe {
@@ -414,15 +411,15 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-    * Whether the window supports thr wide gamut setting.
-    *
-    * @returns { Bool } The value true means that the wide-gamut color space is supported, and false means the opposite.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    */
+     * Whether the window supports thr wide gamut setting.
+     *
+     * @returns { Bool } The value true means that the wide-gamut color space is supported, and false means the opposite.
+     * @throws { BusinessException } 1300002 - This window state is abnormal.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        22,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core",
+        workerthread: true
     ]
     public func isWindowSupportWideGamut(): Bool {
         unsafe {
@@ -434,14 +431,13 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-    * Whether the window supports thr wide gamut setting.
-    *
-    * @returns { Bool }  Whether the window is displayed. The value true means that the window is displayed, and false means the opposite.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    */
+     * Whether the window supports thr wide gamut setting.
+     *
+     * @returns { Bool }  Whether the window is displayed. The value true means that the window is displayed, and false means the opposite.
+     * @throws { BusinessException } 1300002 - This window state is abnormal.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func isWindowShowing(): Bool {
@@ -453,18 +449,16 @@ public class Window <: RemoteDataLite {
         }
     }
 
-
     /**
-    * Sets the background color of window.
-    *
-    * @param { String } color - the specified color.
-    * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified;
-    *                                                                      2. Incorrect parameter types.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    */
+     * Sets the background color of window.
+     *
+     * @param { String } color - the specified color.
+     * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified;
+     *                                                                      2. Incorrect parameter types.
+     * @throws { BusinessException } 1300002 - This window state is abnormal.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowBackgroundColor(color: String): Unit {
@@ -477,15 +471,15 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-    * Sets the brightness of window.
-    *
-    * @param { Float32 } brightness the specified brightness value.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    */
+     * Sets the brightness of window.
+     *
+     * @param { Float32 } brightness the specified brightness value.
+     * @throws { BusinessException } 1300002 - This window state is abnormal.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        22,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core",
+        workerthread: true
     ]
     public func setWindowBrightness(brightness: Float32): Unit {
         unsafe {
@@ -495,15 +489,15 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-    * Sets whether focusable or not.
-    *
-    * @param { Bool } isFocusable can be focus if true, or can not be focus if false.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    */
+     * Sets whether focusable or not.
+     *
+     * @param { Bool } isFocusable can be focus if true, or can not be focus if false.
+     * @throws { BusinessException } 1300002 - This window state is abnormal.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        22,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core",
+        workerthread: true
     ]
     public func setWindowFocusable(isFocusable: Bool): Unit {
         unsafe {
@@ -513,15 +507,15 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-    * Sets whether keep screen on or not.
-    *
-    * @param { Bool } isKeepScreenOn keep screen on if true, or not if false.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    */
+     * Sets whether keep screen on or not.
+     *
+     * @param { Bool } isKeepScreenOn keep screen on if true, or not if false.
+     * @throws { BusinessException } 1300002 - This window state is abnormal.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        22,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core",
+        workerthread: true
     ]
     public func setWindowKeepScreenOn(isKeepScreenOn: Bool): Unit {
         unsafe {
@@ -531,16 +525,16 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-    * Sets whether is private mode or not.
-    *
-    * @param { Bool } isPrivacyMode in private mode if true, or not if false.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    */
+     * Sets whether is private mode or not.
+     *
+     * @param { Bool } isPrivacyMode in private mode if true, or not if false.
+     * @throws { BusinessException } 1300002 - This window state is abnormal.
+     */
     @!APILevel[
-        21,
+        22,
         permission: "ohos.permission.PRIVACY_WINDOW",
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        syscap: "SystemCapability.WindowManager.WindowManager.Core",
+        workerthread: true
     ]
     public func setWindowPrivacyMode(isPrivacyMode: Bool): Unit {
         unsafe {
@@ -550,15 +544,15 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-    * Sets whether is touchable or not
-    *
-    * @param { Bool } isTouchable is touchable if true, or not if false.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    */
+     * Sets whether is touchable or not
+     *
+     * @param { Bool } isTouchable is touchable if true, or not if false.
+     * @throws { BusinessException } 1300002 - This window state is abnormal.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        22,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core",
+        workerthread: true
     ]
     public func setWindowTouchable(isTouchable: Bool): Unit {
         unsafe {
@@ -568,19 +562,19 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-    * Sets the preferred orientation for the main window.
-    * It does not take effect on devices that do not support rotation with the sensor, on 2-in-1 devices or for the child window.
-    *
-    * @param { Orientation } orientation - The orientation config of the window
-    * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified;
-    *                                                                      2. Incorrect parameter types;
-    *                                                                      3. Parameter verification failed.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    */
+     * Sets the preferred orientation for the main window.
+     * It does not take effect on devices that do not support rotation with the sensor, on 2-in-1 devices or for the child window.
+     *
+     * @param { Orientation } orientation - The orientation config of the window
+     * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified;
+     *                                                                      2. Incorrect parameter types;
+     *                                                                      3. Parameter verification failed.
+     * @throws { BusinessException } 1300002 - This window state is abnormal.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        22,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core",
+        workerthread: true
     ]
     public func setPreferredOrientation(orientation: Orientation): Unit {
         let code = unsafe { FFiOHOSWindowSetPreferredOrientation(getID(), orientation.getValue()) }
@@ -588,18 +582,17 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-    * Get the avoid area
-    *
-    * @param { AvoidAreaType } areaType - Type of the area
-    * @returns { AvoidArea } Area where the window cannot be displayed.
-    * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified;
-    *                                                                      2. Incorrect parameter types;
-    *                                                                      3. Parameter verification failed.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    */
+     * Get the avoid area
+     *
+     * @param { AvoidAreaType } areaType - Type of the area
+     * @returns { AvoidArea } Area where the window cannot be displayed.
+     * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified;
+     *                                                                      2. Incorrect parameter types;
+     *                                                                      3. Parameter verification failed.
+     * @throws { BusinessException } 1300002 - This window state is abnormal.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func getWindowAvoidArea(areaType: AvoidAreaType): AvoidArea {
@@ -613,16 +606,16 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-    * Sets the aspect ratio of window
-    *
-    * @param { Float64 } ratio - The aspect ratio of window except decoration
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @throws { BusinessException } 1300004 - Unauthorized operation.
-    */
+     * Sets the aspect ratio of window
+     *
+     * @param { Float64 } ratio - The aspect ratio of window except decoration
+     * @throws { BusinessException } 1300002 - This window state is abnormal.
+     * @throws { BusinessException } 1300004 - Unauthorized operation.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        22,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core",
+        workerthread: true
     ]
     public func setAspectRatio(ratio: Float64): Unit {
         let code = unsafe { FFiOHOSWindowSetAspectRatio(getID(), ratio) }
@@ -630,15 +623,15 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-    * Resets the aspect ratio of window
-    *
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @throws { BusinessException } 1300004 - Unauthorized operation.
-    */
+     * Resets the aspect ratio of window
+     *
+     * @throws { BusinessException } 1300002 - This window state is abnormal.
+     * @throws { BusinessException } 1300004 - Unauthorized operation.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        22,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core",
+        workerthread: true
     ]
     public func resetAspectRatio(): Unit {
         let code = unsafe { FFiOHOSWindowResetAspectRatio(getID()) }
@@ -646,15 +639,15 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-    * Sets the specified color space.
-    *
-    * @param { ColorSpace } colorSpace - the specified color space.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    */
+     * Sets the specified color space.
+     *
+     * @param { ColorSpace } colorSpace - the specified color space.
+     * @throws { BusinessException } 1300002 - This window state is abnormal.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        22,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core",
+        workerthread: true
     ]
     public func setWindowColorSpace(colorSpace: ColorSpace): Unit {
         unsafe {
@@ -664,16 +657,16 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-    * Minimizes the main window if the caller is the main window. The main window can be restored in the dock bar. For 2-in-1 devices, it can be restored by calling restore().
-    * Hides the child window if the caller is a child window. The child window cannot be restored in the dock bar. It can be made visible again by calling showWindow().
-    *
-    * @throws { BusinessException } 801 - Capability not supported. Failed to call the API due to limited device capabilities.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    */
+     * Minimizes the main window if the caller is the main window. The main window can be restored in the dock bar. For 2-in-1 devices, it can be restored by calling restore().
+     * Hides the child window if the caller is a child window. The child window cannot be restored in the dock bar. It can be made visible again by calling showWindow().
+     *
+     * @throws { BusinessException } 801 - Capability not supported. Failed to call the API due to limited device capabilities.
+     * @throws { BusinessException } 1300002 - This window state is abnormal.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Window.SessionManager"
+        22,
+        syscap: "SystemCapability.Window.SessionManager",
+        workerthread: true
     ]
     public func minimize(): Unit {
         unsafe {
@@ -683,14 +676,13 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-    * Obtains the set color space.
-    *
-    * @returns { ColorSpace } Color space obtained.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    */
+     * Obtains the set color space.
+     *
+     * @returns { ColorSpace } Color space obtained.
+     * @throws { BusinessException } 1300002 - This window state is abnormal.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func getWindowColorSpace(): ColorSpace {
@@ -703,15 +695,15 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-    * Obtains snapshot of window
-    *
-    * @returns { PixelMap } Promise that returns no value.
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    */
+     * Obtains snapshot of window
+     *
+     * @returns { PixelMap } Promise that returns no value.
+     * @throws { BusinessException } 1300002 - This window state is abnormal.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        22,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core",
+        workerthread: true
     ]
     public func snapshot(): PixelMap {
         unsafe {
@@ -723,15 +715,15 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-    * Sets whether to show the system bar of the main window.
-    *
-    * @param { Array<SystemBarType> } names - The set of system bar types
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    */
+     * Sets whether to show the system bar of the main window.
+     *
+     * @param { Array<SystemBarType> } names - The set of system bar types
+     * @throws { BusinessException } 1300002 - This window state is abnormal.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        22,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core",
+        workerthread: true
     ]
     public func setWindowSystemBarEnable(names: Array<SystemBarType>): Unit {
         unsafe {
@@ -747,24 +739,23 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-    * Set the properties of system bar
-    *
-    * @param { SystemBarProperties } systemBarProperties - The properties of system bar
-    * @throws { BusinessException } 1300002 - This window state is abnormal.
-    */
+     * Set the properties of system bar
+     *
+     * @param { SystemBarProperties } systemBarProperties - The properties of system bar
+     * @throws { BusinessException } 1300002 - This window state is abnormal.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        22,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core",
+        workerthread: true
     ]
     public func setWindowSystemBarProperties(systemBarProperties: SystemBarProperties): Unit {
         unsafe {
-            try (
-                v1 = LibC.mallocCString(systemBarProperties.statusBarColor).asResource(),
-                v2 = LibC.mallocCString(systemBarProperties.statusBarContentColor).asResource(),
-                v3 = LibC.mallocCString(systemBarProperties.navigationBarColor).asResource(),
-                v4 = LibC.mallocCString(systemBarProperties.navigationBarContentColor).asResource()
-            ) {
+            try (v1 = LibC.mallocCString(systemBarProperties.statusBarColor).asResource(), v2 = LibC
+                .mallocCString(systemBarProperties.statusBarContentColor)
+                .asResource(), v3 = LibC.mallocCString(systemBarProperties.navigationBarColor).asResource(), v4 = LibC
+                .mallocCString(systemBarProperties.navigationBarContentColor)
+                .asResource()) {
                 let properties = CJBarProperties(v1.value, systemBarProperties.isStatusBarLightIcon, v2.value, v3.value,
                     systemBarProperties.isNavigationBarLightIcon, v4.value, systemBarProperties.enableStatusBarAnimation,
                     systemBarProperties.enableNavigationBarAnimation)
@@ -784,23 +775,22 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-    * Register the callback of keyboardHeightChange
-    *
-    * @param { WindowCallbackType } callbackType - The value is fixed at KeyboardHeightChange, indicating the keyboard height change event.
-    * @param { Callback1Argument<UInt32> } callback - Callback used to return the current keyboard height, which is an integer, in px.
-    * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified;
-    *                                                                      2. Incorrect parameter types;
-    *                                                                      3. Parameter verification failed.
-    */
+     * Register the callback of keyboardHeightChange
+     *
+     * @param { WindowCallbackType } callbackType - The value is fixed at KeyboardHeightChange, indicating the keyboard height change event.
+     * @param { Callback1Argument<UInt32> } callback - Callback used to return the current keyboard height, which is an integer, in px.
+     * @throws { BusinessException } 1300016 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified;
+     *                                                                      2. Incorrect parameter types;
+     *                                                                      3. Parameter verification failed.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func on(callbackType: WindowCallbackType, callback: Callback1Argument<UInt32>): Unit {
         match (callbackType) {
             case KeyboardHeightChange => onKeyboardHeightChange(callbackType.getValue(), callback)
-            case _ => throw IllegalArgumentException("Invalid param.")
+            case _ => throw BusinessException(1300016, "Parameter validation error.")
         }
     }
 
@@ -833,37 +823,35 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-    * Unregister the callback of keyboardHeightChange
-    *
-    * @param { WindowCallbackType } callbackType - The value is fixed at KeyboardHeightChange, indicating the keyboard height change event.
-    * @param { Callback1Argument<UInt32> } callback - Callback used to return the current keyboard height, which is an integer, in px.
-    * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified;
-    *                                                                      2. Incorrect parameter types;
-    *                                                                      3. Parameter verification failed.
-    */
+     * Unregister the callback of keyboardHeightChange
+     *
+     * @param { WindowCallbackType } callbackType - The value is fixed at KeyboardHeightChange, indicating the keyboard height change event.
+     * @param { Callback1Argument<UInt32> } callback - Callback used to return the current keyboard height, which is an integer, in px.
+     * @throws { BusinessException } 1300016 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified;
+     *                                                                      2. Incorrect parameter types;
+     *                                                                      3. Parameter verification failed.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func off(callbackType: WindowCallbackType, callback: Callback1Argument<UInt32>): Unit {
         match (callbackType) {
             case KeyboardHeightChange => commonUnregister<Callback1Argument<UInt32>>(callbackType.getValue(), callback)
-            case _ => throw IllegalArgumentException("Invalid param.")
+            case _ => throw BusinessException(1300016, "Parameter validation error.")
         }
     }
 
     /**
-    * Unregister the callback of the specified event
-    *
-    * @param { WindowCallbackType } callbackType - the event type
-    * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified;
-    *                                                                      2. Incorrect parameter types;
-    *                                                                      3. Parameter verification failed.
-    */
+     * Unregister the callback of the specified event
+     *
+     * @param { WindowCallbackType } callbackType - the event type
+     * @throws { BusinessException } 1300016 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified;
+     * <br> 2. Incorrect parameter types;
+     * <br> 3. Parameter verification failed.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func off(callbackType: WindowCallbackType): Unit {
@@ -872,7 +860,7 @@ public class Window <: RemoteDataLite {
                 | KeyboardHeightChange | TouchOutside | SubWindowClose | DialogTargetTouch | Screenshot
                 | NoInteractionDetected | WindowVisibilityChange | WindowAvoidAreaChange => commonUnregister(
                 callbackType.getValue())
-            case _ => throw IllegalArgumentException("Invalid param.")
+            case _ => throw BusinessException(1300016, "Parameter validation error.")
         }
     }
 

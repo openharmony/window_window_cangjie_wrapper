@@ -40,67 +40,53 @@ struct CRect {
 }
 
 /**
-* Rectangle
-*
-* @relation interface Rect
-*/
+ * Rectangle
+ *
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class Rect {
     /**
-    * The Y-axis coordinate of the upper left vertex of the rectangle, in pixels.
-    *
-    * @relation left: number
-    */
+     * The Y-axis coordinate of the upper left vertex of the rectangle, in pixels.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var left: Int32
     /**
-    * The Y-axis coordinate of the upper left vertex of the rectangle, in pixels.
-    *
-    * @relation top: number
-    */
+     * The Y-axis coordinate of the upper left vertex of the rectangle, in pixels.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var top: Int32
     /**
-    * Width of the rectangle, in pixels.
-    *
-    * @relation width: number
-    */
+     * Width of the rectangle, in pixels.
+     *
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var width: UInt32
     /**
-    * Height of the rectangle, in pixels.
-    *
-    * @relation height: number
-    */
+     * Height of the rectangle, in pixels.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var height: UInt32
 
     /**
-    * Rect constructor.
-    */
+     * Rect constructor.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public init(
@@ -134,67 +120,52 @@ struct CWaterfallDisplayAreaRects {
 }
 
 /**
-* Curved area rects of the waterfall display.
-*
-* @relation export interface WaterfallDisplayAreaRects
-*/
+ * Curved area rects of the waterfall display.
+ *
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class WaterfallDisplayAreaRects {
     /**
-    * Indicates the size of left side curved area of the waterfall screen.
-    *
-    * @relation readonly left: Rect
-    */
+     * Indicates the size of left side curved area of the waterfall screen.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public let left: Rect
     /**
-    * Indicates the size of top side curved area of the waterfall screen.
-    *
-    * @relation readonly top: Rect
-    */
+     * Indicates the size of top side curved area of the waterfall screen.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public let top: Rect
     /**
-    * Indicates the size of right side curved area of the waterfall screen.
-    *
-    * @relation readonly right: Rect
-    */
+     * Indicates the size of right side curved area of the waterfall screen.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public let right: Rect
     /**
-    * Indicates the size of bottom side curved area of the waterfall screen.
-    *
-    * @relation readonly bottom: Rect
-    */
+     * Indicates the size of bottom side curved area of the waterfall screen.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public let bottom: Rect
 
     /**
-    * WaterfallDisplayAreaRects constructor.
-    */
+     * WaterfallDisplayAreaRects constructor.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public init(
@@ -227,45 +198,36 @@ struct CCutoutInfo {
 }
 
 /**
-* Cutout information of the display.
-*
-* @relation export interface CutoutInfo
-*/
+ * Cutout information of the display.
+ *
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class CutoutInfo {
     /**
-    * Bounding rectangles of the cutout areas of the display.
-    *
-    * @relation readonly boundingRects: Array<Rect>
-    */
+     * Bounding rectangles of the cutout areas of the display.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public let boundingRects: Array<Rect>
     /**
-    * Rectangles of curved parts on each side of a waterfall display.
-    *
-    * @relation readonly waterfallDisplayAreaRects: WaterfallDisplayAreaRects
-    */
+     * Rectangles of curved parts on each side of a waterfall display.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public let waterfallDisplayAreaRects: WaterfallDisplayAreaRects
 
     /**
-    * CutoutInfo constructor.
-    */
+     * CutoutInfo constructor.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public init(
@@ -295,45 +257,36 @@ struct CFoldCreaseRegion {
 }
 
 /**
-* Fold Crease Region
-*
-* @relation export interface FoldCreaseRegion
-*/
+ * Fold Crease Region
+ *
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public class FoldCreaseRegion {
     /**
-    * The display ID is used to identify the screen where the crease is located.
-    *
-    * @relation readonly displayId: number
-    */
+     * The display ID is used to identify the screen where the crease is located.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     public let displayId: UInt32
     /**
-    * Crease Region.
-    *
-    * @relation readonly creaseRects: Array<Rect>
-    */
+     * Crease Region.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     public let creaseRects: Array<Rect>
 
     /**
-    * FoldCreaseRegion constructor.
-    */
+     * FoldCreaseRegion constructor.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     public init(

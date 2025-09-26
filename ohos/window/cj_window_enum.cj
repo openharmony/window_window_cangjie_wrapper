@@ -25,18 +25,16 @@ import std.deriving.Derive
  */
  @Derive[Equatable]
 @!APILevel[
-    21,
+    22,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum WindowType {
     /**
     * App.
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     TypeApp
@@ -44,22 +42,18 @@ public enum WindowType {
     /**
     * Float.
     * Require "ohos.permission.SYSTEM_FLOAT_WINDOW" permission
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     TypeFloat
     |
     /**
     * Dialog.
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     TypeDialog
@@ -70,7 +64,7 @@ public enum WindowType {
             case TypeApp => 0
             case TypeFloat => 8
             case TypeDialog => 16
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 
@@ -80,7 +74,7 @@ public enum WindowType {
             case 8 => TypeFloat
             case 16 => TypeDialog
             case 32 => TypeApp
-            case _ => throw Exception("Unrecognizable WindowType: ${val}!")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 }
@@ -91,139 +85,115 @@ public enum WindowType {
 */
 @Derive[Equatable]
 @!APILevel[
-    21,
+    22,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum Orientation {
     /**
     * Default value. The direction mode is not clearly defined. It is determined by the system.
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Unspecified
     |
     /**
     * Display in portrait orientation.
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Portrait
     |
     /**
     * Display in landscape orientation.
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Landscape
     |
     /**
     * Display in inverted portrait orientation.
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     PortraitInverted
     |
     /**
     * Display in inverted landscape orientation.
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     LandscapeInverted
     |
     /**
     * Follow the rotation of the sensor, ignore auto rotation lock.
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     AutoRotation
     |
     /**
     * Follow the rotation of the sensor, only work in the vertical direction, ignore auto rotation lock.
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     AutoRotationPortrait
     |
     /**
     * Follow the rotation of the sensor, only work in the horizontal direction, ignore auto rotation lock.
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     AutoRotationLandscape
     |
     /**
     * Follow the rotation of the sensor, controlled by auto rotation lock.
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     AutoRotationRestricted
     |
     /**
     * Follow the rotation of the sensor, only work in the vertical direction, controlled by auto rotation lock.
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     AutoRotationPortraitRestricted
     |
     /**
     * Follow the rotation of the sensor, only work in the horizontal direction, controlled by auto rotation lock.
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     AutoRotationLandscapeRestricted
     |
     /**
     * Locked mode, keep the same direction as previous one.
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Locked
@@ -243,7 +213,7 @@ public enum Orientation {
             case AutoRotationPortraitRestricted => 9
             case AutoRotationLandscapeRestricted => 10
             case Locked => 11
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 
@@ -261,7 +231,7 @@ public enum Orientation {
             case 9 => AutoRotationPortraitRestricted
             case 10 => AutoRotationLandscapeRestricted
             case 11 => Locked
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 }
@@ -272,62 +242,52 @@ public enum Orientation {
 */
 @Derive[Equatable]
 @!APILevel[
-    21,
+    22,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum AvoidAreaType {
     /**
     * Default area of the system
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     TypeSystem
     |
     /**
     * Notch
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     TypeCutout
     |
     /**
     * Area for system gesture
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     TypeSystemGesture
     |
     /**
     * Area for keyboard
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     TypeKeyboard
     |
     /**
     * Area for navigation indicator
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     TypeNavigationIndicator
@@ -340,7 +300,7 @@ public enum AvoidAreaType {
             case TypeSystemGesture => 2
             case TypeKeyboard => 3
             case TypeNavigationIndicator => 4
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 
@@ -351,7 +311,7 @@ public enum AvoidAreaType {
             case 2 => TypeSystemGesture
             case 3 => TypeKeyboard
             case 4 => TypeNavigationIndicator
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 }
@@ -362,62 +322,52 @@ public enum AvoidAreaType {
 */
 @Derive[Equatable]
 @!APILevel[
-    21,
+    22,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum WindowEventType {
     /**
     * The value of window event is window show
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowShown
     |
     /**
     * The value of window event is window active
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowActive
     |
     /**
     * The value of window event is window inactive
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowInactive
     |
     /**
     * The value of window event is window hide
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowHidden
     |
     /**
     * The value of window event is window destroy
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     WindowDestroyed
@@ -430,7 +380,7 @@ public enum WindowEventType {
             case WindowInactive => 3
             case WindowHidden => 4
             case WindowDestroyed => 7
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 
@@ -441,7 +391,7 @@ public enum WindowEventType {
             case 3 => WindowInactive
             case 4 => WindowHidden
             case 7 => WindowDestroyed
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 }
@@ -452,73 +402,61 @@ public enum WindowEventType {
 */
 @Derive[Equatable]
 @!APILevel[
-    21,
+    22,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum WindowStageEventType {
     /**
     * The window stage is running in the foreground.
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Shown
     |
     /**
     * The window stage gains focus.
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Active
     |
     /**
     * The window stage loses focus.
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Inactive
     |
     /**
     * The window stage is running in the background.
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Hidden
     |
     /**
     * The window stage is interactive in the foreground.
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Resumed
     |
     /**
     * The window stage is not interactive in the foreground.
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Paused
@@ -532,7 +470,7 @@ public enum WindowStageEventType {
             case Hidden => 4
             case Resumed => 5
             case Paused => 6
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 
@@ -544,7 +482,7 @@ public enum WindowStageEventType {
             case 4 => Hidden
             case 5 => Resumed
             case 6 => Paused
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 }
@@ -555,73 +493,61 @@ public enum WindowStageEventType {
 */
 @Derive[Equatable]
 @!APILevel[
-    21,
+    22,
     stagemodelonly: true,
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public enum WindowStatusType {
     /**
     * Undefined status of the window
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     Undefined
     |
     /**
     * Full screen status of the window
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     FullScreen
     |
     /**
     * Maximize status of the window
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     Maximize
     |
     /**
     * Minimize status of the window
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     Minimize
     |
     /**
     * Floating status of the window
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     Floating
     |
     /**
     * Split screen status of the window
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     SplitScreen
@@ -635,7 +561,7 @@ public enum WindowStatusType {
             case Minimize => 3
             case Floating => 4
             case SplitScreen => 5
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 
@@ -647,7 +573,7 @@ public enum WindowStatusType {
             case 3 => Minimize
             case 4 => Floating
             case 5 => SplitScreen
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 }
@@ -658,29 +584,25 @@ public enum WindowStatusType {
 */
 @Derive[Equatable]
 @!APILevel[
-    21,
+    22,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum ColorSpace {
     /**
     * Default color space.
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Default
     |
     /**
     * Wide gamut color space. The specific wide color gamut depends on thr screen.
-    *
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WideGamut
@@ -690,7 +612,7 @@ public enum ColorSpace {
         return match (this) {
             case Default => 0
             case WideGamut => 1
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 
@@ -698,18 +620,17 @@ public enum ColorSpace {
         return match (val) {
             case 0 => Default
             case 1 => WideGamut
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 }
-
 
 /**
 * Enumerates of listening event
 */
 @Derive[Equatable]
 @!APILevel[
-    21,
+    22,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
@@ -718,8 +639,7 @@ public enum WindowCallbackType {
     * indicating the window stage lifecycle change event.
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowStageEvent
@@ -728,8 +648,7 @@ public enum WindowCallbackType {
     * indicating the window size change event.
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowSizeChange
@@ -738,8 +657,7 @@ public enum WindowCallbackType {
     * indicating the event of changes to the avoid area.
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowAvoidAreaChange
@@ -748,8 +666,7 @@ public enum WindowCallbackType {
     * indicating the keyboard height change event.
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     KeyboardHeightChange
@@ -758,8 +675,7 @@ public enum WindowCallbackType {
     * indicating the click event outside this window.
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     TouchOutside
@@ -768,8 +684,7 @@ public enum WindowCallbackType {
     * indicating the window visibility change.
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowVisibilityChange
@@ -778,8 +693,7 @@ public enum WindowCallbackType {
     * indicating the window has no interaction for a long time.
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     NoInteractionDetected
@@ -788,8 +702,7 @@ public enum WindowCallbackType {
     * indicating the screenshot event.
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Screenshot
@@ -798,8 +711,7 @@ public enum WindowCallbackType {
     * indicating the click event of the target window in the modal window mode.
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     DialogTargetTouch
@@ -808,8 +720,7 @@ public enum WindowCallbackType {
     * indicating the window lifecycle change event.
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowEvent
@@ -818,8 +729,7 @@ public enum WindowCallbackType {
     * indicating the window status change event.
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowStatusChange
@@ -828,8 +738,7 @@ public enum WindowCallbackType {
     * indicating the child window close event.
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     SubWindowClose
@@ -838,8 +747,7 @@ public enum WindowCallbackType {
     * indicating the title buttons area change event.
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowTitleButtonRectChange
@@ -848,8 +756,7 @@ public enum WindowCallbackType {
     * indicating the window rect change event.
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowRectChange
@@ -871,7 +778,7 @@ public enum WindowCallbackType {
             case SubWindowClose => "subWindowClose"
             case WindowTitleButtonRectChange => "windowTitleButtonRectChange"
             case WindowRectChange => "windowRectChange"
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 }
@@ -881,7 +788,7 @@ public enum WindowCallbackType {
 */
 @Derive[Equatable]
 @!APILevel[
-    21,
+    22,
     stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
@@ -890,8 +797,7 @@ public enum SystemBarType {
     * status bar
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Status
@@ -900,8 +806,7 @@ public enum SystemBarType {
     * navigation
     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Navigation
@@ -911,7 +816,7 @@ public enum SystemBarType {
         return match (this) {
             case Status => "status"
             case Navigation => "navigation"
-            case _ => throw IllegalArgumentException("The type is not supported yet.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 }
