@@ -50,7 +50,9 @@ The scope of capabilities includes:
 - **Window**: Provides fundamental capabilities for managing windows, including creating and destroying the current window, setting various properties, and managing/scheduling interactions between windows.
 - **Display**: Offers basic capabilities for managing display devices, including retrieving information about the default display device, obtaining information for all display devices, and monitoring the connection and removal of display devices.
 
-For window-related APIs, please refer to the [Cangjie Window API Documentation](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/API_Reference/source_en/arkui-cj/cj-apis-window.md). For related guides, please see the [Window Development Guide](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/Dev_Guide/source_en/windowmanager/application-window-stage.md).
+For Window APIs, please refer to the [Cangjie Window API Documentation](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/API_Reference/source_en/arkui-cj/cj-apis-window.md). For related guides, please see the [Window Development Guide](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/Dev_Guide/source_en/windowmanager/application-window-stage.md).
+
+For Display APIs, please refer to the [Cangjie Display API Documentation](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/API_Reference/source_en/arkui-cj/cj-apis-display.md). For related guides, please see the [Display Development Guide](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/Dev_Guide/source_en/displaymanager/screenProperty-guideline.md).
 
 ## Limitation
 

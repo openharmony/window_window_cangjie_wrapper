@@ -16,7 +16,7 @@
 - 窗口：提供管理窗口的一些基础能力，包括对当前窗口的创建、销毁、各属性设置，以及对各窗口间的管理调度。
 - 屏幕属性：性提供管理显示设备的一些基础能力，包括获取默认显示设备的信息，获取所有显示设备的信息以及监听显示设备的插拔行为。
 
-框架层：基于底层窗口服务和显示设备管理服务，封装实现仓颉窗口管理和显示设备管理
+框架层：基于底层窗口服务和显示设备管理服务，封装实现仓颉窗口和屏幕属性
 - 窗口封装：仓颉封装实现窗口管理能力，通过仓颉C语言互操作对接到窗口子系统。
 - 屏幕属性封装：仓颉封装实现屏幕属性管理能力，通过仓颉C语言互操作对接到窗口子系统。
 
@@ -33,7 +33,7 @@
 ## 目录<a name="section1791423143211"></a>
 ```
 foundation/window/window_cangjie_wrapper/
-├── figures                           # 存放readme中的架构图
+├── figures                           # 存放README中的架构图
 ├── ohos                              # 仓颉接口实现源码目录
 │   ├── display                       # 屏幕属性相关接口实现
 │   └── window                        # 窗口相关接口实现
@@ -51,6 +51,8 @@ foundation/window/window_cangjie_wrapper/
 - 屏幕属性提供管理显示设备的一些基础能力，包括获取默认显示设备的信息，获取所有显示设备的信息以及监听显示设备的插拔行为。
 
 窗口相关API请参见[仓颉窗口API文档](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/API_Reference/source_zh_cn/arkui-cj/cj-apis-window.md)，相关指导请参见[窗口开发指南](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/Dev_Guide/source_zh_cn/windowmanager/application-window-stage.md)。
+
+屏幕属性相关API请参见[仓颉屏幕属性API文档](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/API_Reference/source_zh_cn/arkui-cj/cj-apis-display.md)，相关指导请参见[屏幕属性开发指南](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/Dev_Guide/source_zh_cn/displaymanager/screenProperty-guideline.md)。
 
 ## 约束
 
