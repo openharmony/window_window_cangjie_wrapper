@@ -19,45 +19,36 @@ internal import ohos.labels.*
 import ohos.app.ability.BaseContext
 
 /**
-* Window size
-*
-* @relation export interface Size
-*/
+ * Window size
+ *
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class Size {
     /**
-    * The width of the window.
-    *
-    * @relation width: number
-    */
+     * The width of the window.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var width: UInt32
     /**
-    * The height of the window.
-    *
-    * @relation height: number
-    */
+     * The height of the window.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var height: UInt32
 
     /**
-    * Size constructor.
-    */
+     * Size constructor.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public init(
@@ -91,67 +82,52 @@ struct CSize {
 }
 
 /**
-* Rectangular area of the title buttons relative to the upper right corner of the window.
-*
-* @relation export interface TitleButtonRect
-*/
+ * Rectangular area of the title buttons relative to the upper right corner of the window.
+ *
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public class TitleButtonRect {
     /**
-    * The right of the Rect.
-    *
-    * @relation right: number
-    */
+     * The right of the Rect.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     public var right: Int32
     /**
-    * The top of the Rect.
-    *
-    * @relation top: number
-    */
+     * The top of the Rect.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     public var top: Int32
     /**
-    * The width of the Rect.
-    *
-    * @relation width: number
-    */
+     * The width of the Rect.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     public var width: UInt32
     /**
-    * The height of the Rect.
-    *
-    * @relation height: number
-    */
+     * The height of the Rect.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     public var height: UInt32
-    
+
     /**
-    * TitleButtonRect constructor.
-    */
+     * TitleButtonRect constructor.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     public init(
@@ -202,78 +178,60 @@ struct RetStruct {
 }
 
 /**
-* Configuration parameters for window creation.
-*
-* @relation export interface Configuration
-*/
+ * Configuration parameters for window creation.
+ *
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class Configuration {
     /**
-    * Indicates window id.
-    *
-    * @relation name: string
-    */
+     * Indicates window id.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var name: String
     /**
-    * Indicates window type
-    *
-    * @relation windowType: WindowType
-    */
+     * Indicates window type
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var windowType: WindowType
     /**
-    * Indicates window context.
-    *
-    * @relation ctx?: BaseContext
-    */
+     * Indicates window context.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var ctx: BaseContext
     /**
-    * Indicates display ID.
-    *
-    * @relation displayId?: number
-    */
+     * Indicates display ID.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var displayId: Int64 = -1
     /**
-    * Indicates Parent window id
-    *
-    * @relation parentId?: number
-    */
+     * Indicates Parent window id
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var parentId: Int64 = -1
 
     /**
-    * Configuration constructor.
-    */
+     * Configuration constructor.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public init(
@@ -292,67 +250,52 @@ public class Configuration {
 }
 
 /**
-* Rectangle
-*
-* @relation export interface Rect
-*/
+ * Rectangle
+ *
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class Rect {
     /**
-    * The left of the Rect.
-    *
-    * @relation left: number
-    */
+     * The left of the Rect.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var left: Int32
     /**
-    * The top of the Rect.
-    *
-    * @relation top: number
-    */
+     * The top of the Rect.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var top: Int32
     /**
-    * The width of the Rect.
-    *
-    * @relation width: number
-    */
+     * The width of the Rect.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var width: UInt32
     /**
-    * The height of the Rect.
-    *
-    * @relation height: number
-    */
+     * The height of the Rect.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var height: UInt32
 
     /**
-    * Rect constructor.
-    */
+     * Rect constructor.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public init(
@@ -394,155 +337,116 @@ struct CRect {
 }
 
 /**
-* Properties of window, it couldn't update automatically
-*
-* @relation export interface WindowProperties
-*/
+ * Properties of window, it couldn't update automatically
+ *
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class WindowProperties {
     /**
-    * The position and size of the window
-    *
-    * @relation windowRect: Rect
-    */
+     * The position and size of the window
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var windowRect: Rect
     /**
-    * The position relative to the window and size of drawable area
-    *
-    * @relation drawableRect: Rect
-    */
+     * The position relative to the window and size of drawable area
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var drawableRect: Rect
     /**
-    * Window type
-    *
-    * @relation type: WindowType
-    */
+     * Window type
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var winType: WindowType
     /**
-    * Whether the window is displayed in full screen mode. The default value is false.
-    *
-    * @relation isFullScreen: boolean
-    */
+     * Whether the window is displayed in full screen mode. The default value is false.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var isFullScreen: Bool
     /**
-    * Whether the window layout is in full screen mode(whether the window is immersive). The default value is false.
-    *
-    * @relation isLayoutFullScreen: boolean
-    */
+     * Whether the window layout is in full screen mode(whether the window is immersive). The default value is false.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var isLayoutFullScreen: Bool
     /**
-    * Whether the window can gain focus. The default value is true
-    *
-    * @relation focusable: boolean
-    */
+     * Whether the window can gain focus. The default value is true
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var focusable: Bool
     /**
-    * Whether the window is touchable. The default value is false
-    *
-    * @relation touchable: boolean
-    */
+     * Whether the window is touchable. The default value is false
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var touchable: Bool
     /**
-    * Brightness value of window.
-    *
-    * @relation brightness: number
-    */
+     * Brightness value of window.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var brightness: Float32
     /**
-    * Whether keep screen on.
-    *
-    * @relation isKeepScreenOn: boolean;
-    */
+     * Whether keep screen on.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var isKeepScreenOn: Bool
     /**
-    * Whether make window in privacy mode or not.
-    *
-    * @relation isPrivacyMode: boolean
-    */
+     * Whether make window in privacy mode or not.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var isPrivacyMode: Bool
     /**
-    * Whether is transparent or not.
-    *
-    * @relation isTransparent: boolean
-    */
+     * Whether is transparent or not.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var isTransparent: Bool
     /**
-    * isTransparent: boolean
-    *
-    * @relation id: number
-    */
+     * isTransparent: boolean
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var id: UInt32
 
     /**
-    * WindowProperties constructor.
-    */
+     * WindowProperties constructor.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public init(
@@ -593,95 +497,68 @@ struct CWindowProperties {
     ) {}
 
     func toWindowProperties(): WindowProperties {
-        return WindowProperties(
-            windowRect: windowRect.toRect(), 
-            drawableRect: drawableRect.toRect(), 
-            winType: WindowType.parse(winType), 
-            isFullScreen: isFullScreen,
-            isLayoutFullScreen: isLayoutFullScreen, 
-            focusable: focusable, 
-            touchable: touchable, 
-            brightness: brightness, 
-            isKeepScreenOn: isKeepScreenOn, 
-            isPrivacyMode: isPrivacyMode,
-            isTransparent: isTransparent, 
-            id: id)
+        return WindowProperties(windowRect: windowRect.toRect(), drawableRect: drawableRect.toRect(),
+            winType: WindowType.parse(winType), isFullScreen: isFullScreen, isLayoutFullScreen: isLayoutFullScreen,
+            focusable: focusable, touchable: touchable, brightness: brightness, isKeepScreenOn: isKeepScreenOn,
+            isPrivacyMode: isPrivacyMode, isTransparent: isTransparent, id: id)
     }
 }
 
 /**
-* Avoid area
-*
-* @relation export interface AvoidArea
-*/
+ * Avoid area
+ *
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class AvoidArea {
     /**
-    * Whether avoidArea is visible on screen
-    *
-    * @relation visible: boolean
-    */
+     * Whether avoidArea is visible on screen
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var visible: Bool
     /**
-    * Rectangle on the left of the screen
-    *
-    * @relation leftRect: Rect
-    */
+     * Rectangle on the left of the screen
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var leftRect: Rect
     /**
-    * Rectangle on the top of the screen
-    *
-    * @relation topRect: Rect
-    */
+     * Rectangle on the top of the screen
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var topRect: Rect
     /**
-    * Rectangle on the right of the screen
-    *
-    * @relation rightRect: Rect
-    */
+     * Rectangle on the right of the screen
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var rightRect: Rect
     /**
-    * Rectangle on the bottom of the screen
-    *
-    * @relation bottomRect: Rect
-    */
+     * Rectangle on the bottom of the screen
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var bottomRect: Rect
 
     /**
-    * AvoidArea constructor.
-    */
+     * AvoidArea constructor.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public init(
@@ -691,11 +568,11 @@ public class AvoidArea {
         rightRect!: Rect,
         bottomRect!: Rect
     ) {
-       this.visible = visible
-       this.leftRect = leftRect
-       this.topRect = topRect
-       this.rightRect = rightRect
-       this.bottomRect = bottomRect
+        this.visible = visible
+        this.leftRect = leftRect
+        this.topRect = topRect
+        this.rightRect = rightRect
+        this.bottomRect = bottomRect
     }
 
     func toExternal(): CAvoidArea {
@@ -724,115 +601,84 @@ struct CAvoidArea {
 }
 
 /**
-* Properties of status bar and navigation bar, it couldn't update automatically
-*
-* @relation export interface SystemBarProperties
-*/
+ * Properties of status bar and navigation bar, it couldn't update automatically
+ *
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class SystemBarProperties {
     /**
-    * The color of the status bar.
-    *
-    * @relation statusBarColor?: string
-    */
+     * The color of the status bar.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var statusBarColor: String = "#66000000"
     /**
-    * The light icon of the status bar.
-    *
-    * @relation isStatusBarLightIcon?: boolean
-    */
+     * The light icon of the status bar.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var isStatusBarLightIcon: Bool = false
     /**
-    * The content color of the status bar
-    *
-    * @relation statusBarContentColor?: string
-    */
+     * The content color of the status bar
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var statusBarContentColor: String = "#E5FFFFFF"
     /**
-    * statusBarContentColor?: string
-    *
-    * @relation navigationBarColor?: string
-    */
+     * statusBarContentColor?: string
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var navigationBarColor: String = "#66000000"
     /**
-    * navigationBarColor?: string
-    *
-    * @relation isNavigationBarLightIcon?: boolean
-    */
+     * navigationBarColor?: string
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var isNavigationBarLightIcon: Bool = false
     /**
-    * The content color of the navigation bar
-    *
-    * @relation navigationBarContentColor?: string
-    */
+     * The content color of the navigation bar
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var navigationBarContentColor: String = "#E5FFFFFF"
     /**
-    * Enable the animation of the status bar.
-    *
-    * @relation enableStatusBarAnimation?: boolean
-    */
+     * Enable the animation of the status bar.
+     */
     @!APILevel[
-        21,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     public var enableStatusBarAnimation: Bool = false
     /**
-    * Enable the animation of the navigation bar.
-    *
-    * @relation enableNavigationBarAnimation?: boolean
-    */
+     * Enable the animation of the navigation bar.
+     */
     @!APILevel[
-        21,
-        atomicservice: true,
-        crossplatform: true,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
     public var enableNavigationBarAnimation: Bool = false
 
     /**
-    * SystemBarProperties constructor.
-    */
+     * SystemBarProperties constructor.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public init(
@@ -887,7 +733,7 @@ struct CJBarProperties {
             LibC.free(navigationBarColor)
             LibC.free(navigationBarContentColor)
         }
-    } 
+    }
 }
 
 @C

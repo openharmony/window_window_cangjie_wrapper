@@ -117,16 +117,14 @@ func findCallbackObject(list: ArrayList<(CallbackObject, Int64)>, callback: Call
 }
 
 /**
-* Obtain the default display.
-*
-* @returns { Display } the result of display
-* @throws { BusinessException } 1400001 - Invalid display or screen.
-* @throws { BusinessException } 1400003 - This display manager service works abnormally.
-* @relation export function getDefaultDisplaySync(): Display
-*/
+ * Obtain the default display.
+ *
+ * @returns { Display } the result of display
+ * @throws { BusinessException } 1400001 - Invalid display or screen.
+ * @throws { BusinessException } 1400003 - This display manager service works abnormally.
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public func getDefaultDisplaySync(): Display {
@@ -144,17 +142,16 @@ public func getDefaultDisplaySync(): Display {
 }
 
 /**
-* Obtain all displays.
-*
-* @returns { Array<Display> } the result of all displays
-* @throws { BusinessException } 1400001 - Invalid display or screen.
-* @throws { BusinessException } 1400003 - This display manager service works abnormally.
-* @relation function getAllDisplays(): Promise<Array<Display>>
-*/
+ * Obtain all displays.
+ *
+ * @returns { Array<Display> } the result of all displays
+ * @throws { BusinessException } 1400001 - Invalid display or screen.
+ * @throws { BusinessException } 1400003 - This display manager service works abnormally.
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
-    syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    22,
+    syscap: "SystemCapability.WindowManager.WindowManager.Core",
+    workerthread: true
 ]
 public func getAllDisplays(): Array<Display> {
     unsafe {
@@ -173,14 +170,12 @@ public func getAllDisplays(): Array<Display> {
 }
 
 /**
-* Check whether the device is foldable.
-*
-* @returns { Bool } true means the device is foldable.
-* @relation export function isFoldable(): boolean
-*/
+ * Check whether the device is foldable.
+ *
+ * @returns { Bool } true means the device is foldable.
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func isFoldable(): Bool {
@@ -188,14 +183,12 @@ public func isFoldable(): Bool {
 }
 
 /**
-* Get the current fold status of the foldable device.
-*
-* @returns { FoldStatus } fold status of device.
-* @relation export function getFoldStatus(): FoldStatus
-*/
+ * Get the current fold status of the foldable device.
+ *
+ * @returns { FoldStatus } fold status of device.
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func getFoldStatus(): FoldStatus {
@@ -206,14 +199,12 @@ public func getFoldStatus(): FoldStatus {
 }
 
 /**
-* Get the display mode of the foldable device.
-*
-* @returns { FoldDisplayMode } display mode of the foldable device.
-* @relation export function getFoldDisplayMode(): FoldDisplayMode
-*/
+ * Get the display mode of the foldable device.
+ *
+ * @returns { FoldDisplayMode } display mode of the foldable device.
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func getFoldDisplayMode(): FoldDisplayMode {
@@ -224,15 +215,13 @@ public func getFoldDisplayMode(): FoldDisplayMode {
 }
 
 /**
-* Get the fold crease region in the current display mode.
-*
-* @returns { FoldCreaseRegion } fold crease region in the current display mode.
-* @throws { BusinessException } 1400003 - This display manager service works abnormally.
-* @relation export function getCurrentFoldCreaseRegion(): FoldCreaseRegion
-*/
+ * Get the fold crease region in the current display mode.
+ *
+ * @returns { FoldCreaseRegion } fold crease region in the current display mode.
+ * @throws { BusinessException } 1400003 - This display manager service works abnormally.
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func getCurrentFoldCreaseRegion(): FoldCreaseRegion {
@@ -246,7 +235,7 @@ public func getCurrentFoldCreaseRegion(): FoldCreaseRegion {
     let ptr = unsafe { CPointer<CFoldCreaseRegion>(retData.data) }
     if (ptr.isNull()) {
         unsafe { LibC.free(retData.data) }
-        throw IllegalMemoryException("Failed to create target pointer type")
+        throw BusinessException(100001, "Internal error: Failed to create target pointer type")
     }
     let foldCreaseRegion = unsafe { ptr.read() }
     let ret = FoldCreaseRegion(foldCreaseRegion)
@@ -258,13 +247,12 @@ public func getCurrentFoldCreaseRegion(): FoldCreaseRegion {
 }
 
 /**
-* Disables all listeners for display device changes.
-*
-* @param {ListenerType} listenerType - Type of listening event
-*/
+ * Disables all listeners for display device changes.
+ *
+ * @param {ListenerType} listenerType - Type of listening event
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func off(listenerType: ListenerType): Unit {
@@ -292,18 +280,16 @@ func offAllCallback(callbackType: String): Unit {
 }
 
 /**
-* Register the callback for fold status changes.
-*
-* @param {ListenerType} listenerType - the event of fold status changes
-* @param {Callback1Argument<FoldStatus>} callback - Callback used to return the current fold status of device
-* @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified. 
-*                                                                       2. Incorrect parameter types.
-* @throws { BusinessException } 1400003 - This display manager service works abnormally.
-* @relation export function on(type: 'foldStatusChange', callback: Callback<FoldStatus>): void
-*/
+ * Register the callback for fold status changes.
+ *
+ * @param {ListenerType} listenerType - the event of fold status changes
+ * @param {Callback1Argument<FoldStatus>} callback - Callback used to return the current fold status of device
+ * @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified.
+ *                                                                       2. Incorrect parameter types.
+ * @throws { BusinessException } 1400003 - This display manager service works abnormally.
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func on(listenerType: ListenerType, callback: Callback1Argument<FoldStatus>): Unit {
@@ -331,9 +317,9 @@ func onFoldStatusChange(callbackType: String, callback: Callback1Argument<FoldSt
             callback.invoke(None, FoldStatus.parse(foldStatus))
         }
         let registerCall = Callback1Param<CPointer<Unit>, Unit>(wrapper)
-        unsafe { 
+        unsafe {
             try (callbackCType = LibC.mallocCString(callbackType).asResource()) {
-                let ret = FfiOHOSRegisterDisplayManagerCallback(callbackCType.value, registerCall.getID()) 
+                let ret = FfiOHOSRegisterDisplayManagerCallback(callbackCType.value, registerCall.getID())
                 if (ret != 0) {
                     DisplayLog.error("[display] ERROR: ${ret} Failed to register callback with type ${callbackType}")
                     throw BusinessException(ret, "ERROR: Failed to register callback with type ${callbackType}")
@@ -345,18 +331,16 @@ func onFoldStatusChange(callbackType: String, callback: Callback1Argument<FoldSt
 }
 
 /**
-* Unregister the callback for fold status changes.
-*
-* @param {ListenerType} listenerType - the event of fold status change
-* @param {Callback1Argument<FoldStatus>} callback - Callback used to return the current fold status of device
-* @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified. 
-*                                                                       2. Incorrect parameter types.
-* @throws { BusinessException } 1400003 - This display manager service works abnormally.
-* @relation export function off(type: 'foldStatusChange', callback?: Callback<FoldStatus>): void
-*/
+ * Unregister the callback for fold status changes.
+ *
+ * @param {ListenerType} listenerType - the event of fold status change
+ * @param {Callback1Argument<FoldStatus>} callback - Callback used to return the current fold status of device
+ * @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified.
+ *                                                                       2. Incorrect parameter types.
+ * @throws { BusinessException } 1400003 - This display manager service works abnormally.
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func off(listenerType: ListenerType, callback: Callback1Argument<FoldStatus>): Unit {
@@ -394,18 +378,16 @@ func offFoldStatusChange(callbackType: String, callback: Callback1Argument<FoldS
 }
 
 /**
-* Register the callback for fold display mode changes.
-*
-* @param {ListenerType} listenerType - the event of fold display mode changes
-* @param {Callback1Argument<FoldStatus>} callback - Callback used to return the current fold display mode
-* @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified. 
-*                                                                       2. Incorrect parameter types.
-* @throws { BusinessException } 1400003 - This display manager service works abnormally.
-* @relation export function on(type: 'foldDisplayModeChange', callback: Callback<FoldDisplayMode>): void
-*/
+ * Register the callback for fold display mode changes.
+ *
+ * @param {ListenerType} listenerType - the event of fold display mode changes
+ * @param {Callback1Argument<FoldStatus>} callback - Callback used to return the current fold display mode
+ * @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified.
+ *                                                                       2. Incorrect parameter types.
+ * @throws { BusinessException } 1400003 - This display manager service works abnormally.
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func on(listenerType: ListenerType, callback: Callback1Argument<FoldDisplayMode>): Unit {
@@ -447,18 +429,16 @@ func onFoldDisplayModeChange(callbackType: String, callback: Callback1Argument<F
 }
 
 /**
-* Unregister the callback for fold display mode changes.
-*
-* @param {ListenerType} listenerType - the event of fold display mode changes
-* @param {Callback1Argument<FoldStatus>} callback - Callback used to return the current fold display mode
-* @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified. 
-*                                                                       2. Incorrect parameter types.
-* @throws { BusinessException } 1400003 - This display manager service works abnormally.
-* @relation export function off(type: 'foldDisplayModeChange', callback?: Callback<FoldDisplayMode>): void
-*/
+ * Unregister the callback for fold display mode changes.
+ *
+ * @param {ListenerType} listenerType - the event of fold display mode changes
+ * @param {Callback1Argument<FoldStatus>} callback - Callback used to return the current fold display mode
+ * @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified.
+ *                                                                       2. Incorrect parameter types.
+ * @throws { BusinessException } 1400003 - This display manager service works abnormally.
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func off(listenerType: ListenerType, callback: Callback1Argument<FoldDisplayMode>): Unit {
@@ -496,13 +476,11 @@ func offFoldDisplayModeChange(callbackType: String, callback: Callback1Argument<
 }
 
 /**
-* Define properties of the display. They cannot be updated automatically.
-*
-* @relation export interface Display
-*/
+ * Define properties of the display. They cannot be updated automatically.
+ *
+ */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class Display <: RemoteDataLite {
@@ -510,13 +488,10 @@ public class Display <: RemoteDataLite {
     static let REGISTER_MUTEX = Mutex()
 
     /**
-    * Display ID.
-    *
-    * @relation id: number
-    */
+     * Display ID.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop id: UInt32 {
@@ -526,13 +501,10 @@ public class Display <: RemoteDataLite {
     }
 
     /**
-    * Display name.
-    *
-    * @relation name: string
-    */
+     * Display name.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop name: String {
@@ -546,13 +518,10 @@ public class Display <: RemoteDataLite {
     }
 
     /**
-    * Whether the display is alive.
-    *
-    * @relation alive: boolean
-    */
+     * Whether the display is alive.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop alive: Bool {
@@ -562,13 +531,10 @@ public class Display <: RemoteDataLite {
     }
 
     /**
-    * The state of display.
-    *
-    * @relation state: DisplayState
-    */
+     * The state of display.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop state: DisplayState {
@@ -580,13 +546,10 @@ public class Display <: RemoteDataLite {
     }
 
     /**
-    * Refresh rate, in Hz.
-    *
-    * @relation refreshRate: number
-    */
+     * Refresh rate, in Hz.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop refreshRate: UInt32 {
@@ -596,17 +559,14 @@ public class Display <: RemoteDataLite {
     }
 
     /**
-    * An enumeration value for rotation degrees of the display.
-    * The value 0 indicates that the screen of the display rotates clockwise by 0°.
-    * The value 1 indicates that the screen of the display rotates clockwise by 90°.
-    * The value 2 indicates that the screen of the display rotates clockwise by 180°.
-    * The value 3 indicates that the screen of the display rotates clockwise by 270°.
-    *
-    * @relation rotation: number
-    */
+     * An enumeration value for rotation degrees of the display.
+     * The value 0 indicates that the screen of the display rotates clockwise by 0°.
+     * The value 1 indicates that the screen of the display rotates clockwise by 90°.
+     * The value 2 indicates that the screen of the display rotates clockwise by 180°.
+     * The value 3 indicates that the screen of the display rotates clockwise by 270°.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop rotation: UInt32 {
@@ -616,13 +576,10 @@ public class Display <: RemoteDataLite {
     }
 
     /**
-    * Display orientation.
-    *
-    * @relation orientation: Orientation
-    */
+     * Display orientation.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop orientation: Orientation {
@@ -634,13 +591,10 @@ public class Display <: RemoteDataLite {
     }
 
     /**
-    * Display width, in pixels.
-    *
-    * @relation width: number
-    */
+     * Display width, in pixels.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop width: Int32 {
@@ -650,13 +604,10 @@ public class Display <: RemoteDataLite {
     }
 
     /**
-    * Display height, in pixels.
-    *
-    * @relation height: number
-    */
+     * Display height, in pixels.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop height: Int32 {
@@ -666,13 +617,10 @@ public class Display <: RemoteDataLite {
     }
 
     /**
-    * Display density, in pixels. which is the scaling coefficient between physical pixels and logical pixels. The value for a low-resolution display is 1.0.
-    *
-    * @relation densityDPI: number
-    */
+     * Display density, in pixels. which is the scaling coefficient between physical pixels and logical pixels. The value for a low-resolution display is 1.0.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop densityDPI: Float32 {
@@ -682,13 +630,10 @@ public class Display <: RemoteDataLite {
     }
 
     /**
-    * Display resolution, that is, the number of pixels per inch.
-    *
-    * @relation densityPixels: number
-    */
+     * Display resolution, that is, the number of pixels per inch.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop densityPixels: Float32 {
@@ -698,13 +643,10 @@ public class Display <: RemoteDataLite {
     }
 
     /**
-    * Text scale density of the display.
-    *
-    * @relation scaledDensity: number
-    */
+     * Text scale density of the display.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop scaledDensity: Float32 {
@@ -714,13 +656,10 @@ public class Display <: RemoteDataLite {
     }
 
     /**
-    * DPI on the x-axis.
-    *
-    * @relation xDPI: number
-    */
+     * DPI on the x-axis.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop xDPI: Float32 {
@@ -730,13 +669,10 @@ public class Display <: RemoteDataLite {
     }
 
     /**
-    * DPI on the y-axis.
-    *
-    * @relation yDPI: number
-    */
+     * DPI on the y-axis.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop yDPI: Float32 {
@@ -755,16 +691,15 @@ public class Display <: RemoteDataLite {
     }
 
     /**
-    * Obtain the cutout info of the display.
-    *
-    * @throws { BusinessException } 1400001 - Invalid display or screen.
-    * @throws { BusinessException } 1400003 - This display manager service works abnormally.
-    * @relation getCutoutInfo(): Promise<CutoutInfo>
-    */
+     * Obtain the cutout info of the display.
+     *
+     * @throws { BusinessException } 1400001 - Invalid display or screen.
+     * @throws { BusinessException } 1400003 - This display manager service works abnormally.
+     */
     @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+        22,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core",
+        workerthread: true
     ]
     public func getCutoutInfo(): CutoutInfo {
         let retData = unsafe {
@@ -777,7 +712,7 @@ public class Display <: RemoteDataLite {
         let ptr = unsafe { CPointer<CCutoutInfo>(retData.data) }
         if (ptr.isNull()) {
             unsafe { LibC.free(retData.data) }
-            throw IllegalMemoryException("Failed to create target pointer type")
+            throw BusinessException(100001, "Internal error: Failed to create target pointer type")
         }
         let cutoutInfo = unsafe { ptr.read() }
         let ret = CutoutInfo(cutoutInfo)
