@@ -11,33 +11,25 @@ Framework architecture:
 
 ![Cangjie window wrapper](./figures/window_window_cangjie_wrapper_en.png)
 
-As illustrated in the architecture:
+As shown in the architecture diagram:
 
-Interface Layer: Provides a window declaration interface for developers.
+**Interface Layer**: Provides interface declarations for developers.
+-   **Window**: Offers fundamental capabilities for window management, including creating and destroying the current window, setting various properties, and managing/scheduling interactions between different windows.
+-   **Display**: Provides basic capabilities for managing display devices, including retrieving information about the default display device, obtaining information for all display devices, and monitoring the connection and removal of display devices.
 
-- Window: The current window instance, which is the basic unit managed by the window manager. It includes the creation, destruction, and configuration of various properties of the current window.
+**Framework Layer**: Implements Cangjie window management and display device management by encapsulating underlying window services and display device management services.
+-   **Window Wrapper**: The Cangjie module implements window management capabilities, connecting to the window subsystem via Cangjie C-language interoperation.
+-   **Display Wrapper**: The Cangjie module implements screen property management capabilities, connecting to the window subsystem via Cangjie C-language interoperation.
 
-- WindowStage: The window manager, used to manage Window instances.
+**Description of Dependent Components in the Architecture Diagram:**
 
-- Display: Manages screen properties and provides basic capabilities for handling display devices, including retrieving information about the default display device, obtaining information about all display devices, and monitoring the plugging and unplugging of display devices.
-
-Framework Layer: Based on the underlying window service and display device management service, it encapsulates and implements the Cangjie window management and display device management.
-
-- Window Wrapper: Implemented in Cangjie to encapsulate window instances, interfacing with the window subsystem via Cangjie's C language interoperation.
-
-- WindowStage Wrapper: Implemented in Cangjie to encapsulate the window manager, interfacing with the window subsystem via Cangjie's C language interoperation.
-
-- Display Wrapper: Implemented in Cangjie to encapsulate screen property management capabilities, interfacing with the window subsystem via Cangjie's C language interoperation.
-
-Dependency Component Introduction in the Architecture:
-
-- window_window_manager: The encapsulation of Cangjie interfaces relies on the window services and display device services provided by the Window Management.
-- ability_ability_runtime: It depends on the BaseContext query capability provided by Ability Runtime.
-- arkui_cangjie_wrapper: Relies on the basic types provided by arkui_cangjie_wrapper.
-- ability_cangjie_wrapper: Relies on the AbilityContext interface provided by ability_cangjie_wrapper.
-- cangjie_ark_interop: Relies on the API Level capability provided by the cangjie_ark_interop for API management.
-- multimedia_cangjie_wrapper: Relies on the Image interface provided by multimedia_cangjie_wrapper.
-- hiviewdfx_cangjie_wrapper: Relies on the Hilog interface provided by hiviewdfx_cangjie_wrapper.
+-   **window_manager**: The Cangjie interface encapsulation relies on the window services and display device services provided by the window subsystem.
+-   **ability_runtime**: The Window Wrapper relies on the BaseContext query capability provided by the Ability Runtime subsystem.
+-   **arkui_cangjie_wrapper**: The Window Wrapper and Display Wrapper encapsulation rely on the basic types provided by the arkui_cangjie_wrapper.
+-   **ability_cangjie_wrapper**: The Window Wrapper relies on the interface for obtaining AbilityContext provided by the ability_cangjie_wrapper.
+-   **cangjie_ark_interop**: The Window Wrapper and Display Wrapper encapsulation rely on the APILevel capability provided by cangjie_ark_interop for API management.
+-   **multimedia_cangjie_wrapper**: The Window Wrapper relies on the image processing capabilities provided by the multimedia_cangjie_wrapper.
+-   **hiviewdfx_cangjie_wrapper**: The Window Wrapper and Display Wrapper encapsulation rely on the Hilog logging capability provided by the hiviewdfx_cangjie_wrapper.
 
 ## Directory Structure<a name="section1791423143211"></a>
 
@@ -52,24 +44,20 @@ foundation/window/window_cangjie_wrapper/
 
 ## When to Use<a name="section171384529150"></a>
 
-Window Cangjie Interface, provide Widnow manage and Display manage API.
+The Cangjie Window module currently provides functionality related to windows and screen properties.
 
-The following features are provided:
-- Window API: Obtain window instance, pelease refer to [Window](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/API_Reference/source_en/arkui-cj/cj-apis-window.md).
-- WindowStage API: Manage window units.
-- Display API: manage display devices, obtain all display devices info and subscribe display devices
+The scope of capabilities includes:
+- **Window**: Provides fundamental capabilities for managing windows, including creating and destroying the current window, setting various properties, and managing/scheduling interactions between windows.
+- **Display**: Offers basic capabilities for managing display devices, including retrieving information about the default display device, obtaining information for all display devices, and monitoring the connection and removal of display devices.
+
+For window-related APIs, please refer to the [Cangjie Window API Documentation](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/API_Reference/source_en/arkui-cj/cj-apis-window.md). For related guides, please see the [Window Development Guide](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/Dev_Guide/source_en/windowmanager/application-window-stage.md).
 
 ## Limitation
 
-The following features are not provided yet:
-- Pipwindow: provides basic APIs for manipulating Picture in Picture (PiP)
-- Screenshot: provides the screen capture capability
-
-## Developer Document<a name="section171384529152"></a>
-
-[API Document](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/API_Reference/source_en/arkui-cj/cj-apis-window.md)
-
-[Develop Guide](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/Dev_Guide/summary_cjnative_ohos_EN.md)
+Compared to ArkTS, the following capabilities are not yet available:  
+- Picture-in-picture window: Provides basic picture-in-picture functionality, including determining whether the current system supports picture-in-picture and creating a picture-in-picture controller to start or stop picture-in-picture. For details, refer to [Picture-in-Picture Window](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/reference/apis-arkui/js-apis-pipWindow.md).  
+- Floating ball window: Offers basic floating ball functionality, including determining whether the device supports the floating ball feature and creating a floating ball controller to start, update, or stop the floating ball. For details, refer to [Floating Ball Window](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/reference/apis-arkui/js-apis-floatingBall.md).  
+- Screenshot: Provides screenshot capability. For details, refer to [Screenshot](https://gitcode.com/openharmony/docs/blob/master/en/application-dev/reference/apis-arkui/js-apis-screenshot.md).
 
 ## How to Contribute<a name="section171384529153"></a>
 
