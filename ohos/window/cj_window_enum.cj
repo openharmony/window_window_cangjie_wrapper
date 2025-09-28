@@ -24,7 +24,7 @@ import std.deriving.Derive
  */
  @Derive[Equatable]
 @!APILevel[
-    since: "21",
+    since: "22",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum WindowType {
@@ -34,7 +34,7 @@ public enum WindowType {
     * @relation TYPE_APP = 0
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     TypeApp
@@ -46,7 +46,7 @@ public enum WindowType {
     * @relation TYPE_FLOAT = 8
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     TypeFloat
@@ -57,7 +57,7 @@ public enum WindowType {
     * @relation TYPE_DIALOG= 16
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     TypeDialog
@@ -90,7 +90,7 @@ public enum WindowType {
 */
 @Derive[Equatable]
 @!APILevel[
-    since: "21",
+    since: "22",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum Orientation {
@@ -100,7 +100,7 @@ public enum Orientation {
     * @relation UNSPECIFIED = 0
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Unspecified
@@ -111,7 +111,7 @@ public enum Orientation {
     * @relation PORTRAIT = 1
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Portrait
@@ -122,7 +122,7 @@ public enum Orientation {
     * @relation LANDSCAPE = 2
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Landscape
@@ -133,7 +133,7 @@ public enum Orientation {
     * @relation PORTRAIT_INVERTED = 3
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     PortraitInverted
@@ -144,7 +144,7 @@ public enum Orientation {
     * @relation LANDSCAPE_INVERTED = 4
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     LandscapeInverted
@@ -155,7 +155,7 @@ public enum Orientation {
     * @relation AUTO_ROTATION = 5
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     AutoRotation
@@ -166,7 +166,7 @@ public enum Orientation {
     * @relation AUTO_ROTATION_PORTRAIT = 6
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     AutoRotationPortrait
@@ -177,7 +177,7 @@ public enum Orientation {
     * @relation AUTO_ROTATION_LANDSCAPE = 7
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     AutoRotationLandscape
@@ -188,7 +188,7 @@ public enum Orientation {
     * @relation AUTO_ROTATION_RESTRICTED = 8
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     AutoRotationRestricted
@@ -199,7 +199,7 @@ public enum Orientation {
     * @relation AUTO_ROTATION_PORTRAIT_RESTRICTED = 9
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     AutoRotationPortraitRestricted
@@ -210,7 +210,7 @@ public enum Orientation {
     * @relation AUTO_ROTATION_LANDSCAPE_RESTRICTED = 10
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     AutoRotationLandscapeRestricted
@@ -221,7 +221,7 @@ public enum Orientation {
     * @relation LOCKED = 11
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Locked
@@ -271,7 +271,7 @@ public enum Orientation {
 */
 @Derive[Equatable]
 @!APILevel[
-    since: "21",
+    since: "22",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum AvoidAreaType {
@@ -281,7 +281,7 @@ public enum AvoidAreaType {
     * @relation Default area of the system
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     TypeSystem
@@ -292,7 +292,7 @@ public enum AvoidAreaType {
     * @relation TYPE_CUTOUT = 1
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     TypeCutout
@@ -303,7 +303,7 @@ public enum AvoidAreaType {
     * @relation TYPE_SYSTEM_GESTURE = 2
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     TypeSystemGesture
@@ -314,7 +314,7 @@ public enum AvoidAreaType {
     * @relation TYPE_KEYBOARD = 3
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     TypeKeyboard
@@ -325,7 +325,7 @@ public enum AvoidAreaType {
     * @relation TYPE_NAVIGATION_INDICATOR = 4
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     TypeNavigationIndicator
@@ -361,7 +361,7 @@ public enum AvoidAreaType {
 */
 @Derive[Equatable]
 @!APILevel[
-    since: "21",
+    since: "22",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum WindowEventType {
@@ -371,7 +371,7 @@ public enum WindowEventType {
     * @relation WINDOW_SHOWN = 1
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowShown
@@ -382,7 +382,7 @@ public enum WindowEventType {
     * @relation WINDOW_ACTIVE = 2
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowActive
@@ -393,7 +393,7 @@ public enum WindowEventType {
     * @relation WINDOW_INACTIVE = 3
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowInactive
@@ -404,7 +404,7 @@ public enum WindowEventType {
     * @relation WINDOW_HIDDEN = 4
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowHidden
@@ -415,7 +415,7 @@ public enum WindowEventType {
     * @relation WINDOW_DESTROYED = 7
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.Window.SessionManager"
     ]
     WindowDestroyed
@@ -451,7 +451,7 @@ public enum WindowEventType {
 */
 @Derive[Equatable]
 @!APILevel[
-    since: "21",
+    since: "22",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum WindowStageEventType {
@@ -461,7 +461,7 @@ public enum WindowStageEventType {
     * @relation SHOWN = 1
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Shown
@@ -472,7 +472,7 @@ public enum WindowStageEventType {
     * @relation ACTIVE = 2
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Active
@@ -483,7 +483,7 @@ public enum WindowStageEventType {
     * @relation INACTIVE = 3
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Inactive
@@ -494,7 +494,7 @@ public enum WindowStageEventType {
     * @relation HIDDEN = 4
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Hidden
@@ -505,7 +505,7 @@ public enum WindowStageEventType {
     * @relation RESUMED = 5
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Resumed
@@ -516,7 +516,7 @@ public enum WindowStageEventType {
     * @relation PAUSED = 6
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Paused
@@ -554,7 +554,7 @@ public enum WindowStageEventType {
 */
 @Derive[Equatable]
 @!APILevel[
-    since: "21",
+    since: "22",
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public enum WindowStatusType {
@@ -564,7 +564,7 @@ public enum WindowStatusType {
     * @relation UNDEFINED = 0
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.Window.SessionManager"
     ]
     Undefined
@@ -575,7 +575,7 @@ public enum WindowStatusType {
     * @relation FULL_SCREEN = 1
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.Window.SessionManager"
     ]
     FullScreen
@@ -586,7 +586,7 @@ public enum WindowStatusType {
     * @relation MAXIMIZE = 2
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.Window.SessionManager"
     ]
     Maximize
@@ -597,7 +597,7 @@ public enum WindowStatusType {
     * @relation MINIMIZE = 3
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.Window.SessionManager"
     ]
     Minimize
@@ -608,7 +608,7 @@ public enum WindowStatusType {
     * @relation FLOATING = 4
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.Window.SessionManager"
     ]
     Floating
@@ -619,7 +619,7 @@ public enum WindowStatusType {
     * @relation SPLIT_SCREEN = 5
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.Window.SessionManager"
     ]
     SplitScreen
@@ -657,7 +657,7 @@ public enum WindowStatusType {
 */
 @Derive[Equatable]
 @!APILevel[
-    since: "21",
+    since: "22",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum ColorSpace {
@@ -667,7 +667,7 @@ public enum ColorSpace {
     * @relation DEFAULT = 0
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Default
@@ -678,7 +678,7 @@ public enum ColorSpace {
     * @relation WIDE_GAMUT = 1
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WideGamut
@@ -707,7 +707,7 @@ public enum ColorSpace {
 */
 @Derive[Equatable]
 @!APILevel[
-    since: "21",
+    since: "22",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum WindowCallbackType {
@@ -715,7 +715,7 @@ public enum WindowCallbackType {
     * indicating the window stage lifecycle change event.
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowStageEvent
@@ -724,7 +724,7 @@ public enum WindowCallbackType {
     * indicating the window size change event.
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowSizeChange
@@ -733,7 +733,7 @@ public enum WindowCallbackType {
     * indicating the event of changes to the avoid area.
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowAvoidAreaChange
@@ -742,7 +742,7 @@ public enum WindowCallbackType {
     * indicating the keyboard height change event.
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     KeyboardHeightChange
@@ -751,7 +751,7 @@ public enum WindowCallbackType {
     * indicating the click event outside this window.
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     TouchOutside
@@ -760,7 +760,7 @@ public enum WindowCallbackType {
     * indicating the window visibility change.
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowVisibilityChange
@@ -769,7 +769,7 @@ public enum WindowCallbackType {
     * indicating the window has no interaction for a long time.
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     NoInteractionDetected
@@ -778,7 +778,7 @@ public enum WindowCallbackType {
     * indicating the screenshot event.
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Screenshot
@@ -787,7 +787,7 @@ public enum WindowCallbackType {
     * indicating the click event of the target window in the modal window mode.
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     DialogTargetTouch
@@ -796,7 +796,7 @@ public enum WindowCallbackType {
     * indicating the window lifecycle change event.
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowEvent
@@ -805,7 +805,7 @@ public enum WindowCallbackType {
     * indicating the window status change event.
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowStatusChange
@@ -814,7 +814,7 @@ public enum WindowCallbackType {
     * indicating the child window close event.
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     SubWindowClose
@@ -823,7 +823,7 @@ public enum WindowCallbackType {
     * indicating the title buttons area change event.
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowTitleButtonRectChange
@@ -832,7 +832,7 @@ public enum WindowCallbackType {
     * indicating the window rect change event.
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     WindowRectChange
@@ -864,7 +864,7 @@ public enum WindowCallbackType {
 */
 @Derive[Equatable]
 @!APILevel[
-    since: "21",
+    since: "22",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum SystemBarType {
@@ -872,7 +872,7 @@ public enum SystemBarType {
     * status bar
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Status
@@ -881,7 +881,7 @@ public enum SystemBarType {
     * navigation
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Navigation

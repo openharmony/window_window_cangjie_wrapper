@@ -152,7 +152,7 @@ let registerMutex = Mutex()
 * @relation export function findWindow(name: string): Window
 */
 @!APILevel[
-    since: "21",
+    since: "22",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public func findWindow(name: String): Window {
@@ -182,7 +182,7 @@ public func findWindow(name: String): Window {
 * @relation export function createWindow(config: Configuration): Promise<Window>
 */
 @!APILevel[
-    since: "21",
+    since: "22",
     permission: "ohos.permission.SYSTEM_FLOAT_WINDOW",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
@@ -217,7 +217,7 @@ public func createWindow(config: Configuration): Window {
 * @relation export function getLastWindow(ctx: BaseContext): Promise<Window>
 */
 @!APILevel[
-    since: "21",
+    since: "22",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public func getLastWindow(ctx: BaseContext): Window {
@@ -249,7 +249,7 @@ public func getLastWindow(ctx: BaseContext): Window {
 * @relation export function shiftAppWindowFocus(sourceWindowId: number, targetWindowId: number): Promise<void>
 */
 @!APILevel[
-    since: "21",
+    since: "22",
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func shiftAppWindowFocus(sourceWindowId: Int32, targetWindowId: Int32): Unit {
@@ -265,7 +265,7 @@ public func shiftAppWindowFocus(sourceWindowId: Int32, targetWindowId: Int32): U
 * @relation export interface Window
 */
 @!APILevel[
-    since: "21",
+    since: "22",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class Window <: RemoteDataLite {
@@ -307,7 +307,7 @@ public class Window <: RemoteDataLite {
     * @relation showWindow(): Promise<void>
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func showWindow(): Unit {
@@ -326,7 +326,7 @@ public class Window <: RemoteDataLite {
     * @relation moveWindowTo(x: number, y: number): Promise<void>
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func moveWindowTo(x: Int32, y: Int32): Unit {
@@ -345,7 +345,7 @@ public class Window <: RemoteDataLite {
     * @relation resize(width: number, height: number): Promise<void>
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func resize(width: UInt32, height: UInt32): Unit {
@@ -363,7 +363,7 @@ public class Window <: RemoteDataLite {
     * @relation getWindowProperties(): WindowProperties
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func getWindowProperties(): WindowProperties {
@@ -383,7 +383,7 @@ public class Window <: RemoteDataLite {
     * @relation destroyWindow(): Promise<void>
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func destroyWindow(): Unit {
@@ -401,7 +401,7 @@ public class Window <: RemoteDataLite {
     * @relation setWindowLayoutFullScreen(isLayoutFullScreen: boolean): Promise<void>
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowLayoutFullScreen(isLayoutFullScreen: Bool): Unit {
@@ -419,7 +419,7 @@ public class Window <: RemoteDataLite {
     * @relation isWindowSupportWideGamut(): Promise<boolean>
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func isWindowSupportWideGamut(): Bool {
@@ -439,7 +439,7 @@ public class Window <: RemoteDataLite {
     * @relation isWindowShowing(): boolean
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func isWindowShowing(): Bool {
@@ -462,7 +462,7 @@ public class Window <: RemoteDataLite {
     * @relation setWindowBackgroundColor(color: string | ColorMetrics): void
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowBackgroundColor(color: String): Unit {
@@ -482,7 +482,7 @@ public class Window <: RemoteDataLite {
     * @relation setWindowBrightness(brightness: number): Promise<void>
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowBrightness(brightness: Float32): Unit {
@@ -500,7 +500,7 @@ public class Window <: RemoteDataLite {
     * @relation setWindowFocusable(isFocusable: boolean): Promise<void>
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowFocusable(isFocusable: Bool): Unit {
@@ -518,7 +518,7 @@ public class Window <: RemoteDataLite {
     * @relation setWindowKeepScreenOn(isKeepScreenOn: boolean): Promise<void>
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowKeepScreenOn(isKeepScreenOn: Bool): Unit {
@@ -536,7 +536,7 @@ public class Window <: RemoteDataLite {
     * @relation setWindowPrivacyMode(isPrivacyMode: boolean): Promise<void>
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         permission: "ohos.permission.PRIVACY_WINDOW",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -555,7 +555,7 @@ public class Window <: RemoteDataLite {
     * @relation setWindowTouchable(isTouchable: boolean): Promise<void>
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowTouchable(isTouchable: Bool): Unit {
@@ -577,7 +577,7 @@ public class Window <: RemoteDataLite {
     * @relation setPreferredOrientation(orientation: Orientation): Promise<void>
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setPreferredOrientation(orientation: Orientation): Unit {
@@ -597,7 +597,7 @@ public class Window <: RemoteDataLite {
     * @relation getWindowAvoidArea(type: AvoidAreaType): AvoidArea
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func getWindowAvoidArea(areaType: AvoidAreaType): AvoidArea {
@@ -619,7 +619,7 @@ public class Window <: RemoteDataLite {
     * @relation setAspectRatio(ratio: number): Promise<void>
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setAspectRatio(ratio: Float64): Unit {
@@ -635,7 +635,7 @@ public class Window <: RemoteDataLite {
     * @relation resetAspectRatio(): Promise<void>
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func resetAspectRatio(): Unit {
@@ -651,7 +651,7 @@ public class Window <: RemoteDataLite {
     * @relation setWindowColorSpace(colorSpace: ColorSpace): Promise<void>
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowColorSpace(colorSpace: ColorSpace): Unit {
@@ -670,7 +670,7 @@ public class Window <: RemoteDataLite {
     * @relation minimize(): Promise<void>
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.Window.SessionManager"
     ]
     public func minimize(): Unit {
@@ -688,7 +688,7 @@ public class Window <: RemoteDataLite {
     * @relation getWindowColorSpace(): ColorSpace
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func getWindowColorSpace(): ColorSpace {
@@ -708,7 +708,7 @@ public class Window <: RemoteDataLite {
     * @relation snapshot(): Promise<image.PixelMap>
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func snapshot(): PixelMap {
@@ -728,7 +728,7 @@ public class Window <: RemoteDataLite {
     * @relation setWindowSystemBarEnable(names: Array<'status' | 'navigation'>): Promise<void>
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowSystemBarEnable(names: Array<SystemBarType>): Unit {
@@ -752,7 +752,7 @@ public class Window <: RemoteDataLite {
     * @relation setWindowSystemBarProperties(systemBarProperties: SystemBarProperties): Promise<void>
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowSystemBarProperties(systemBarProperties: SystemBarProperties): Unit {
@@ -792,7 +792,7 @@ public class Window <: RemoteDataLite {
     * @relation on(type: 'keyboardHeightChange', callback: Callback<number>): void
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func on(callbackType: WindowCallbackType, callback: Callback1Argument<UInt32>): Unit {
@@ -841,7 +841,7 @@ public class Window <: RemoteDataLite {
     * @relation off(type: 'keyboardHeightChange', callback?: Callback<number>): void
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func off(callbackType: WindowCallbackType, callback: Callback1Argument<UInt32>): Unit {
@@ -860,7 +860,7 @@ public class Window <: RemoteDataLite {
     *                                                                      3. Parameter verification failed.
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func off(callbackType: WindowCallbackType): Unit {

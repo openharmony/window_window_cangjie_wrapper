@@ -43,7 +43,7 @@ struct CRect {
 * @relation interface Rect
 */
 @!APILevel[
-    since: "21",
+    since: "22",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class Rect {
@@ -53,7 +53,7 @@ public class Rect {
     * @relation left: number
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var left: Int32
@@ -63,7 +63,7 @@ public class Rect {
     * @relation top: number
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var top: Int32
@@ -73,7 +73,7 @@ public class Rect {
     * @relation width: number
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var width: UInt32
@@ -83,7 +83,7 @@ public class Rect {
     * @relation height: number
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var height: UInt32
@@ -92,7 +92,7 @@ public class Rect {
     * Rect constructor.
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public init(
@@ -131,7 +131,7 @@ struct CWaterfallDisplayAreaRects {
 * @relation export interface WaterfallDisplayAreaRects
 */
 @!APILevel[
-    since: "21",
+    since: "22",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class WaterfallDisplayAreaRects {
@@ -141,7 +141,7 @@ public class WaterfallDisplayAreaRects {
     * @relation readonly left: Rect
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public let left: Rect
@@ -151,7 +151,7 @@ public class WaterfallDisplayAreaRects {
     * @relation readonly top: Rect
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public let top: Rect
@@ -161,7 +161,7 @@ public class WaterfallDisplayAreaRects {
     * @relation readonly right: Rect
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public let right: Rect
@@ -171,7 +171,7 @@ public class WaterfallDisplayAreaRects {
     * @relation readonly bottom: Rect
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public let bottom: Rect
@@ -180,7 +180,7 @@ public class WaterfallDisplayAreaRects {
     * WaterfallDisplayAreaRects constructor.
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public init(
@@ -218,7 +218,7 @@ struct CCutoutInfo {
 * @relation export interface CutoutInfo
 */
 @!APILevel[
-    since: "21",
+    since: "22",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class CutoutInfo {
@@ -228,7 +228,7 @@ public class CutoutInfo {
     * @relation readonly boundingRects: Array<Rect>
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public let boundingRects: Array<Rect>
@@ -238,7 +238,7 @@ public class CutoutInfo {
     * @relation readonly waterfallDisplayAreaRects: WaterfallDisplayAreaRects
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public let waterfallDisplayAreaRects: WaterfallDisplayAreaRects
@@ -247,7 +247,7 @@ public class CutoutInfo {
     * CutoutInfo constructor.
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public init(
@@ -282,7 +282,7 @@ struct CFoldCreaseRegion {
 * @relation export interface FoldCreaseRegion
 */
 @!APILevel[
-    since: "21",
+    since: "22",
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public class FoldCreaseRegion {
@@ -292,7 +292,7 @@ public class FoldCreaseRegion {
     * @relation readonly displayId: number
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.Window.SessionManager"
     ]
     public let displayId: UInt32
@@ -302,7 +302,7 @@ public class FoldCreaseRegion {
     * @relation readonly creaseRects: Array<Rect>
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.Window.SessionManager"
     ]
     public let creaseRects: Array<Rect>
@@ -311,7 +311,7 @@ public class FoldCreaseRegion {
     * FoldCreaseRegion constructor.
     */
     @!APILevel[
-        since: "21",
+        since: "22",
         syscap: "SystemCapability.Window.SessionManager"
     ]
     public init(
