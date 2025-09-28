@@ -23,7 +23,7 @@ import std.deriving.Derive
  * The type of a window.
  *
  */
- @Derive[Equatable]
+@Derive[Equatable]
 @!APILevel[
     22,
     stagemodelonly: true,
@@ -38,6 +38,15 @@ public enum WindowType {
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     TypeApp
+    |
+    /**
+    * System alert.
+    */
+    @!APILevel[
+        22,
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    TypeSystemAlert
     |
     /**
     * Float.
@@ -62,6 +71,7 @@ public enum WindowType {
     func getValue(): UInt32 {
         return match (this) {
             case TypeApp => 0
+            case TypeSystemAlert => 1
             case TypeFloat => 8
             case TypeDialog => 16
             case _ => throw BusinessException(100001, "Internal error.")
@@ -71,6 +81,7 @@ public enum WindowType {
     static func parse(val: UInt32) {
         match (val) {
             case 0 => TypeApp
+            case 1 => TypeSystemAlert
             case 8 => TypeFloat
             case 16 => TypeDialog
             case 32 => TypeApp
