@@ -121,7 +121,7 @@ func findCallbackObject(list: ArrayList<(CallbackObject, Int64)>, callback: Call
 /**
  * Obtain the default display.
  *
- * @returns { Display } the result of display
+ * @returns { Display } the result of display.
  * @throws { BusinessException } 1400001 - Invalid display or screen.
  * @throws { BusinessException } 1400003 - This display manager service works abnormally.
  */
@@ -146,7 +146,7 @@ public func getDefaultDisplaySync(): Display {
 /**
  * Obtain all displays.
  *
- * @returns { Array<Display> } the result of all displays
+ * @returns { Array<Display> } the result of all displays.
  * @throws { BusinessException } 1400001 - Invalid display or screen.
  * @throws { BusinessException } 1400003 - This display manager service works abnormally.
  */
@@ -251,7 +251,7 @@ public func getCurrentFoldCreaseRegion(): FoldCreaseRegion {
 /**
  * Disables all listeners for display device changes.
  *
- * @param {ListenerType} listenerType - Type of listening event
+ * @param { ListenerType } listenerType - Type of listening event.
  */
 @!APILevel[
     22,
@@ -284,8 +284,8 @@ func offAllCallback(callbackType: String): Unit {
 /**
  * Register the callback for fold status changes.
  *
- * @param {ListenerType} listenerType - the event of fold status changes
- * @param {Callback1Argument<FoldStatus>} callback - Callback used to return the current fold status of device
+ * @param { ListenerType } listenerType - the event of fold status changes.
+ * @param { Callback1Argument<FoldStatus> } callback - Callback used to return the current fold status of device.
  * @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified.
  *                                                                       2. Incorrect parameter types.
  * @throws { BusinessException } 1400003 - This display manager service works abnormally.
@@ -335,8 +335,8 @@ func onFoldStatusChange(callbackType: String, callback: Callback1Argument<FoldSt
 /**
  * Unregister the callback for fold status changes.
  *
- * @param {ListenerType} listenerType - the event of fold status change
- * @param {Callback1Argument<FoldStatus>} callback - Callback used to return the current fold status of device
+ * @param { ListenerType } listenerType - the event of fold status change.
+ * @param { Callback1Argument<FoldStatus> } callback - Callback used to return the current fold status of device.
  * @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified.
  *                                                                       2. Incorrect parameter types.
  * @throws { BusinessException } 1400003 - This display manager service works abnormally.
@@ -382,8 +382,8 @@ func offFoldStatusChange(callbackType: String, callback: Callback1Argument<FoldS
 /**
  * Register the callback for fold display mode changes.
  *
- * @param {ListenerType} listenerType - the event of fold display mode changes
- * @param {Callback1Argument<FoldStatus>} callback - Callback used to return the current fold display mode
+ * @param { ListenerType } listenerType - the event of fold status change.
+ * @param { Callback1Argument<FoldDisplayMode> } callback - Callback used to return the current fold status of device.
  * @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified.
  *                                                                       2. Incorrect parameter types.
  * @throws { BusinessException } 1400003 - This display manager service works abnormally.
@@ -433,8 +433,8 @@ func onFoldDisplayModeChange(callbackType: String, callback: Callback1Argument<F
 /**
  * Unregister the callback for fold display mode changes.
  *
- * @param {ListenerType} listenerType - the event of fold display mode changes
- * @param {Callback1Argument<FoldStatus>} callback - Callback used to return the current fold display mode
+ * @param { ListenerType } listenerType - the event of fold status change.
+ * @param { Callback1Argument<FoldDisplayMode> } callback - Callback used to return the current fold status of device.
  * @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified.
  *                                                                       2. Incorrect parameter types.
  * @throws { BusinessException } 1400003 - This display manager service works abnormally.
@@ -695,6 +695,7 @@ public class Display <: RemoteDataLite {
     /**
      * Obtain the cutout info of the display.
      *
+     * @returns { CutoutInfo }
      * @throws { BusinessException } 1400001 - Invalid display or screen.
      * @throws { BusinessException } 1400003 - This display manager service works abnormally.
      */

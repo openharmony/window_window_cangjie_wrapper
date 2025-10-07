@@ -91,7 +91,7 @@ public enum WindowType {
 }
 
 /**
-* Display orientation
+* Display orientation.
 *
 */
 @Derive[Equatable]
@@ -248,7 +248,7 @@ public enum Orientation {
 }
 
 /**
-* Describes the type of avoid area
+* Describes the type of avoid area.
 *
 */
 @Derive[Equatable]
@@ -328,7 +328,7 @@ public enum AvoidAreaType {
 }
 
 /**
-* Enum for window callback event type
+* Enum for window callback event type.
 *
 */
 @Derive[Equatable]
@@ -408,7 +408,7 @@ public enum WindowEventType {
 }
 
 /**
-* Window stage callback event type
+* Window stage callback event type.
 *
 */
 @Derive[Equatable]
@@ -499,7 +499,7 @@ public enum WindowStageEventType {
 }
 
 /**
-* Describes the window status of an application
+* Describes the window status of an application.
 *
 */
 @Derive[Equatable]
@@ -637,7 +637,7 @@ public enum ColorSpace {
 }
 
 /**
-* Enumerates of listening event
+* Enumerates of listening event.
 */
 @Derive[Equatable]
 @!APILevel[
@@ -795,7 +795,7 @@ public enum WindowCallbackType {
 }
 
 /**
-* Enumerates of system bar type
+* Enumerates of system bar type.
 */
 @Derive[Equatable]
 @!APILevel[

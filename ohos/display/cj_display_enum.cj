@@ -305,7 +305,7 @@ public enum FoldDisplayMode {
 }
 
 /**
-* Enumerates of listening event
+* Enumerates of listening event.
 */
 @Derive[Equatable]
 @!APILevel[

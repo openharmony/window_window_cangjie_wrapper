@@ -40,7 +40,7 @@ struct CRect {
 }
 
 /**
- * Rectangle
+ * Rectangle.
  *
  */
 @!APILevel[
@@ -84,6 +84,11 @@ public class Rect {
 
     /**
      * Rect constructor.
+     * @params { Int32 } left
+     * @params { Int32 } top
+     * @params { UInt32 } width
+     * @params { UInt32 } height
+     * @returns { This }
      */
     @!APILevel[
         22,
@@ -163,6 +168,11 @@ public class WaterfallDisplayAreaRects {
 
     /**
      * WaterfallDisplayAreaRects constructor.
+     * @params { Rect } left
+     * @params { Rect } top
+     * @params { Rect } right
+     * @params { Rect } bottom
+     * @returns { This }
      */
     @!APILevel[
         22,
@@ -225,6 +235,9 @@ public class CutoutInfo {
 
     /**
      * CutoutInfo constructor.
+     * @params { Array<Rect> } boundingRects
+     * @params { WaterfallDisplayAreaRects } waterfallDisplayAreaRects
+     * @returns { This }
      */
     @!APILevel[
         22,
@@ -257,7 +270,7 @@ struct CFoldCreaseRegion {
 }
 
 /**
- * Fold Crease Region
+ * Fold Crease Region.
  *
  */
 @!APILevel[
@@ -284,6 +297,9 @@ public class FoldCreaseRegion {
 
     /**
      * FoldCreaseRegion constructor.
+     * @params { UInt32 } displayId
+     * @params { Array<Rect> } creaseRects
+     * @returns { This }
      */
     @!APILevel[
         22,
