@@ -1,4 +1,4 @@
-# Window Cangjie Wrapper<a name="EN-US_TOPIC_0000001076213364"></a>
+# Window Cangjie Wrapper(beta feature)<a name="EN-US_TOPIC_0000001076213364"></a>
 
 
 ## Introduction<a name="section15701932113019"></a>
