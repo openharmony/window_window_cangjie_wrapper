@@ -167,8 +167,8 @@ public func findWindow(name: String): Window {
 }
 
 /**
- * Create a window with a specific configuration
- * When config.windowType == TYPE_FLOAT, the "ohos.permission.SYSTEM_FLOAT_WINDOW" permission is required
+ * Create a window with a specific configuration.
+ * When config.windowType == TYPE_FLOAT, the "ohos.permission.SYSTEM_FLOAT_WINDOW" permission is required.
  *
  * @param { Configuration } config - Parameters for window creation.
  * @returns { Window } the window created.
@@ -259,7 +259,7 @@ public func shiftAppWindowFocus(sourceWindowId: Int32, targetWindowId: Int32): U
 }
 
 /**
- * Window
+ * Window.
  *
  */
 @!APILevel[
@@ -354,7 +354,7 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-     * Get the properties of current window
+     * Get the properties of current window.
      *
      * @returns { WindowProperties } Return the window properties.
      * @throws { BusinessException } 1300002 - This window state is abnormal.
@@ -393,7 +393,7 @@ public class Window <: RemoteDataLite {
     /**
      * Sets whether the main window layout or the child window layout is immersive.
      *
-     * @param { Bool } isLayoutFullScreen - Whether the window layout is immersive
+     * @param { Bool } isLayoutFullScreen - Whether the window layout is immersive.
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
@@ -431,7 +431,7 @@ public class Window <: RemoteDataLite {
     /**
      * Whether the window supports thr wide gamut setting.
      *
-     * @returns { Bool }  Whether the window is displayed. The value true means that the window is displayed, and false means the opposite.
+     * @returns { Bool } Whether the window is displayed. The value true means that the window is displayed, and false means the opposite.
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
@@ -542,7 +542,7 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-     * Sets whether is touchable or not
+     * Sets whether is touchable or not.
      *
      * @param { Bool } isTouchable is touchable if true, or not if false.
      * @throws { BusinessException } 1300002 - This window state is abnormal.
@@ -580,9 +580,9 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-     * Get the avoid area
+     * Get the avoid area.
      *
-     * @param { AvoidAreaType } areaType - Type of the area
+     * @param { AvoidAreaType } areaType - Type of the area.
      * @returns { AvoidArea } Area where the window cannot be displayed.
      * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified;
      *                                                                      2. Incorrect parameter types;
@@ -604,9 +604,9 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-     * Sets the aspect ratio of window
+     * Sets the aspect ratio of window.
      *
-     * @param { Float64 } ratio - The aspect ratio of window except decoration
+     * @param { Float64 } ratio - The aspect ratio of window except decoration.
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      * @throws { BusinessException } 1300004 - Unauthorized operation.
      */
@@ -621,7 +621,7 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-     * Resets the aspect ratio of window
+     * Resets the aspect ratio of window.
      *
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      * @throws { BusinessException } 1300004 - Unauthorized operation.
@@ -693,7 +693,7 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-     * Obtains snapshot of window
+     * Obtains snapshot of window.
      *
      * @returns { PixelMap } Promise that returns no value.
      * @throws { BusinessException } 1300002 - This window state is abnormal.
@@ -715,7 +715,7 @@ public class Window <: RemoteDataLite {
     /**
      * Sets whether to show the system bar of the main window.
      *
-     * @param { Array<SystemBarType> } names - The set of system bar types
+     * @param { Array<SystemBarType> } names - The set of system bar types.
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
@@ -737,9 +737,9 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-     * Set the properties of system bar
+     * Set the properties of system bar.
      *
-     * @param { SystemBarProperties } systemBarProperties - The properties of system bar
+     * @param { SystemBarProperties } systemBarProperties - The properties of system bar.
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
@@ -773,7 +773,7 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-     * Register the callback of keyboardHeightChange
+     * Register the callback of keyboardHeightChange.
      *
      * @param { WindowCallbackType } callbackType - The value is fixed at KeyboardHeightChange, indicating the keyboard height change event.
      * @param { Callback1Argument<UInt32> } callback - Callback used to return the current keyboard height, which is an integer, in px.
@@ -821,7 +821,7 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-     * Unregister the callback of keyboardHeightChange
+     * Unregister the callback of keyboardHeightChange.
      *
      * @param { WindowCallbackType } callbackType - The value is fixed at KeyboardHeightChange, indicating the keyboard height change event.
      * @param { Callback1Argument<UInt32> } callback - Callback used to return the current keyboard height, which is an integer, in px.
@@ -841,9 +841,9 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-     * Unregister the callback of the specified event
+     * Unregister the callback of the specified event.
      *
-     * @param { WindowCallbackType } callbackType - the event type
+     * @param { WindowCallbackType } callbackType - the event type.
      * @throws { BusinessException } 1300016 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified;
      * <br> 2. Incorrect parameter types;
      * <br> 3. Parameter verification failed.

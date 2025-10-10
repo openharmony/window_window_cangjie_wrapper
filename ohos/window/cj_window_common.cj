@@ -19,7 +19,7 @@ internal import ohos.labels.*
 import ohos.app.ability.BaseContext
 
 /**
- * Window size
+ * Window size.
  *
  */
 @!APILevel[
@@ -46,6 +46,9 @@ public class Size {
 
     /**
      * Size constructor.
+     * @params { UInt32 } width
+     * @params { UInt32 } height
+     * @returns { This }
      */
     @!APILevel[
         22,
@@ -125,6 +128,11 @@ public class TitleButtonRect {
 
     /**
      * TitleButtonRect constructor.
+     * @params { Int32 } right
+     * @params { Int32 } top
+     * @params { UInt32 } width
+     * @params { UInt32 } height
+     * @returns { This }
      */
     @!APILevel[
         22,
@@ -195,7 +203,7 @@ public class Configuration {
     ]
     public var name: String
     /**
-     * Indicates window type
+     * Indicates window type.
      */
     @!APILevel[
         22,
@@ -219,7 +227,7 @@ public class Configuration {
     ]
     public var displayId: Int64 = -1
     /**
-     * Indicates Parent window id
+     * Indicates Parent window id.
      */
     @!APILevel[
         22,
@@ -229,6 +237,12 @@ public class Configuration {
 
     /**
      * Configuration constructor.
+     * @params { String } name
+     * @params { WindowType } windowType
+     * @params { BaseContext } ctx
+     * @params { Int64 } displayId
+     * @params { Int64 } parentId
+     * @returns { This }
      */
     @!APILevel[
         22,
@@ -250,7 +264,7 @@ public class Configuration {
 }
 
 /**
- * Rectangle
+ * Rectangle.
  *
  */
 @!APILevel[
@@ -293,6 +307,11 @@ public class Rect {
 
     /**
      * Rect constructor.
+     * @params { Int32 } left
+     * @params { Int32 } top
+     * @params { UInt32 } width
+     * @params { UInt32 } height
+     * @returns { This }
      */
     @!APILevel[
         22,
@@ -337,7 +356,7 @@ struct CRect {
 }
 
 /**
- * Properties of window, it couldn't update automatically
+ * Properties of window, it couldn't update automatically.
  *
  */
 @!APILevel[
@@ -346,7 +365,7 @@ struct CRect {
 ]
 public class WindowProperties {
     /**
-     * The position and size of the window
+     * The position and size of the window.
      */
     @!APILevel[
         22,
@@ -354,7 +373,7 @@ public class WindowProperties {
     ]
     public var windowRect: Rect
     /**
-     * The position relative to the window and size of drawable area
+     * The position relative to the window and size of drawable area.
      */
     @!APILevel[
         22,
@@ -362,7 +381,7 @@ public class WindowProperties {
     ]
     public var drawableRect: Rect
     /**
-     * Window type
+     * Window type.
      */
     @!APILevel[
         22,
@@ -386,7 +405,7 @@ public class WindowProperties {
     ]
     public var isLayoutFullScreen: Bool
     /**
-     * Whether the window can gain focus. The default value is true
+     * Whether the window can gain focus. The default value is true.
      */
     @!APILevel[
         22,
@@ -394,7 +413,7 @@ public class WindowProperties {
     ]
     public var focusable: Bool
     /**
-     * Whether the window is touchable. The default value is false
+     * Whether the window is touchable. The default value is false.
      */
     @!APILevel[
         22,
@@ -444,6 +463,19 @@ public class WindowProperties {
 
     /**
      * WindowProperties constructor.
+     * @params { Rect } windowRect
+     * @params { Rect } drawableRect
+     * @params { WindowType } winType
+     * @params { Bool } isFullScreen
+     * @params { Bool } isLayoutFullScreen
+     * @params { Bool } focusable
+     * @params { Bool } touchable
+     * @params { Float32 } brightness
+     * @params { Bool } isKeepScreenOn
+     * @params { Bool } isPrivacyMode
+     * @params { Bool } isTransparent
+     * @params { UInt32 } id
+     * @returns { This }
      */
     @!APILevel[
         22,
@@ -505,7 +537,7 @@ struct CWindowProperties {
 }
 
 /**
- * Avoid area
+ * Avoid area.
  *
  */
 @!APILevel[
@@ -514,7 +546,7 @@ struct CWindowProperties {
 ]
 public class AvoidArea {
     /**
-     * Whether avoidArea is visible on screen
+     * Whether avoidArea is visible on screen.
      */
     @!APILevel[
         22,
@@ -522,7 +554,7 @@ public class AvoidArea {
     ]
     public var visible: Bool
     /**
-     * Rectangle on the left of the screen
+     * Rectangle on the left of the screen.
      */
     @!APILevel[
         22,
@@ -530,7 +562,7 @@ public class AvoidArea {
     ]
     public var leftRect: Rect
     /**
-     * Rectangle on the top of the screen
+     * Rectangle on the top of the screen.
      */
     @!APILevel[
         22,
@@ -538,7 +570,7 @@ public class AvoidArea {
     ]
     public var topRect: Rect
     /**
-     * Rectangle on the right of the screen
+     * Rectangle on the right of the screen.
      */
     @!APILevel[
         22,
@@ -546,7 +578,7 @@ public class AvoidArea {
     ]
     public var rightRect: Rect
     /**
-     * Rectangle on the bottom of the screen
+     * Rectangle on the bottom of the screen.
      */
     @!APILevel[
         22,
@@ -556,6 +588,12 @@ public class AvoidArea {
 
     /**
      * AvoidArea constructor.
+     * @params { Bool } visible
+     * @params { Rect } leftRect
+     * @params { Rect } topRect
+     * @params { Rect } rightRect
+     * @params { Rect } bottomRect
+     * @returns { This }
      */
     @!APILevel[
         22,
@@ -601,7 +639,7 @@ struct CAvoidArea {
 }
 
 /**
- * Properties of status bar and navigation bar, it couldn't update automatically
+ * Properties of status bar and navigation bar, it couldn't update automatically.
  *
  */
 @!APILevel[
@@ -626,7 +664,7 @@ public class SystemBarProperties {
     ]
     public var isStatusBarLightIcon: Bool = false
     /**
-     * The content color of the status bar
+     * The content color of the status bar.
      */
     @!APILevel[
         22,
@@ -650,7 +688,7 @@ public class SystemBarProperties {
     ]
     public var isNavigationBarLightIcon: Bool = false
     /**
-     * The content color of the navigation bar
+     * The content color of the navigation bar.
      */
     @!APILevel[
         22,
@@ -676,6 +714,15 @@ public class SystemBarProperties {
 
     /**
      * SystemBarProperties constructor.
+     * @params { String } statusBarColor
+     * @params { Bool } isStatusBarLightIcon
+     * @params { String } statusBarContentColor
+     * @params { String } navigationBarColor
+     * @params { Bool } isNavigationBarLightIcon
+     * @params { String } navigationBarContentColor
+     * @params { Bool } enableStatusBarAnimation
+     * @params { Bool } enableNavigationBarAnimation
+     * @returns { This }
      */
     @!APILevel[
         22,

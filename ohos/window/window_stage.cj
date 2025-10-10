@@ -47,7 +47,7 @@ foreign {
 let stageRegisterMutex = Mutex()
 
 /**
- * WindowStage
+ * WindowStage.
  *
  */
 @!APILevel[
@@ -137,7 +137,7 @@ public class WindowStage <: RemoteDataLite {
      * Loads content from a page to this window. You are advised to call this API during UIAbility startup.
      * If called multiple times, this API will destroy the existing page content (UIContent) before loading the new content. Exercise caution when using it.
      *
-     * @param { String } path - Path of the page to which the content will be loaded
+     * @param { String } path - Path of the page to which the content will be loaded.
      */
     @!APILevel[
         22,
