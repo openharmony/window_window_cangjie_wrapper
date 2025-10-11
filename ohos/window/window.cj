@@ -725,7 +725,7 @@ public class Window <: RemoteDataLite {
         syscap: "SystemCapability.WindowManager.WindowManager.Core",
         workerthread: true
     ]
-    public func setWindowSystemBarEnable(names: Array<SystemBarType>): Unit {
+    public func setWindowSystemBarEnabled(names: Array<SystemBarType>): Unit {
         unsafe {
             let arrNames = Array<String>(names.size, repeat: "")
             for (i in 0..names.size) {

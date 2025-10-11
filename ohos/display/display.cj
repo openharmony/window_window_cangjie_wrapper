@@ -625,7 +625,7 @@ public class Display <: RemoteDataLite {
         22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public prop densityDPI: Float32 {
+    public prop densityDpi: Float32 {
         get() {
             unsafe { FfiOHOSDisplayGetDensityDPI(getID()) }
         }
@@ -664,7 +664,7 @@ public class Display <: RemoteDataLite {
         22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public prop xDPI: Float32 {
+    public prop xDpi: Float32 {
         get() {
             unsafe { FfiOHOSDisplayGetXDPI(getID()) }
         }
@@ -677,7 +677,7 @@ public class Display <: RemoteDataLite {
         22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public prop yDPI: Float32 {
+    public prop yDpi: Float32 {
         get() {
             unsafe { FfiOHOSDisplayGetYDPI(getID()) }
         }
