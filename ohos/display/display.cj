@@ -96,14 +96,14 @@ const EXCEPTION_PARAMCHECK: Int32 = 401
 let REGISTER_MUTEX = Mutex()
 let CALLBACK_MAP = HashMap<String, ArrayList<(CallbackObject, Int64)>>(
     [
-        (ListnerTypeAdd.getValue(), ArrayList<(CallbackObject, Int64)>()),
-        (ListnerTypeRemove.getValue(), ArrayList<(CallbackObject, Int64)>()),
-        (ListnerTypeChange.getValue(), ArrayList<(CallbackObject, Int64)>()),
-        (ListnerTypeFoldStatusChange.getValue(), ArrayList<(CallbackObject, Int64)>()),
-        (ListnerTypeFoldAngleChange.getValue(), ArrayList<(CallbackObject, Int64)>()),
-        (ListnerTypeCaptureStatusChange.getValue(), ArrayList<(CallbackObject, Int64)>()),
-        (ListnerTypeFoldDisplayModeChange.getValue(), ArrayList<(CallbackObject, Int64)>()),
-        (ListnerTypeAvailableAreaChange.getValue(), ArrayList<(CallbackObject, Int64)>())
+        (ListenerTypeAdd.getValue(), ArrayList<(CallbackObject, Int64)>()),
+        (ListenerTypeRemove.getValue(), ArrayList<(CallbackObject, Int64)>()),
+        (ListenerTypeChange.getValue(), ArrayList<(CallbackObject, Int64)>()),
+        (ListenerTypeFoldStatusChange.getValue(), ArrayList<(CallbackObject, Int64)>()),
+        (ListenerTypeFoldAngleChange.getValue(), ArrayList<(CallbackObject, Int64)>()),
+        (ListenerTypeCaptureStatusChange.getValue(), ArrayList<(CallbackObject, Int64)>()),
+        (ListenerTypeFoldDisplayModeChange.getValue(), ArrayList<(CallbackObject, Int64)>()),
+        (ListenerTypeAvailableAreaChange.getValue(), ArrayList<(CallbackObject, Int64)>())
     ]
 )
 
@@ -294,7 +294,7 @@ func offAllCallback(callbackType: String): Unit {
 ]
 public func on(listenerType: ListenerType, callback: Callback1Argument<FoldStatus>): Unit {
     match (listenerType) {
-        case ListnerTypeFoldStatusChange => onFoldStatusChange(listenerType.getValue(), callback)
+        case ListenerTypeFoldStatusChange => onFoldStatusChange(listenerType.getValue(), callback)
         case _ => throw BusinessException(EXCEPTION_PARAMCHECK,
             "Parameter error: ${listenerType.getValue()} is not supported.")
     }
@@ -345,7 +345,7 @@ func onFoldStatusChange(callbackType: String, callback: Callback1Argument<FoldSt
 ]
 public func off(listenerType: ListenerType, callback: Callback1Argument<FoldStatus>): Unit {
     match (listenerType) {
-        case ListnerTypeFoldStatusChange => offFoldStatusChange(listenerType.getValue(), callback)
+        case ListenerTypeFoldStatusChange => offFoldStatusChange(listenerType.getValue(), callback)
         case _ => throw BusinessException(EXCEPTION_PARAMCHECK,
             "Parameter error: ${listenerType.getValue()} is not supported.")
     }
@@ -392,7 +392,7 @@ func offFoldStatusChange(callbackType: String, callback: Callback1Argument<FoldS
 ]
 public func on(listenerType: ListenerType, callback: Callback1Argument<FoldDisplayMode>): Unit {
     match (listenerType) {
-        case ListnerTypeFoldDisplayModeChange => onFoldDisplayModeChange(listenerType.getValue(), callback)
+        case ListenerTypeFoldDisplayModeChange => onFoldDisplayModeChange(listenerType.getValue(), callback)
         case _ => throw BusinessException(EXCEPTION_PARAMCHECK,
             "Parameter error: ${listenerType.getValue()} is not supported.")
     }
@@ -443,7 +443,7 @@ func onFoldDisplayModeChange(callbackType: String, callback: Callback1Argument<F
 ]
 public func off(listenerType: ListenerType, callback: Callback1Argument<FoldDisplayMode>): Unit {
     match (listenerType) {
-        case ListnerTypeFoldDisplayModeChange => offFoldDisplayModeChange(listenerType.getValue(), callback)
+        case ListenerTypeFoldDisplayModeChange => offFoldDisplayModeChange(listenerType.getValue(), callback)
         case _ => throw BusinessException(EXCEPTION_PARAMCHECK,
             "Parameter error: ${listenerType.getValue()} is not supported.")
     }
