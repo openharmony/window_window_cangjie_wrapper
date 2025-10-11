@@ -318,7 +318,7 @@ public enum ListenerType {
         22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
-    ListnerTypeAdd
+    ListenerTypeAdd
     |
     /**
     * remove type the event of display change
@@ -327,7 +327,7 @@ public enum ListenerType {
         22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
-    ListnerTypeRemove
+    ListenerTypeRemove
     |
     /**
     * change type the event of display change
@@ -336,7 +336,7 @@ public enum ListenerType {
         22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
-    ListnerTypeChange
+    ListenerTypeChange
     |
     /**
     * foldStatusChange type the event of display change
@@ -345,7 +345,7 @@ public enum ListenerType {
         22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
-    ListnerTypeFoldStatusChange
+    ListenerTypeFoldStatusChange
     |
     /**
     * foldAngleChange type the event of display change
@@ -354,7 +354,7 @@ public enum ListenerType {
         22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
-    ListnerTypeFoldAngleChange
+    ListenerTypeFoldAngleChange
     |
     /**
     * captureStatusChange type the event of display change
@@ -363,7 +363,7 @@ public enum ListenerType {
         22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
-    ListnerTypeCaptureStatusChange
+    ListenerTypeCaptureStatusChange
     |
     /**
     * foldDisplayModeChange type the event of display change
@@ -372,7 +372,7 @@ public enum ListenerType {
         22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
-    ListnerTypeFoldDisplayModeChange
+    ListenerTypeFoldDisplayModeChange
     |
     /**
     * availableAreaChange type the event of display change
@@ -381,19 +381,19 @@ public enum ListenerType {
         22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
-    ListnerTypeAvailableAreaChange
+    ListenerTypeAvailableAreaChange
     | ...
 
     func getValue(): String {
         return match (this) {
-            case ListnerTypeAdd => "add"
-            case ListnerTypeRemove => "remove"
-            case ListnerTypeChange => "change"
-            case ListnerTypeFoldStatusChange => "foldStatusChange"
-            case ListnerTypeFoldAngleChange => "foldAngleChange"
-            case ListnerTypeCaptureStatusChange => "captureStatusChange"
-            case ListnerTypeFoldDisplayModeChange => "foldDisplayModeChange"
-            case ListnerTypeAvailableAreaChange => "availableAreaChange"
+            case ListenerTypeAdd => "add"
+            case ListenerTypeRemove => "remove"
+            case ListenerTypeChange => "change"
+            case ListenerTypeFoldStatusChange => "foldStatusChange"
+            case ListenerTypeFoldAngleChange => "foldAngleChange"
+            case ListenerTypeCaptureStatusChange => "captureStatusChange"
+            case ListenerTypeFoldDisplayModeChange => "foldDisplayModeChange"
+            case ListenerTypeAvailableAreaChange => "availableAreaChange"
             case _ => throw BusinessException(100001, "Internal error.")
         }
     }
