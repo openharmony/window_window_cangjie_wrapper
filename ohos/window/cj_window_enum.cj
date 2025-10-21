@@ -22,7 +22,6 @@ import std.deriving.Derive
 /**
  * The type of a window.
  *
- * @relation export enum WindowType
  */
  @Derive[Equatable]
 @!APILevel[
@@ -34,7 +33,6 @@ public enum WindowType {
     /**
     * App.
     *
-    * @relation TYPE_APP = 0
     */
     @!APILevel[
         21,
@@ -47,7 +45,6 @@ public enum WindowType {
     * Float.
     * Require "ohos.permission.SYSTEM_FLOAT_WINDOW" permission
     *
-    * @relation TYPE_FLOAT = 8
     */
     @!APILevel[
         21,
@@ -59,7 +56,6 @@ public enum WindowType {
     /**
     * Dialog.
     *
-    * @relation TYPE_DIALOG= 16
     */
     @!APILevel[
         21,
@@ -92,7 +88,6 @@ public enum WindowType {
 /**
 * Display orientation
 *
-* @relation export enum Orientation
 */
 @Derive[Equatable]
 @!APILevel[
@@ -104,7 +99,6 @@ public enum Orientation {
     /**
     * Default value. The direction mode is not clearly defined. It is determined by the system.
     *
-    * @relation UNSPECIFIED = 0
     */
     @!APILevel[
         21,
@@ -116,7 +110,6 @@ public enum Orientation {
     /**
     * Display in portrait orientation.
     *
-    * @relation PORTRAIT = 1
     */
     @!APILevel[
         21,
@@ -128,7 +121,6 @@ public enum Orientation {
     /**
     * Display in landscape orientation.
     *
-    * @relation LANDSCAPE = 2
     */
     @!APILevel[
         21,
@@ -140,7 +132,6 @@ public enum Orientation {
     /**
     * Display in inverted portrait orientation.
     *
-    * @relation PORTRAIT_INVERTED = 3
     */
     @!APILevel[
         21,
@@ -152,7 +143,6 @@ public enum Orientation {
     /**
     * Display in inverted landscape orientation.
     *
-    * @relation LANDSCAPE_INVERTED = 4
     */
     @!APILevel[
         21,
@@ -164,7 +154,6 @@ public enum Orientation {
     /**
     * Follow the rotation of the sensor, ignore auto rotation lock.
     *
-    * @relation AUTO_ROTATION = 5
     */
     @!APILevel[
         21,
@@ -176,7 +165,6 @@ public enum Orientation {
     /**
     * Follow the rotation of the sensor, only work in the vertical direction, ignore auto rotation lock.
     *
-    * @relation AUTO_ROTATION_PORTRAIT = 6
     */
     @!APILevel[
         21,
@@ -188,7 +176,6 @@ public enum Orientation {
     /**
     * Follow the rotation of the sensor, only work in the horizontal direction, ignore auto rotation lock.
     *
-    * @relation AUTO_ROTATION_LANDSCAPE = 7
     */
     @!APILevel[
         21,
@@ -200,7 +187,6 @@ public enum Orientation {
     /**
     * Follow the rotation of the sensor, controlled by auto rotation lock.
     *
-    * @relation AUTO_ROTATION_RESTRICTED = 8
     */
     @!APILevel[
         21,
@@ -212,7 +198,6 @@ public enum Orientation {
     /**
     * Follow the rotation of the sensor, only work in the vertical direction, controlled by auto rotation lock.
     *
-    * @relation AUTO_ROTATION_PORTRAIT_RESTRICTED = 9
     */
     @!APILevel[
         21,
@@ -224,7 +209,6 @@ public enum Orientation {
     /**
     * Follow the rotation of the sensor, only work in the horizontal direction, controlled by auto rotation lock.
     *
-    * @relation AUTO_ROTATION_LANDSCAPE_RESTRICTED = 10
     */
     @!APILevel[
         21,
@@ -236,7 +220,6 @@ public enum Orientation {
     /**
     * Locked mode, keep the same direction as previous one.
     *
-    * @relation LOCKED = 11
     */
     @!APILevel[
         21,
@@ -286,7 +269,6 @@ public enum Orientation {
 /**
 * Describes the type of avoid area
 *
-* @relation export enum AvoidAreaType
 */
 @Derive[Equatable]
 @!APILevel[
@@ -298,7 +280,6 @@ public enum AvoidAreaType {
     /**
     * Default area of the system
     *
-    * @relation Default area of the system
     */
     @!APILevel[
         21,
@@ -310,7 +291,6 @@ public enum AvoidAreaType {
     /**
     * Notch
     *
-    * @relation TYPE_CUTOUT = 1
     */
     @!APILevel[
         21,
@@ -322,7 +302,6 @@ public enum AvoidAreaType {
     /**
     * Area for system gesture
     *
-    * @relation TYPE_SYSTEM_GESTURE = 2
     */
     @!APILevel[
         21,
@@ -334,7 +313,6 @@ public enum AvoidAreaType {
     /**
     * Area for keyboard
     *
-    * @relation TYPE_KEYBOARD = 3
     */
     @!APILevel[
         21,
@@ -346,7 +324,6 @@ public enum AvoidAreaType {
     /**
     * Area for navigation indicator
     *
-    * @relation TYPE_NAVIGATION_INDICATOR = 4
     */
     @!APILevel[
         21,
@@ -382,7 +359,6 @@ public enum AvoidAreaType {
 /**
 * Enum for window callback event type
 *
-* @relation export enum WindowEventType
 */
 @Derive[Equatable]
 @!APILevel[
@@ -394,7 +370,6 @@ public enum WindowEventType {
     /**
     * The value of window event is window show
     *
-    * @relation WINDOW_SHOWN = 1
     */
     @!APILevel[
         21,
@@ -406,7 +381,6 @@ public enum WindowEventType {
     /**
     * The value of window event is window active
     *
-    * @relation WINDOW_ACTIVE = 2
     */
     @!APILevel[
         21,
@@ -418,7 +392,6 @@ public enum WindowEventType {
     /**
     * The value of window event is window inactive
     *
-    * @relation WINDOW_INACTIVE = 3
     */
     @!APILevel[
         21,
@@ -430,7 +403,6 @@ public enum WindowEventType {
     /**
     * The value of window event is window hide
     *
-    * @relation WINDOW_HIDDEN = 4
     */
     @!APILevel[
         21,
@@ -442,7 +414,6 @@ public enum WindowEventType {
     /**
     * The value of window event is window destroy
     *
-    * @relation WINDOW_DESTROYED = 7
     */
     @!APILevel[
         21,
@@ -478,7 +449,6 @@ public enum WindowEventType {
 /**
 * Window stage callback event type
 *
-* @relation export enum WindowStageEventType
 */
 @Derive[Equatable]
 @!APILevel[
@@ -490,7 +460,6 @@ public enum WindowStageEventType {
     /**
     * The window stage is running in the foreground.
     *
-    * @relation SHOWN = 1
     */
     @!APILevel[
         21,
@@ -502,7 +471,6 @@ public enum WindowStageEventType {
     /**
     * The window stage gains focus.
     *
-    * @relation ACTIVE = 2
     */
     @!APILevel[
         21,
@@ -514,7 +482,6 @@ public enum WindowStageEventType {
     /**
     * The window stage loses focus.
     *
-    * @relation INACTIVE = 3
     */
     @!APILevel[
         21,
@@ -526,7 +493,6 @@ public enum WindowStageEventType {
     /**
     * The window stage is running in the background.
     *
-    * @relation HIDDEN = 4
     */
     @!APILevel[
         21,
@@ -538,7 +504,6 @@ public enum WindowStageEventType {
     /**
     * The window stage is interactive in the foreground.
     *
-    * @relation RESUMED = 5
     */
     @!APILevel[
         21,
@@ -550,7 +515,6 @@ public enum WindowStageEventType {
     /**
     * The window stage is not interactive in the foreground.
     *
-    * @relation PAUSED = 6
     */
     @!APILevel[
         21,
@@ -588,7 +552,6 @@ public enum WindowStageEventType {
 /**
 * Describes the window status of an application
 *
-* @relation export enum WindowStatusType
 */
 @Derive[Equatable]
 @!APILevel[
@@ -600,7 +563,6 @@ public enum WindowStatusType {
     /**
     * Undefined status of the window
     *
-    * @relation UNDEFINED = 0
     */
     @!APILevel[
         21,
@@ -612,7 +574,6 @@ public enum WindowStatusType {
     /**
     * Full screen status of the window
     *
-    * @relation FULL_SCREEN = 1
     */
     @!APILevel[
         21,
@@ -624,7 +585,6 @@ public enum WindowStatusType {
     /**
     * Maximize status of the window
     *
-    * @relation MAXIMIZE = 2
     */
     @!APILevel[
         21,
@@ -636,7 +596,6 @@ public enum WindowStatusType {
     /**
     * Minimize status of the window
     *
-    * @relation MINIMIZE = 3
     */
     @!APILevel[
         21,
@@ -648,7 +607,6 @@ public enum WindowStatusType {
     /**
     * Floating status of the window
     *
-    * @relation FLOATING = 4
     */
     @!APILevel[
         21,
@@ -660,7 +618,6 @@ public enum WindowStatusType {
     /**
     * Split screen status of the window
     *
-    * @relation SPLIT_SCREEN = 5
     */
     @!APILevel[
         21,
@@ -698,7 +655,6 @@ public enum WindowStatusType {
 /**
 * Type of allowing the specified of color space.
 *
-* @relation export enum ColorSpace
 */
 @Derive[Equatable]
 @!APILevel[
@@ -710,7 +666,6 @@ public enum ColorSpace {
     /**
     * Default color space.
     *
-    * @relation DEFAULT = 0
     */
     @!APILevel[
         21,
@@ -722,7 +677,6 @@ public enum ColorSpace {
     /**
     * Wide gamut color space. The specific wide color gamut depends on thr screen.
     *
-    * @relation WIDE_GAMUT = 1
     */
     @!APILevel[
         21,
