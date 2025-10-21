@@ -26,7 +26,6 @@ import std.deriving.Derive
 @Derive[Equatable]
 @!APILevel[
     22,
-    stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum WindowType {
@@ -97,7 +96,6 @@ public enum WindowType {
 @Derive[Equatable]
 @!APILevel[
     22,
-    stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum Orientation {
@@ -254,7 +252,6 @@ public enum Orientation {
 @Derive[Equatable]
 @!APILevel[
     22,
-    stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum AvoidAreaType {
@@ -334,7 +331,6 @@ public enum AvoidAreaType {
 @Derive[Equatable]
 @!APILevel[
     22,
-    stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum WindowEventType {
@@ -414,7 +410,6 @@ public enum WindowEventType {
 @Derive[Equatable]
 @!APILevel[
     22,
-    stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum WindowStageEventType {
@@ -505,7 +500,6 @@ public enum WindowStageEventType {
 @Derive[Equatable]
 @!APILevel[
     22,
-    stagemodelonly: true,
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public enum WindowStatusType {
@@ -596,7 +590,6 @@ public enum WindowStatusType {
 @Derive[Equatable]
 @!APILevel[
     22,
-    stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum ColorSpace {
@@ -642,7 +635,6 @@ public enum ColorSpace {
 @Derive[Equatable]
 @!APILevel[
     22,
-    stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum WindowCallbackType {
@@ -800,7 +792,6 @@ public enum WindowCallbackType {
 @Derive[Equatable]
 @!APILevel[
     22,
-    stagemodelonly: true,
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public enum SystemBarType {
