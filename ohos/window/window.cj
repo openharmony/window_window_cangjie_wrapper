@@ -183,8 +183,7 @@ public func findWindow(name: String): Window {
 @!APILevel[
     22,
     permission: "ohos.permission.SYSTEM_FLOAT_WINDOW",
-    syscap: "SystemCapability.WindowManager.WindowManager.Core",
-    workerthread: true
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public func createWindow(config: Configuration): Window {
     unsafe {
@@ -218,8 +217,7 @@ public func createWindow(config: Configuration): Window {
  */
 @!APILevel[
     22,
-    syscap: "SystemCapability.WindowManager.WindowManager.Core",
-    workerthread: true
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public func getLastWindow(ctx: BaseContext): Window {
     unsafe {
@@ -250,8 +248,7 @@ public func getLastWindow(ctx: BaseContext): Window {
  */
 @!APILevel[
     22,
-    syscap: "SystemCapability.Window.SessionManager",
-    workerthread: true
+    syscap: "SystemCapability.Window.SessionManager"
 ]
 public func shiftAppWindowFocus(sourceWindowID: Int32, targetWindowID: Int32): Unit {
     unsafe {
@@ -307,8 +304,7 @@ public class Window <: RemoteDataLite {
      */
     @!APILevel[
         22,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core",
-        workerthread: true
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func showWindow(): Unit {
         unsafe {
@@ -326,8 +322,7 @@ public class Window <: RemoteDataLite {
      */
     @!APILevel[
         22,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core",
-        workerthread: true
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func moveWindowTo(x: Int32, y: Int32): Unit {
         unsafe {
@@ -345,8 +340,7 @@ public class Window <: RemoteDataLite {
      */
     @!APILevel[
         22,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core",
-        workerthread: true
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func resize(width: UInt32, height: UInt32): Unit {
         unsafe {
@@ -382,8 +376,7 @@ public class Window <: RemoteDataLite {
      */
     @!APILevel[
         22,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core",
-        workerthread: true
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func destroyWindow(): Unit {
         unsafe {
@@ -400,8 +393,7 @@ public class Window <: RemoteDataLite {
      */
     @!APILevel[
         22,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core",
-        workerthread: true
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowLayoutFullScreen(isLayoutFullScreen: Bool): Unit {
         unsafe {
@@ -418,8 +410,7 @@ public class Window <: RemoteDataLite {
      */
     @!APILevel[
         22,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core",
-        workerthread: true
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func isWindowSupportWideGamut(): Bool {
         unsafe {
@@ -478,8 +469,7 @@ public class Window <: RemoteDataLite {
      */
     @!APILevel[
         22,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core",
-        workerthread: true
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowBrightness(brightness: Float32): Unit {
         unsafe {
@@ -496,8 +486,7 @@ public class Window <: RemoteDataLite {
      */
     @!APILevel[
         22,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core",
-        workerthread: true
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowFocusable(isFocusable: Bool): Unit {
         unsafe {
@@ -514,8 +503,7 @@ public class Window <: RemoteDataLite {
      */
     @!APILevel[
         22,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core",
-        workerthread: true
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowKeepScreenOn(isKeepScreenOn: Bool): Unit {
         unsafe {
@@ -533,8 +521,7 @@ public class Window <: RemoteDataLite {
     @!APILevel[
         22,
         permission: "ohos.permission.PRIVACY_WINDOW",
-        syscap: "SystemCapability.WindowManager.WindowManager.Core",
-        workerthread: true
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowPrivacyMode(isPrivacyMode: Bool): Unit {
         unsafe {
@@ -551,8 +538,7 @@ public class Window <: RemoteDataLite {
      */
     @!APILevel[
         22,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core",
-        workerthread: true
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowTouchable(isTouchable: Bool): Unit {
         unsafe {
@@ -573,8 +559,7 @@ public class Window <: RemoteDataLite {
      */
     @!APILevel[
         22,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core",
-        workerthread: true
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setPreferredOrientation(orientation: Orientation): Unit {
         let code = unsafe { FFiOHOSWindowSetPreferredOrientation(getID(), orientation.getValue()) }
@@ -614,8 +599,7 @@ public class Window <: RemoteDataLite {
      */
     @!APILevel[
         22,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core",
-        workerthread: true
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setAspectRatio(ratio: Float64): Unit {
         let code = unsafe { FFiOHOSWindowSetAspectRatio(getID(), ratio) }
@@ -630,8 +614,7 @@ public class Window <: RemoteDataLite {
      */
     @!APILevel[
         22,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core",
-        workerthread: true
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func resetAspectRatio(): Unit {
         let code = unsafe { FFiOHOSWindowResetAspectRatio(getID()) }
@@ -646,8 +629,7 @@ public class Window <: RemoteDataLite {
      */
     @!APILevel[
         22,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core",
-        workerthread: true
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowColorSpace(colorSpace: ColorSpace): Unit {
         unsafe {
@@ -665,8 +647,7 @@ public class Window <: RemoteDataLite {
      */
     @!APILevel[
         22,
-        syscap: "SystemCapability.Window.SessionManager",
-        workerthread: true
+        syscap: "SystemCapability.Window.SessionManager"
     ]
     public func minimize(): Unit {
         unsafe {
@@ -702,8 +683,7 @@ public class Window <: RemoteDataLite {
      */
     @!APILevel[
         22,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core",
-        workerthread: true
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func snapshot(): PixelMap {
         unsafe {
@@ -722,8 +702,7 @@ public class Window <: RemoteDataLite {
      */
     @!APILevel[
         22,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core",
-        workerthread: true
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowSystemBarEnabled(names: Array<SystemBarType>): Unit {
         unsafe {
@@ -746,8 +725,7 @@ public class Window <: RemoteDataLite {
      */
     @!APILevel[
         22,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core",
-        workerthread: true
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowSystemBarProperties(systemBarProperties: SystemBarProperties): Unit {
         unsafe {

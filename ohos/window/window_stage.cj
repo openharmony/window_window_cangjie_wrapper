@@ -77,8 +77,7 @@ public class WindowStage <: RemoteDataLite {
      */
     @!APILevel[
         22,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core",
-        workerthread: true
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func getMainWindow(): Window {
         unsafe {
@@ -97,8 +96,7 @@ public class WindowStage <: RemoteDataLite {
      */
     @!APILevel[
         22,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core",
-        workerthread: true
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func createSubWindow(name: String): Window {
         unsafe {
@@ -119,8 +117,7 @@ public class WindowStage <: RemoteDataLite {
      */
     @!APILevel[
         22,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core",
-        workerthread: true
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func getSubWindow(): Array<Window> {
         unsafe {
@@ -143,8 +140,7 @@ public class WindowStage <: RemoteDataLite {
      */
     @!APILevel[
         22,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core",
-        workerthread: true
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func loadContent(path: String): Unit {
         unsafe {

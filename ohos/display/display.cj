@@ -152,8 +152,7 @@ public func getDefaultDisplaySync(): Display {
  */
 @!APILevel[
     22,
-    syscap: "SystemCapability.WindowManager.WindowManager.Core",
-    workerthread: true
+    syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public func getAllDisplays(): Array<Display> {
     unsafe {
@@ -701,8 +700,7 @@ public class Display <: RemoteDataLite {
      */
     @!APILevel[
         22,
-        syscap: "SystemCapability.WindowManager.WindowManager.Core",
-        workerthread: true
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func getCutoutInfo(): CutoutInfo {
         let retData = unsafe {
