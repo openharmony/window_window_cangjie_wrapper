@@ -19,6 +19,7 @@ package ohos.display
 
 import ohos.base.*
 import ohos.labels.*
+import ohos.business_exception.*
 import std.deriving.Derive
 
 /**
