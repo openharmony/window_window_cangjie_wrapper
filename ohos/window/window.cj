@@ -78,7 +78,7 @@ foreign {
 
     func FFiOHOSWindowSetResizeByDragEnabled(id: Int64, enable: Bool): Int32
 
-    func FFiOHOSWindowGetWindowColorSpace(id: Int64, errCode: CPointer<Int32>): UInt32
+    func FFiOHOSWindowGetWindowColorSpace(id: Int64, errCode: CPointer<Int32>): Int32
 
     func FFiOHOSWindowSnapshot(id: Int64, errCode: CPointer<Int32>): Int64
 
@@ -90,7 +90,7 @@ foreign {
 
     func FfiOHOSOffKeyboardHeightChange(id: Int64): Int32
 
-    func FfiOHOSIsFocused(id: Int64, errCode: CPointer<Int32>): Bool
+    func FfiOHOSIsFocused(id: Int64, errCode: CPointer<Int32>): Int32
 
     func FfiOHOSSetWindowLimits(id: Int64, windowlimits: CWindowLimits, retPtr: CPointer<CWindowLimits>): Int32
 
