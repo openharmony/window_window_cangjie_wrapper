@@ -51,7 +51,6 @@ let stageRegisterMutex = Mutex()
 /**
 * WindowStage
 *
-* @relation export interface WindowStage
 */
 @!APILevel[
     21,
@@ -76,7 +75,6 @@ public class WindowStage <: RemoteDataLite {
     *
     * @returns { Window } the main window.
     * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation getMainWindow(): Promise<Window>
     */
     @!APILevel[
         21,
@@ -97,7 +95,6 @@ public class WindowStage <: RemoteDataLite {
     * @param { String } name - Name of the child window.
     * @returns { Window } the child window.
     * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation createSubWindow(name: string): Promise<Window>
     */
     @!APILevel[
         21,
@@ -120,7 +117,6 @@ public class WindowStage <: RemoteDataLite {
     *
     * @returns { Array<Window> } all the child windows.
     * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation getSubWindow(): Promise<Array<Window>>
     */
     @!APILevel[
         21,
@@ -145,7 +141,6 @@ public class WindowStage <: RemoteDataLite {
     * If called multiple times, this API will destroy the existing page content (UIContent) before loading the new content. Exercise caution when using it.
     *
     * @param { String } path - Path of the page to which the content will be loaded
-    * @relation loadContent(path: string, storage?: LocalStorage): Promise<void>
     */
     @!APILevel[
         21,

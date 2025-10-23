@@ -23,7 +23,6 @@ import ohos.app.ability.BaseContext
 /**
 * Window size
 *
-* @relation export interface Size
 */
 @!APILevel[
     21,
@@ -34,7 +33,6 @@ public class Size {
     /**
     * The width of the window.
     *
-    * @relation width: number
     */
     @!APILevel[
         21,
@@ -45,7 +43,6 @@ public class Size {
     /**
     * The height of the window.
     *
-    * @relation height: number
     */
     @!APILevel[
         21,
@@ -95,7 +92,6 @@ struct CSize {
 /**
 * Rectangular area of the title buttons relative to the upper right corner of the window.
 *
-* @relation export interface TitleButtonRect
 */
 @!APILevel[
     21,
@@ -106,7 +102,6 @@ public class TitleButtonRect {
     /**
     * The right of the Rect.
     *
-    * @relation right: number
     */
     @!APILevel[
         21,
@@ -117,7 +112,6 @@ public class TitleButtonRect {
     /**
     * The top of the Rect.
     *
-    * @relation top: number
     */
     @!APILevel[
         21,
@@ -128,7 +122,6 @@ public class TitleButtonRect {
     /**
     * The width of the Rect.
     *
-    * @relation width: number
     */
     @!APILevel[
         21,
@@ -139,7 +132,6 @@ public class TitleButtonRect {
     /**
     * The height of the Rect.
     *
-    * @relation height: number
     */
     @!APILevel[
         21,
@@ -147,7 +139,7 @@ public class TitleButtonRect {
         syscap: "SystemCapability.Window.SessionManager"
     ]
     public var height: UInt32
-    
+
     /**
     * TitleButtonRect constructor.
     */
@@ -206,7 +198,6 @@ struct RetStruct {
 /**
 * Configuration parameters for window creation.
 *
-* @relation export interface Configuration
 */
 @!APILevel[
     21,
@@ -217,7 +208,6 @@ public class Configuration {
     /**
     * Indicates window id.
     *
-    * @relation name: string
     */
     @!APILevel[
         21,
@@ -228,7 +218,6 @@ public class Configuration {
     /**
     * Indicates window type
     *
-    * @relation windowType: WindowType
     */
     @!APILevel[
         21,
@@ -239,7 +228,6 @@ public class Configuration {
     /**
     * Indicates window context.
     *
-    * @relation ctx?: BaseContext
     */
     @!APILevel[
         21,
@@ -250,25 +238,23 @@ public class Configuration {
     /**
     * Indicates display ID.
     *
-    * @relation displayId?: number
     */
     @!APILevel[
         21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public var displayId: Int64 = -1
+    public var displayID: Int64 = -1
     /**
     * Indicates Parent window id
     *
-    * @relation parentId?: number
     */
     @!APILevel[
         21,
         stagemodelonly: true,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public var parentId: Int64 = -1
+    public var parentID: Int64 = -1
 
     /**
     * Configuration constructor.
@@ -282,21 +268,20 @@ public class Configuration {
         name!: String,
         windowType!: WindowType,
         ctx!: BaseContext,
-        displayId!: Int64 = -1,
-        parentId!: Int64 = -1
+        displayID!: Int64 = -1,
+        parentID!: Int64 = -1
     ) {
         this.name = name
         this.windowType = windowType
         this.ctx = ctx
-        this.displayId = displayId
-        this.parentId = parentId
+        this.displayID = displayID
+        this.parentID = parentID
     }
 }
 
 /**
 * Rectangle
 *
-* @relation export interface Rect
 */
 @!APILevel[
     21,
@@ -307,7 +292,6 @@ public class Rect {
     /**
     * The left of the Rect.
     *
-    * @relation left: number
     */
     @!APILevel[
         21,
@@ -318,7 +302,6 @@ public class Rect {
     /**
     * The top of the Rect.
     *
-    * @relation top: number
     */
     @!APILevel[
         21,
@@ -329,7 +312,6 @@ public class Rect {
     /**
     * The width of the Rect.
     *
-    * @relation width: number
     */
     @!APILevel[
         21,
@@ -340,7 +322,6 @@ public class Rect {
     /**
     * The height of the Rect.
     *
-    * @relation height: number
     */
     @!APILevel[
         21,
@@ -398,7 +379,6 @@ struct CRect {
 /**
 * Properties of window, it couldn't update automatically
 *
-* @relation export interface WindowProperties
 */
 @!APILevel[
     21,
@@ -409,7 +389,6 @@ public class WindowProperties {
     /**
     * The position and size of the window
     *
-    * @relation windowRect: Rect
     */
     @!APILevel[
         21,
@@ -420,7 +399,6 @@ public class WindowProperties {
     /**
     * The position relative to the window and size of drawable area
     *
-    * @relation drawableRect: Rect
     */
     @!APILevel[
         21,
@@ -431,7 +409,6 @@ public class WindowProperties {
     /**
     * Window type
     *
-    * @relation type: WindowType
     */
     @!APILevel[
         21,
@@ -442,7 +419,6 @@ public class WindowProperties {
     /**
     * Whether the window is displayed in full screen mode. The default value is false.
     *
-    * @relation isFullScreen: boolean
     */
     @!APILevel[
         21,
@@ -453,7 +429,6 @@ public class WindowProperties {
     /**
     * Whether the window layout is in full screen mode(whether the window is immersive). The default value is false.
     *
-    * @relation isLayoutFullScreen: boolean
     */
     @!APILevel[
         21,
@@ -464,7 +439,6 @@ public class WindowProperties {
     /**
     * Whether the window can gain focus. The default value is true
     *
-    * @relation focusable: boolean
     */
     @!APILevel[
         21,
@@ -475,7 +449,6 @@ public class WindowProperties {
     /**
     * Whether the window is touchable. The default value is false
     *
-    * @relation touchable: boolean
     */
     @!APILevel[
         21,
@@ -486,7 +459,6 @@ public class WindowProperties {
     /**
     * Brightness value of window.
     *
-    * @relation brightness: number
     */
     @!APILevel[
         21,
@@ -497,7 +469,6 @@ public class WindowProperties {
     /**
     * Whether keep screen on.
     *
-    * @relation isKeepScreenOn: boolean;
     */
     @!APILevel[
         21,
@@ -508,7 +479,6 @@ public class WindowProperties {
     /**
     * Whether make window in privacy mode or not.
     *
-    * @relation isPrivacyMode: boolean
     */
     @!APILevel[
         21,
@@ -519,7 +489,6 @@ public class WindowProperties {
     /**
     * Whether is transparent or not.
     *
-    * @relation isTransparent: boolean
     */
     @!APILevel[
         21,
@@ -530,7 +499,6 @@ public class WindowProperties {
     /**
     * isTransparent: boolean
     *
-    * @relation id: number
     */
     @!APILevel[
         21,
@@ -596,17 +564,17 @@ struct CWindowProperties {
 
     func toWindowProperties(): WindowProperties {
         return WindowProperties(
-            windowRect: windowRect.toRect(), 
-            drawableRect: drawableRect.toRect(), 
-            winType: WindowType.parse(winType), 
+            windowRect: windowRect.toRect(),
+            drawableRect: drawableRect.toRect(),
+            winType: WindowType.parse(winType),
             isFullScreen: isFullScreen,
-            isLayoutFullScreen: isLayoutFullScreen, 
-            focusable: focusable, 
-            touchable: touchable, 
-            brightness: brightness, 
-            isKeepScreenOn: isKeepScreenOn, 
+            isLayoutFullScreen: isLayoutFullScreen,
+            focusable: focusable,
+            touchable: touchable,
+            brightness: brightness,
+            isKeepScreenOn: isKeepScreenOn,
             isPrivacyMode: isPrivacyMode,
-            isTransparent: isTransparent, 
+            isTransparent: isTransparent,
             id: id)
     }
 }
@@ -614,7 +582,6 @@ struct CWindowProperties {
 /**
 * Avoid area
 *
-* @relation export interface AvoidArea
 */
 @!APILevel[
     21,
@@ -625,7 +592,6 @@ public class AvoidArea {
     /**
     * Whether avoidArea is visible on screen
     *
-    * @relation visible: boolean
     */
     @!APILevel[
         21,
@@ -636,7 +602,6 @@ public class AvoidArea {
     /**
     * Rectangle on the left of the screen
     *
-    * @relation leftRect: Rect
     */
     @!APILevel[
         21,
@@ -647,7 +612,6 @@ public class AvoidArea {
     /**
     * Rectangle on the top of the screen
     *
-    * @relation topRect: Rect
     */
     @!APILevel[
         21,
@@ -658,7 +622,6 @@ public class AvoidArea {
     /**
     * Rectangle on the right of the screen
     *
-    * @relation rightRect: Rect
     */
     @!APILevel[
         21,
@@ -669,7 +632,6 @@ public class AvoidArea {
     /**
     * Rectangle on the bottom of the screen
     *
-    * @relation bottomRect: Rect
     */
     @!APILevel[
         21,
@@ -728,7 +690,6 @@ struct CAvoidArea {
 /**
 * Properties of status bar and navigation bar, it couldn't update automatically
 *
-* @relation export interface SystemBarProperties
 */
 @!APILevel[
     21,
@@ -739,7 +700,6 @@ public class SystemBarProperties {
     /**
     * The color of the status bar.
     *
-    * @relation statusBarColor?: string
     */
     @!APILevel[
         21,
@@ -750,7 +710,6 @@ public class SystemBarProperties {
     /**
     * The light icon of the status bar.
     *
-    * @relation isStatusBarLightIcon?: boolean
     */
     @!APILevel[
         21,
@@ -761,7 +720,6 @@ public class SystemBarProperties {
     /**
     * The content color of the status bar
     *
-    * @relation statusBarContentColor?: string
     */
     @!APILevel[
         21,
@@ -772,7 +730,6 @@ public class SystemBarProperties {
     /**
     * statusBarContentColor?: string
     *
-    * @relation navigationBarColor?: string
     */
     @!APILevel[
         21,
@@ -783,7 +740,6 @@ public class SystemBarProperties {
     /**
     * navigationBarColor?: string
     *
-    * @relation isNavigationBarLightIcon?: boolean
     */
     @!APILevel[
         21,
@@ -794,7 +750,6 @@ public class SystemBarProperties {
     /**
     * The content color of the navigation bar
     *
-    * @relation navigationBarContentColor?: string
     */
     @!APILevel[
         21,
@@ -805,7 +760,6 @@ public class SystemBarProperties {
     /**
     * Enable the animation of the status bar.
     *
-    * @relation enableStatusBarAnimation?: boolean
     */
     @!APILevel[
         21,
@@ -818,7 +772,6 @@ public class SystemBarProperties {
     /**
     * Enable the animation of the navigation bar.
     *
-    * @relation enableNavigationBarAnimation?: boolean
     */
     @!APILevel[
         21,
@@ -889,7 +842,7 @@ struct CJBarProperties {
             LibC.free(navigationBarColor)
             LibC.free(navigationBarContentColor)
         }
-    } 
+    }
 }
 
 @C

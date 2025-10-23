@@ -28,13 +28,13 @@ internal import ohos.business_exception.*
 type StageContext = CPointer<Unit>
 
 foreign {
-    func FfiOHOSCreateWindow(name: CString, windowType: UInt32, ctx: StageContext, displayId: Int64, parentId: Int64): RetDataI64
+    func FfiOHOSCreateWindow(name: CString, windowType: UInt32, ctx: StageContext, displayID: Int64, parentID: Int64): RetDataI64
 
     func FFiOHOSWindowFindWindow(name: CString): RetDataI64
 
     func FfiOHOSGetLastWindow(ctx: StageContext): RetDataI64
 
-    func FfiOHOSShiftAppWindowFocus(sourceWindowId: Int32, targetWindowId: Int32): Int32
+    func FfiOHOSShiftAppWindowFocus(sourceWindowID: Int32, targetWindowID: Int32): Int32
 
     func FfiOHOSWindowShowWindow(id: Int64): Int32
 
@@ -151,7 +151,6 @@ let registerMutex = Mutex()
 * @param { String } name - Window name, that is, the value of name in Configuration.
 * @returns { Window } Window found.
 * @throws { BusinessException } 1300002 - This window state is abnormal.
-* @relation export function findWindow(name: string): Window
 */
 @!APILevel[
     21,
@@ -178,11 +177,10 @@ public func findWindow(name: String): Window {
 * @returns { Window } the window created.
 * @throws { IllegalArgumentException } - The context type is not supported. Only support UIAbilityContext.
 * @throws { BusinessException } 201 - Permission verification failed. The application does not have the permission required to call the API.
-* @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified; 
+* @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified;
 *                                                                      2. Incorrect parameter types.
 * @throws { BusinessException } 1300003 - This window manager service works abnormally.
 * @throws { BusinessException } 1300006 - This window context is abnormal.
-* @relation export function createWindow(config: Configuration): Promise<Window>
 */
 @!APILevel[
     21,
@@ -203,7 +201,7 @@ public func createWindow(config: Configuration): Window {
         }
         var ret: ?RetDataI64 = None
         try (cname = LibC.mallocCString(config.name).asResource()) {
-            ret = FfiOHOSCreateWindow(cname.value, config.windowType.getValue(), stageContext, config.displayId, config.parentId)
+            ret = FfiOHOSCreateWindow(cname.value, config.windowType.getValue(), stageContext, config.displayID, config.parentID)
         }
         checkRet(ret.getOrThrow().code, "[Window] createWindow: ")
         getOrCreate(Window.instanceMap, ret.getOrThrow().data, {id: Int64 => Window(id)})
@@ -218,7 +216,6 @@ public func createWindow(config: Configuration): Window {
 * @returns { Window } the top window obtained.
 * @throws { IllegalArgumentException } - The context type is not supported. Only support UIAbilityContext.
 * @throws { BusinessException } 1300002 - This window state is abnormal. Top window or main window is null or destroyed.
-* @relation export function getLastWindow(ctx: BaseContext): Promise<Window>
 */
 @!APILevel[
     21,
@@ -243,24 +240,23 @@ public func getLastWindow(ctx: BaseContext): Window {
 * Shifts the window focus from the source window to the target window in the same application.
 * The window focus can be shifted between the main window and a child window.
 *
-* @param { Int32 } sourceWindowId - Window id which the focus shift from.
-* @param { Int32 } targetWindowId - Window id which the focus shift to.
-* @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified; 
+* @param { Int32 } sourceWindowID - Window id which the focus shift from.
+* @param { Int32 } targetWindowID - Window id which the focus shift to.
+* @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified;
 *                                                                      2. Incorrect parameter types.
 * @throws { BusinessException } 801 - Capability not supported. Failed to call the API due to limited device capabilities.
 * @throws { BusinessException } 1300002 - This window state is abnormal.
 * @throws { BusinessException } 1300003 - This window manager service works abnormally.
 * @throws { BusinessException } 1300004 - Unauthorized operation.
-* @relation export function shiftAppWindowFocus(sourceWindowId: number, targetWindowId: number): Promise<void>
 */
 @!APILevel[
     21,
     stagemodelonly: true,
     syscap: "SystemCapability.Window.SessionManager"
 ]
-public func shiftAppWindowFocus(sourceWindowId: Int32, targetWindowId: Int32): Unit {
+public func shiftAppWindowFocus(sourceWindowID: Int32, targetWindowID: Int32): Unit {
     unsafe {
-        let ret = FfiOHOSShiftAppWindowFocus(sourceWindowId, targetWindowId)
+        let ret = FfiOHOSShiftAppWindowFocus(sourceWindowID, targetWindowID)
         checkRet(ret, "[Window] shiftAppWindowFocus: ")
     }
 }
@@ -268,7 +264,6 @@ public func shiftAppWindowFocus(sourceWindowId: Int32, targetWindowId: Int32): U
 /**
 * Window
 *
-* @relation export interface Window
 */
 @!APILevel[
     21,
@@ -306,12 +301,11 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-    * Shows this window. 
+    * Shows this window.
     * This API takes effect only for a system window or an application child window.
     * For the main window of an application, this API moves it at the top when the main window is already displayed.
     *
     * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation showWindow(): Promise<void>
     */
     @!APILevel[
         21,
@@ -331,7 +325,6 @@ public class Window <: RemoteDataLite {
     * @param { Int32 } x - Indicate the X-coordinate of the window.
     * @param { Int32 } y - Indicate the Y-coordinate of the window.
     * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation moveWindowTo(x: number, y: number): Promise<void>
     */
     @!APILevel[
         21,
@@ -351,7 +344,6 @@ public class Window <: RemoteDataLite {
     * @param { Int32 } width - Indicates the width of the window. The width should be greater than 0.
     * @param { Int32 } height - Indicates the height of the window. The height should be greater than 0.
     * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation resize(width: number, height: number): Promise<void>
     */
     @!APILevel[
         21,
@@ -370,7 +362,6 @@ public class Window <: RemoteDataLite {
     *
     * @returns { WindowProperties } Return the window properties.
     * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation getWindowProperties(): WindowProperties
     */
     @!APILevel[
         21,
@@ -387,11 +378,10 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-    * Destroys this window. 
+    * Destroys this window.
     * This API takes effect only for a system window or an application child window.
     *
     * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation destroyWindow(): Promise<void>
     */
     @!APILevel[
         21,
@@ -410,7 +400,6 @@ public class Window <: RemoteDataLite {
     *
     * @param { Bool } isLayoutFullScreen - Whether the window layout is immersive
     * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation setWindowLayoutFullScreen(isLayoutFullScreen: boolean): Promise<void>
     */
     @!APILevel[
         21,
@@ -429,7 +418,6 @@ public class Window <: RemoteDataLite {
     *
     * @returns { Bool } The value true means that the wide-gamut color space is supported, and false means the opposite.
     * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation isWindowSupportWideGamut(): Promise<boolean>
     */
     @!APILevel[
         21,
@@ -450,7 +438,6 @@ public class Window <: RemoteDataLite {
     *
     * @returns { Bool }  Whether the window is displayed. The value true means that the window is displayed, and false means the opposite.
     * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation isWindowShowing(): boolean
     */
     @!APILevel[
         21,
@@ -471,10 +458,9 @@ public class Window <: RemoteDataLite {
     * Sets the background color of window.
     *
     * @param { String } color - the specified color.
-    * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified; 
+    * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified;
     *                                                                      2. Incorrect parameter types.
     * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation setWindowBackgroundColor(color: string | ColorMetrics): void
     */
     @!APILevel[
         21,
@@ -495,7 +481,6 @@ public class Window <: RemoteDataLite {
     *
     * @param { Float32 } brightness the specified brightness value.
     * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation setWindowBrightness(brightness: number): Promise<void>
     */
     @!APILevel[
         21,
@@ -514,7 +499,6 @@ public class Window <: RemoteDataLite {
     *
     * @param { Bool } isFocusable can be focus if true, or can not be focus if false.
     * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation setWindowFocusable(isFocusable: boolean): Promise<void>
     */
     @!APILevel[
         21,
@@ -533,7 +517,6 @@ public class Window <: RemoteDataLite {
     *
     * @param { Bool } isKeepScreenOn keep screen on if true, or not if false.
     * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation setWindowKeepScreenOn(isKeepScreenOn: boolean): Promise<void>
     */
     @!APILevel[
         21,
@@ -552,7 +535,6 @@ public class Window <: RemoteDataLite {
     *
     * @param { Bool } isPrivacyMode in private mode if true, or not if false.
     * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation setWindowPrivacyMode(isPrivacyMode: boolean): Promise<void>
     */
     @!APILevel[
         21,
@@ -572,7 +554,6 @@ public class Window <: RemoteDataLite {
     *
     * @param { Bool } isTouchable is touchable if true, or not if false.
     * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation setWindowTouchable(isTouchable: boolean): Promise<void>
     */
     @!APILevel[
         21,
@@ -591,11 +572,10 @@ public class Window <: RemoteDataLite {
     * It does not take effect on devices that do not support rotation with the sensor, on 2-in-1 devices or for the child window.
     *
     * @param { Orientation } orientation - The orientation config of the window
-    * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified; 
-    *                                                                      2. Incorrect parameter types; 
+    * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified;
+    *                                                                      2. Incorrect parameter types;
     *                                                                      3. Parameter verification failed.
     * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation setPreferredOrientation(orientation: Orientation): Promise<void>
     */
     @!APILevel[
         21,
@@ -612,11 +592,10 @@ public class Window <: RemoteDataLite {
     *
     * @param { AvoidAreaType } areaType - Type of the area
     * @returns { AvoidArea } Area where the window cannot be displayed.
-    * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified; 
-    *                                                                      2. Incorrect parameter types; 
+    * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified;
+    *                                                                      2. Incorrect parameter types;
     *                                                                      3. Parameter verification failed.
     * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation getWindowAvoidArea(type: AvoidAreaType): AvoidArea
     */
     @!APILevel[
         21,
@@ -639,7 +618,6 @@ public class Window <: RemoteDataLite {
     * @param { Float64 } ratio - The aspect ratio of window except decoration
     * @throws { BusinessException } 1300002 - This window state is abnormal.
     * @throws { BusinessException } 1300004 - Unauthorized operation.
-    * @relation setAspectRatio(ratio: number): Promise<void>
     */
     @!APILevel[
         21,
@@ -656,7 +634,6 @@ public class Window <: RemoteDataLite {
     *
     * @throws { BusinessException } 1300002 - This window state is abnormal.
     * @throws { BusinessException } 1300004 - Unauthorized operation.
-    * @relation resetAspectRatio(): Promise<void>
     */
     @!APILevel[
         21,
@@ -673,7 +650,6 @@ public class Window <: RemoteDataLite {
     *
     * @param { ColorSpace } colorSpace - the specified color space.
     * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation setWindowColorSpace(colorSpace: ColorSpace): Promise<void>
     */
     @!APILevel[
         21,
@@ -693,7 +669,6 @@ public class Window <: RemoteDataLite {
     *
     * @throws { BusinessException } 801 - Capability not supported. Failed to call the API due to limited device capabilities.
     * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation minimize(): Promise<void>
     */
     @!APILevel[
         21,
@@ -712,7 +687,6 @@ public class Window <: RemoteDataLite {
     *
     * @returns { ColorSpace } Color space obtained.
     * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation getWindowColorSpace(): ColorSpace
     */
     @!APILevel[
         21,
@@ -733,7 +707,6 @@ public class Window <: RemoteDataLite {
     *
     * @returns { PixelMap } Promise that returns no value.
     * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation snapshot(): Promise<image.PixelMap>
     */
     @!APILevel[
         21,
@@ -754,7 +727,6 @@ public class Window <: RemoteDataLite {
     *
     * @param { Array<SystemBarType> } names - The set of system bar types
     * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation setWindowSystemBarEnable(names: Array<'status' | 'navigation'>): Promise<void>
     */
     @!APILevel[
         21,
@@ -779,7 +751,6 @@ public class Window <: RemoteDataLite {
     *
     * @param { SystemBarProperties } systemBarProperties - The properties of system bar
     * @throws { BusinessException } 1300002 - This window state is abnormal.
-    * @relation setWindowSystemBarProperties(systemBarProperties: SystemBarProperties): Promise<void>
     */
     @!APILevel[
         21,
@@ -817,10 +788,9 @@ public class Window <: RemoteDataLite {
     *
     * @param { WindowCallbackType } callbackType - The value is fixed at KeyboardHeightChange, indicating the keyboard height change event.
     * @param { Callback1Argument<UInt32> } callback - Callback used to return the current keyboard height, which is an integer, in px.
-    * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified; 
-    *                                                                      2. Incorrect parameter types; 
+    * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified;
+    *                                                                      2. Incorrect parameter types;
     *                                                                      3. Parameter verification failed.
-    * @relation on(type: 'keyboardHeightChange', callback: Callback<number>): void
     */
     @!APILevel[
         21,
@@ -867,10 +837,9 @@ public class Window <: RemoteDataLite {
     *
     * @param { WindowCallbackType } callbackType - The value is fixed at KeyboardHeightChange, indicating the keyboard height change event.
     * @param { Callback1Argument<UInt32> } callback - Callback used to return the current keyboard height, which is an integer, in px.
-    * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified; 
-    *                                                                      2. Incorrect parameter types; 
+    * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified;
+    *                                                                      2. Incorrect parameter types;
     *                                                                      3. Parameter verification failed.
-    * @relation off(type: 'keyboardHeightChange', callback?: Callback<number>): void
     */
     @!APILevel[
         21,
@@ -888,8 +857,8 @@ public class Window <: RemoteDataLite {
     * Unregister the callback of the specified event
     *
     * @param { WindowCallbackType } callbackType - the event type
-    * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified; 
-    *                                                                      2. Incorrect parameter types; 
+    * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified;
+    *                                                                      2. Incorrect parameter types;
     *                                                                      3. Parameter verification failed.
     */
     @!APILevel[
