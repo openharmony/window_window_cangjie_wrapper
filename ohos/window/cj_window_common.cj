@@ -50,7 +50,6 @@ public class Size {
      * Size constructor.
      * @params { UInt32 } width
      * @params { UInt32 } height
-     * @returns { This }
      */
     @!APILevel[
         22,
@@ -134,7 +133,6 @@ public class TitleButtonRect {
      * @params { Int32 } top
      * @params { UInt32 } width
      * @params { UInt32 } height
-     * @returns { This }
      */
     @!APILevel[
         22,
@@ -227,7 +225,7 @@ public class Configuration {
         22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public var displayID: Int64 = -1
+    public var displayId: Int64 = -1
     /**
      * Indicates Parent window id.
      */
@@ -235,7 +233,7 @@ public class Configuration {
         22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public var parentID: Int64 = -1
+    public var parentId: Int64 = -1
 
     /**
      * Configuration constructor.
@@ -244,7 +242,6 @@ public class Configuration {
      * @params { BaseContext } ctx
      * @params { Int64 } displayId
      * @params { Int64 } parentId
-     * @returns { This }
      */
     @!APILevel[
         22,
@@ -254,14 +251,14 @@ public class Configuration {
         name!: String,
         windowType!: WindowType,
         ctx!: BaseContext,
-        displayID!: Int64 = -1,
-        parentID!: Int64 = -1
+        displayId!: Int64 = -1,
+        parentId!: Int64 = -1
     ) {
         this.name = name
         this.windowType = windowType
         this.ctx = ctx
-        this.displayID = displayID
-        this.parentID = parentID
+        this.displayId = displayId
+        this.parentId = parentId
     }
 }
 
@@ -313,7 +310,6 @@ public class Rect {
      * @params { Int32 } top
      * @params { UInt32 } width
      * @params { UInt32 } height
-     * @returns { This }
      */
     @!APILevel[
         22,
@@ -477,7 +473,6 @@ public class WindowProperties {
      * @params { Bool } isPrivacyMode
      * @params { Bool } isTransparent
      * @params { UInt32 } id
-     * @returns { This }
      */
     @!APILevel[
         22,
@@ -595,7 +590,6 @@ public class AvoidArea {
      * @params { Rect } topRect
      * @params { Rect } rightRect
      * @params { Rect } bottomRect
-     * @returns { This }
      */
     @!APILevel[
         22,
@@ -724,7 +718,6 @@ public class SystemBarProperties {
      * @params { String } navigationBarContentColor
      * @params { Bool } enableStatusBarAnimation
      * @params { Bool } enableNavigationBarAnimation
-     * @returns { This }
      */
     @!APILevel[
         22,
