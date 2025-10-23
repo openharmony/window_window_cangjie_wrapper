@@ -22,9 +22,8 @@ import std.deriving.Derive
 /**
  * The type of a window.
  *
- * @relation export enum WindowType
  */
- @Derive[Equatable]
+@Derive[Equatable]
 @!APILevel[
     since: "22",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
@@ -32,8 +31,6 @@ import std.deriving.Derive
 public enum WindowType {
     /**
     * App.
-    *
-    * @relation TYPE_APP = 0
     */
     @!APILevel[
         since: "22",
@@ -42,10 +39,17 @@ public enum WindowType {
     TypeApp
     |
     /**
+    * System alert.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    TypeSystemAlert
+    |
+    /**
     * Float.
     * Require "ohos.permission.SYSTEM_FLOAT_WINDOW" permission
-    *
-    * @relation TYPE_FLOAT = 8
     */
     @!APILevel[
         since: "22",
@@ -55,8 +59,6 @@ public enum WindowType {
     |
     /**
     * Dialog.
-    *
-    * @relation TYPE_DIALOG= 16
     */
     @!APILevel[
         since: "22",
@@ -68,27 +70,28 @@ public enum WindowType {
     func getValue(): UInt32 {
         return match (this) {
             case TypeApp => 0
+            case TypeSystemAlert => 1
             case TypeFloat => 8
             case TypeDialog => 16
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 
     static func parse(val: UInt32) {
         match (val) {
             case 0 => TypeApp
+            case 1 => TypeSystemAlert
             case 8 => TypeFloat
             case 16 => TypeDialog
             case 32 => TypeApp
-            case _ => throw Exception("Unrecognizable WindowType: ${val}!")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 }
 
 /**
-* Display orientation
+* Display orientation.
 *
-* @relation export enum Orientation
 */
 @Derive[Equatable]
 @!APILevel[
@@ -98,8 +101,6 @@ public enum WindowType {
 public enum Orientation {
     /**
     * Default value. The direction mode is not clearly defined. It is determined by the system.
-    *
-    * @relation UNSPECIFIED = 0
     */
     @!APILevel[
         since: "22",
@@ -109,8 +110,6 @@ public enum Orientation {
     |
     /**
     * Display in portrait orientation.
-    *
-    * @relation PORTRAIT = 1
     */
     @!APILevel[
         since: "22",
@@ -120,8 +119,6 @@ public enum Orientation {
     |
     /**
     * Display in landscape orientation.
-    *
-    * @relation LANDSCAPE = 2
     */
     @!APILevel[
         since: "22",
@@ -131,8 +128,6 @@ public enum Orientation {
     |
     /**
     * Display in inverted portrait orientation.
-    *
-    * @relation PORTRAIT_INVERTED = 3
     */
     @!APILevel[
         since: "22",
@@ -142,8 +137,6 @@ public enum Orientation {
     |
     /**
     * Display in inverted landscape orientation.
-    *
-    * @relation LANDSCAPE_INVERTED = 4
     */
     @!APILevel[
         since: "22",
@@ -153,8 +146,6 @@ public enum Orientation {
     |
     /**
     * Follow the rotation of the sensor, ignore auto rotation lock.
-    *
-    * @relation AUTO_ROTATION = 5
     */
     @!APILevel[
         since: "22",
@@ -164,8 +155,6 @@ public enum Orientation {
     |
     /**
     * Follow the rotation of the sensor, only work in the vertical direction, ignore auto rotation lock.
-    *
-    * @relation AUTO_ROTATION_PORTRAIT = 6
     */
     @!APILevel[
         since: "22",
@@ -175,8 +164,6 @@ public enum Orientation {
     |
     /**
     * Follow the rotation of the sensor, only work in the horizontal direction, ignore auto rotation lock.
-    *
-    * @relation AUTO_ROTATION_LANDSCAPE = 7
     */
     @!APILevel[
         since: "22",
@@ -186,8 +173,6 @@ public enum Orientation {
     |
     /**
     * Follow the rotation of the sensor, controlled by auto rotation lock.
-    *
-    * @relation AUTO_ROTATION_RESTRICTED = 8
     */
     @!APILevel[
         since: "22",
@@ -197,8 +182,6 @@ public enum Orientation {
     |
     /**
     * Follow the rotation of the sensor, only work in the vertical direction, controlled by auto rotation lock.
-    *
-    * @relation AUTO_ROTATION_PORTRAIT_RESTRICTED = 9
     */
     @!APILevel[
         since: "22",
@@ -208,8 +191,6 @@ public enum Orientation {
     |
     /**
     * Follow the rotation of the sensor, only work in the horizontal direction, controlled by auto rotation lock.
-    *
-    * @relation AUTO_ROTATION_LANDSCAPE_RESTRICTED = 10
     */
     @!APILevel[
         since: "22",
@@ -219,8 +200,6 @@ public enum Orientation {
     |
     /**
     * Locked mode, keep the same direction as previous one.
-    *
-    * @relation LOCKED = 11
     */
     @!APILevel[
         since: "22",
@@ -243,7 +222,7 @@ public enum Orientation {
             case AutoRotationPortraitRestricted => 9
             case AutoRotationLandscapeRestricted => 10
             case Locked => 11
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 
@@ -261,15 +240,14 @@ public enum Orientation {
             case 9 => AutoRotationPortraitRestricted
             case 10 => AutoRotationLandscapeRestricted
             case 11 => Locked
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 }
 
 /**
-* Describes the type of avoid area
+* Describes the type of avoid area.
 *
-* @relation export enum AvoidAreaType
 */
 @Derive[Equatable]
 @!APILevel[
@@ -279,8 +257,6 @@ public enum Orientation {
 public enum AvoidAreaType {
     /**
     * Default area of the system
-    *
-    * @relation Default area of the system
     */
     @!APILevel[
         since: "22",
@@ -290,8 +266,6 @@ public enum AvoidAreaType {
     |
     /**
     * Notch
-    *
-    * @relation TYPE_CUTOUT = 1
     */
     @!APILevel[
         since: "22",
@@ -301,8 +275,6 @@ public enum AvoidAreaType {
     |
     /**
     * Area for system gesture
-    *
-    * @relation TYPE_SYSTEM_GESTURE = 2
     */
     @!APILevel[
         since: "22",
@@ -312,8 +284,6 @@ public enum AvoidAreaType {
     |
     /**
     * Area for keyboard
-    *
-    * @relation TYPE_KEYBOARD = 3
     */
     @!APILevel[
         since: "22",
@@ -323,8 +293,6 @@ public enum AvoidAreaType {
     |
     /**
     * Area for navigation indicator
-    *
-    * @relation TYPE_NAVIGATION_INDICATOR = 4
     */
     @!APILevel[
         since: "22",
@@ -340,7 +308,7 @@ public enum AvoidAreaType {
             case TypeSystemGesture => 2
             case TypeKeyboard => 3
             case TypeNavigationIndicator => 4
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 
@@ -351,15 +319,14 @@ public enum AvoidAreaType {
             case 2 => TypeSystemGesture
             case 3 => TypeKeyboard
             case 4 => TypeNavigationIndicator
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 }
 
 /**
-* Enum for window callback event type
+* Enum for window callback event type.
 *
-* @relation export enum WindowEventType
 */
 @Derive[Equatable]
 @!APILevel[
@@ -369,8 +336,6 @@ public enum AvoidAreaType {
 public enum WindowEventType {
     /**
     * The value of window event is window show
-    *
-    * @relation WINDOW_SHOWN = 1
     */
     @!APILevel[
         since: "22",
@@ -380,8 +345,6 @@ public enum WindowEventType {
     |
     /**
     * The value of window event is window active
-    *
-    * @relation WINDOW_ACTIVE = 2
     */
     @!APILevel[
         since: "22",
@@ -391,8 +354,6 @@ public enum WindowEventType {
     |
     /**
     * The value of window event is window inactive
-    *
-    * @relation WINDOW_INACTIVE = 3
     */
     @!APILevel[
         since: "22",
@@ -402,8 +363,6 @@ public enum WindowEventType {
     |
     /**
     * The value of window event is window hide
-    *
-    * @relation WINDOW_HIDDEN = 4
     */
     @!APILevel[
         since: "22",
@@ -413,8 +372,6 @@ public enum WindowEventType {
     |
     /**
     * The value of window event is window destroy
-    *
-    * @relation WINDOW_DESTROYED = 7
     */
     @!APILevel[
         since: "22",
@@ -430,7 +387,7 @@ public enum WindowEventType {
             case WindowInactive => 3
             case WindowHidden => 4
             case WindowDestroyed => 7
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 
@@ -441,15 +398,14 @@ public enum WindowEventType {
             case 3 => WindowInactive
             case 4 => WindowHidden
             case 7 => WindowDestroyed
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 }
 
 /**
-* Window stage callback event type
+* Window stage callback event type.
 *
-* @relation export enum WindowStageEventType
 */
 @Derive[Equatable]
 @!APILevel[
@@ -459,8 +415,6 @@ public enum WindowEventType {
 public enum WindowStageEventType {
     /**
     * The window stage is running in the foreground.
-    *
-    * @relation SHOWN = 1
     */
     @!APILevel[
         since: "22",
@@ -470,8 +424,6 @@ public enum WindowStageEventType {
     |
     /**
     * The window stage gains focus.
-    *
-    * @relation ACTIVE = 2
     */
     @!APILevel[
         since: "22",
@@ -481,8 +433,6 @@ public enum WindowStageEventType {
     |
     /**
     * The window stage loses focus.
-    *
-    * @relation INACTIVE = 3
     */
     @!APILevel[
         since: "22",
@@ -492,8 +442,6 @@ public enum WindowStageEventType {
     |
     /**
     * The window stage is running in the background.
-    *
-    * @relation HIDDEN = 4
     */
     @!APILevel[
         since: "22",
@@ -503,8 +451,6 @@ public enum WindowStageEventType {
     |
     /**
     * The window stage is interactive in the foreground.
-    *
-    * @relation RESUMED = 5
     */
     @!APILevel[
         since: "22",
@@ -514,8 +460,6 @@ public enum WindowStageEventType {
     |
     /**
     * The window stage is not interactive in the foreground.
-    *
-    * @relation PAUSED = 6
     */
     @!APILevel[
         since: "22",
@@ -532,7 +476,7 @@ public enum WindowStageEventType {
             case Hidden => 4
             case Resumed => 5
             case Paused => 6
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 
@@ -544,15 +488,14 @@ public enum WindowStageEventType {
             case 4 => Hidden
             case 5 => Resumed
             case 6 => Paused
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 }
 
 /**
-* Describes the window status of an application
+* Describes the window status of an application.
 *
-* @relation export enum WindowStatusType
 */
 @Derive[Equatable]
 @!APILevel[
@@ -562,8 +505,6 @@ public enum WindowStageEventType {
 public enum WindowStatusType {
     /**
     * Undefined status of the window
-    *
-    * @relation UNDEFINED = 0
     */
     @!APILevel[
         since: "22",
@@ -573,8 +514,6 @@ public enum WindowStatusType {
     |
     /**
     * Full screen status of the window
-    *
-    * @relation FULL_SCREEN = 1
     */
     @!APILevel[
         since: "22",
@@ -584,8 +523,6 @@ public enum WindowStatusType {
     |
     /**
     * Maximize status of the window
-    *
-    * @relation MAXIMIZE = 2
     */
     @!APILevel[
         since: "22",
@@ -595,8 +532,6 @@ public enum WindowStatusType {
     |
     /**
     * Minimize status of the window
-    *
-    * @relation MINIMIZE = 3
     */
     @!APILevel[
         since: "22",
@@ -606,8 +541,6 @@ public enum WindowStatusType {
     |
     /**
     * Floating status of the window
-    *
-    * @relation FLOATING = 4
     */
     @!APILevel[
         since: "22",
@@ -617,8 +550,6 @@ public enum WindowStatusType {
     |
     /**
     * Split screen status of the window
-    *
-    * @relation SPLIT_SCREEN = 5
     */
     @!APILevel[
         since: "22",
@@ -635,7 +566,7 @@ public enum WindowStatusType {
             case Minimize => 3
             case Floating => 4
             case SplitScreen => 5
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 
@@ -647,7 +578,7 @@ public enum WindowStatusType {
             case 3 => Minimize
             case 4 => Floating
             case 5 => SplitScreen
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 }
@@ -655,7 +586,6 @@ public enum WindowStatusType {
 /**
 * Type of allowing the specified of color space.
 *
-* @relation export enum ColorSpace
 */
 @Derive[Equatable]
 @!APILevel[
@@ -665,8 +595,6 @@ public enum WindowStatusType {
 public enum ColorSpace {
     /**
     * Default color space.
-    *
-    * @relation DEFAULT = 0
     */
     @!APILevel[
         since: "22",
@@ -676,8 +604,6 @@ public enum ColorSpace {
     |
     /**
     * Wide gamut color space. The specific wide color gamut depends on thr screen.
-    *
-    * @relation WIDE_GAMUT = 1
     */
     @!APILevel[
         since: "22",
@@ -690,7 +616,7 @@ public enum ColorSpace {
         return match (this) {
             case Default => 0
             case WideGamut => 1
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 
@@ -698,14 +624,13 @@ public enum ColorSpace {
         return match (val) {
             case 0 => Default
             case 1 => WideGamut
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 }
 
-
 /**
-* Enumerates of listening event
+* Enumerates of listening event.
 */
 @Derive[Equatable]
 @!APILevel[
@@ -856,13 +781,13 @@ public enum WindowCallbackType {
             case SubWindowClose => "subWindowClose"
             case WindowTitleButtonRectChange => "windowTitleButtonRectChange"
             case WindowRectChange => "windowRectChange"
-            case _ => throw IllegalArgumentException("The type is not supported.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 }
 
 /**
-* Enumerates of system bar type
+* Enumerates of system bar type.
 */
 @Derive[Equatable]
 @!APILevel[
@@ -893,7 +818,7 @@ public enum SystemBarType {
         return match (this) {
             case Status => "status"
             case Navigation => "navigation"
-            case _ => throw IllegalArgumentException("The type is not supported yet.")
+            case _ => throw BusinessException(100001, "Internal error.")
         }
     }
 }
