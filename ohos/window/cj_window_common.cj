@@ -22,7 +22,6 @@ import ohos.app.ability.BaseContext
 
 /**
  * Window size.
- *
  */
 @!APILevel[
     22,
@@ -48,8 +47,9 @@ public class Size {
 
     /**
      * Size constructor.
-     * @params { UInt32 } width
-     * @params { UInt32 } height
+     *
+     * @param { UInt32 } width - The width of the window.
+     * @param { UInt32 } height - The height of the window.
      */
     @!APILevel[
         22,
@@ -87,7 +87,6 @@ struct CSize {
 
 /**
  * Rectangular area of the title buttons relative to the upper right corner of the window.
- *
  */
 @!APILevel[
     22,
@@ -129,10 +128,11 @@ public class TitleButtonRect {
 
     /**
      * TitleButtonRect constructor.
-     * @params { Int32 } right
-     * @params { Int32 } top
-     * @params { UInt32 } width
-     * @params { UInt32 } height
+     *
+     * @param { Int32 } right - The right of the Rect.
+     * @param { Int32 } top - The top of the Rect.
+     * @param { UInt32 } width - The width of the Rect.
+     * @param { UInt32 } height - The height of the Rect.
      */
     @!APILevel[
         22,
@@ -187,7 +187,6 @@ struct RetStruct {
 
 /**
  * Configuration parameters for window creation.
- *
  */
 @!APILevel[
     22,
@@ -237,11 +236,12 @@ public class Configuration {
 
     /**
      * Configuration constructor.
-     * @params { String } name
-     * @params { WindowType } windowType
-     * @params { BaseContext } ctx
-     * @params { Int64 } displayId
-     * @params { Int64 } parentId
+     *
+     * @param { String } name - Indicates window id.
+     * @param { WindowType } windowType - Indicates window type.
+     * @param { BaseContext } ctx - Indicates window context.
+     * @param { Int64 } [displayID] - Indicates display ID.
+     * @param { Int64 } [parentID] - Indicates Parent window id.
      */
     @!APILevel[
         22,
@@ -264,7 +264,6 @@ public class Configuration {
 
 /**
  * Rectangle.
- *
  */
 @!APILevel[
     22,
@@ -305,11 +304,12 @@ public class Rect {
     public var height: UInt32
 
     /**
-     * Rect constructor.
-     * @params { Int32 } left
-     * @params { Int32 } top
-     * @params { UInt32 } width
-     * @params { UInt32 } height
+     * The constructor of Rect.
+     *
+     * @param { Int32 } left - The left of the Rect.
+     * @param { Int32 } top - The top of the Rect.
+     * @param { UInt32 } width -  The width of the Rect.
+     * @param { UInt32 } height -  The height of the Rect.
      */
     @!APILevel[
         22,
@@ -355,7 +355,6 @@ struct CRect {
 
 /**
  * Properties of window, it couldn't update automatically.
- *
  */
 @!APILevel[
     22,
@@ -461,18 +460,19 @@ public class WindowProperties {
 
     /**
      * WindowProperties constructor.
-     * @params { Rect } windowRect
-     * @params { Rect } drawableRect
-     * @params { WindowType } winType
-     * @params { Bool } isFullScreen
-     * @params { Bool } isLayoutFullScreen
-     * @params { Bool } focusable
-     * @params { Bool } touchable
-     * @params { Float32 } brightness
-     * @params { Bool } isKeepScreenOn
-     * @params { Bool } isPrivacyMode
-     * @params { Bool } isTransparent
-     * @params { UInt32 } id
+     *
+     * @param { Rect } windowRect - The position and size of the window.
+     * @param { Rect } drawableRect - The position relative to the window and size of drawable area.
+     * @param { WindowType } winType - Window type.
+     * @param { Bool } isFullScreen - Whether the window is displayed in full screen mode. The default value is false.
+     * @param { Bool } isLayoutFullScreen - Whether the window layout is in full screen mode(whether the window is immersive). The default value is false.
+     * @param { Bool } focusable - Whether the window can gain focus. The default value is true.
+     * @param { Bool } touchable - Whether the window is touchable. The default value is false.
+     * @param { Float32 } brightness - Brightness value of window.
+     * @param { Bool } isKeepScreenOn - Whether keep screen on.
+     * @param { Bool } isPrivacyMode - Whether make window in privacy mode or not.
+     * @param { Bool } isTransparent - Whether is transparent or not.
+     * @param { UInt32 } id - Window id.
      */
     @!APILevel[
         22,
@@ -535,7 +535,6 @@ struct CWindowProperties {
 
 /**
  * Avoid area.
- *
  */
 @!APILevel[
     22,
@@ -585,11 +584,12 @@ public class AvoidArea {
 
     /**
      * AvoidArea constructor.
-     * @params { Bool } visible
-     * @params { Rect } leftRect
-     * @params { Rect } topRect
-     * @params { Rect } rightRect
-     * @params { Rect } bottomRect
+     *
+     * @param { Bool } visible - Whether avoidArea is visible on screen.
+     * @param { Rect } leftRect - Rectangle on the left of the screen.
+     * @param { Rect } topRect - Rectangle on the top of the screen.
+     * @param { Rect } rightRect - Rectangle on the right of the screen.
+     * @param { Rect } bottomRect - Rectangle on the bottom of the screen.
      */
     @!APILevel[
         22,
@@ -636,7 +636,6 @@ struct CAvoidArea {
 
 /**
  * Properties of status bar and navigation bar, it couldn't update automatically.
- *
  */
 @!APILevel[
     22,
@@ -652,7 +651,7 @@ public class SystemBarProperties {
     ]
     public var statusBarColor: String = "#66000000"
     /**
-     * The light icon of the status bar.
+     * Weather the status bar icon is light.
      */
     @!APILevel[
         22,
@@ -668,7 +667,7 @@ public class SystemBarProperties {
     ]
     public var statusBarContentColor: String = "#E5FFFFFF"
     /**
-     * statusBarContentColor?: string
+     * The color of the navigation bar.
      */
     @!APILevel[
         22,
@@ -676,7 +675,7 @@ public class SystemBarProperties {
     ]
     public var navigationBarColor: String = "#66000000"
     /**
-     * navigationBarColor?: string
+     * Weather the navigation bar icon is light.
      */
     @!APILevel[
         22,
@@ -710,14 +709,15 @@ public class SystemBarProperties {
 
     /**
      * SystemBarProperties constructor.
-     * @params { String } statusBarColor
-     * @params { Bool } isStatusBarLightIcon
-     * @params { String } statusBarContentColor
-     * @params { String } navigationBarColor
-     * @params { Bool } isNavigationBarLightIcon
-     * @params { String } navigationBarContentColor
-     * @params { Bool } enableStatusBarAnimation
-     * @params { Bool } enableNavigationBarAnimation
+     *
+     * @param { String } [statusBarColor] - The color of the status bar.
+     * @param { Bool } [isStatusBarLightIcon] - Weather the status bar icon is light.
+     * @param { String } [statusBarContentColor] - The content color of the status bar.
+     * @param { String } [navigationBarColor] - The content color of the status bar.
+     * @param { Bool } [isNavigationBarLightIcon] - Weather the navigation bar icon is light.
+     * @param { String } [navigationBarContentColor] - The content color of the navigation bar.
+     * @param { Bool } [enableStatusBarAnimation] - Enable the animation of the status bar.
+     * @param { Bool } [enableNavigationBarAnimation] - Enable the animation of the navigation bar.
      */
     @!APILevel[
         22,

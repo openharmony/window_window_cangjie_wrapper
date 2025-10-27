@@ -21,7 +21,6 @@ import std.deriving.Derive
 
 /**
  * The type of a window.
- *
  */
 @Derive[Equatable]
 @!APILevel[
@@ -91,7 +90,6 @@ public enum WindowType {
 
 /**
 * Display orientation.
-*
 */
 @Derive[Equatable]
 @!APILevel[
@@ -247,7 +245,6 @@ public enum Orientation {
 
 /**
 * Describes the type of avoid area.
-*
 */
 @Derive[Equatable]
 @!APILevel[
@@ -326,7 +323,6 @@ public enum AvoidAreaType {
 
 /**
 * Enum for window callback event type.
-*
 */
 @Derive[Equatable]
 @!APILevel[
@@ -405,7 +401,6 @@ public enum WindowEventType {
 
 /**
 * Window stage callback event type.
-*
 */
 @Derive[Equatable]
 @!APILevel[
@@ -495,7 +490,6 @@ public enum WindowStageEventType {
 
 /**
 * Describes the window status of an application.
-*
 */
 @Derive[Equatable]
 @!APILevel[
@@ -585,7 +579,6 @@ public enum WindowStatusType {
 
 /**
 * Type of allowing the specified of color space.
-*
 */
 @Derive[Equatable]
 @!APILevel[
@@ -796,8 +789,8 @@ public enum WindowCallbackType {
 ]
 public enum SystemBarType {
     /**
-    * status bar
-    */
+     * Status bar.
+     */
     @!APILevel[
         22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
@@ -805,8 +798,8 @@ public enum SystemBarType {
     Status
     |
     /**
-    * navigation
-    */
+     * Navigation.
+     */
     @!APILevel[
         22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"

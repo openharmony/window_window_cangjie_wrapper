@@ -259,7 +259,6 @@ public func shiftAppWindowFocus(sourceWindowID: Int32, targetWindowID: Int32): U
 
 /**
  * Window.
- *
  */
 @!APILevel[
     22,
@@ -403,7 +402,7 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-     * Whether the window supports thr wide gamut setting.
+     * Whether the window supports the wide gamut setting.
      *
      * @returns { Bool } The value true means that the wide-gamut color space is supported, and false means the opposite.
      * @throws { BusinessException } 1300002 - This window state is abnormal.
@@ -422,9 +421,9 @@ public class Window <: RemoteDataLite {
     }
 
     /**
-     * Whether the window supports thr wide gamut setting.
+     * Whether the window supports the wide gamut setting.
      *
-     * @returns { Bool } Whether the window is displayed. The value true means that the window is displayed, and false means the opposite.
+     * @returns { Bool }  Whether the window is displayed. The value true means that the window is displayed, and false means the opposite.
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
@@ -551,7 +550,7 @@ public class Window <: RemoteDataLite {
      * Sets the preferred orientation for the main window.
      * It does not take effect on devices that do not support rotation with the sensor, on 2-in-1 devices or for the child window.
      *
-     * @param { Orientation } orientation - The orientation config of the window
+     * @param { Orientation } orientation - The orientation config of the window.
      * @throws { BusinessException } 401 - Parameter error. Possible cause: 1. Mandatory parameters are left unspecified;
      *                                                                      2. Incorrect parameter types;
      *                                                                      3. Parameter verification failed.
@@ -593,7 +592,7 @@ public class Window <: RemoteDataLite {
     /**
      * Sets the aspect ratio of window.
      *
-     * @param { Float64 } ratio - The aspect ratio of window except decoration.
+     * @param { Float64 } ratio - The aspect ratio of window except decoration
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      * @throws { BusinessException } 1300004 - Unauthorized operation.
      */

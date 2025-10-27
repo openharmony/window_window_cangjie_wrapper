@@ -41,7 +41,6 @@ struct CRect {
 
 /**
  * Rectangle.
- *
  */
 @!APILevel[
     22,
@@ -49,7 +48,7 @@ struct CRect {
 ]
 public class Rect {
     /**
-     * The Y-axis coordinate of the upper left vertex of the rectangle, in pixels.
+     * The left of the Rect.
      */
     @!APILevel[
         22,
@@ -57,7 +56,7 @@ public class Rect {
     ]
     public var left: Int32
     /**
-     * The Y-axis coordinate of the upper left vertex of the rectangle, in pixels.
+     * The top of the Rect.
      */
     @!APILevel[
         22,
@@ -65,8 +64,7 @@ public class Rect {
     ]
     public var top: Int32
     /**
-     * Width of the rectangle, in pixels.
-     *
+     * The width of the Rect.
      */
     @!APILevel[
         22,
@@ -74,7 +72,7 @@ public class Rect {
     ]
     public var width: UInt32
     /**
-     * Height of the rectangle, in pixels.
+     * The height of the Rect.
      */
     @!APILevel[
         22,
@@ -83,11 +81,12 @@ public class Rect {
     public var height: UInt32
 
     /**
-     * Rect constructor.
-     * @params { Int32 } left
-     * @params { Int32 } top
-     * @params { UInt32 } width
-     * @params { UInt32 } height
+     * The constructor of Rect.
+     *
+     * @param { Int32 } left - The left of the Rect.
+     * @param { Int32 } top - The top of the Rect.
+     * @param { UInt32 } width -  The width of the Rect.
+     * @param { UInt32 } height -  The height of the Rect.
      */
     @!APILevel[
         22,
@@ -125,7 +124,6 @@ struct CWaterfallDisplayAreaRects {
 
 /**
  * Curved area rects of the waterfall display.
- *
  */
 @!APILevel[
     22,
@@ -167,10 +165,11 @@ public class WaterfallDisplayAreaRects {
 
     /**
      * WaterfallDisplayAreaRects constructor.
-     * @params { Rect } left
-     * @params { Rect } top
-     * @params { Rect } right
-     * @params { Rect } bottom
+     *
+     * @param { Rect } left - Indicates the size of left side curved area of the waterfall screen.
+     * @param { Rect } top - Indicates the size of top side curved area of the waterfall screen.
+     * @param { Rect } right - Indicates the size of right side curved area of the waterfall screen.
+     * @param { Rect } bottom - Indicates the size of bottom side curved area of the waterfall screen.
      */
     @!APILevel[
         22,
@@ -207,7 +206,6 @@ struct CCutoutInfo {
 
 /**
  * Cutout information of the display.
- *
  */
 @!APILevel[
     22,
@@ -233,8 +231,9 @@ public class CutoutInfo {
 
     /**
      * CutoutInfo constructor.
-     * @params { Array<Rect> } boundingRects
-     * @params { WaterfallDisplayAreaRects } waterfallDisplayAreaRects
+     *
+     * @param { Array<Rect> } boundingRects - Bounding rectangles of the cutout areas of the display.
+     * @param { WaterfallDisplayAreaRects } waterfallDisplayAreaRects - Rectangles of curved parts on each side of a waterfall display.
      */
     @!APILevel[
         22,
@@ -268,7 +267,6 @@ struct CFoldCreaseRegion {
 
 /**
  * Fold Crease Region.
- *
  */
 @!APILevel[
     22,
@@ -282,7 +280,7 @@ public class FoldCreaseRegion {
         22,
         syscap: "SystemCapability.Window.SessionManager"
     ]
-    public let displayId: UInt32
+    public let displayId: Int64
     /**
      * Crease Region.
      */
@@ -294,8 +292,9 @@ public class FoldCreaseRegion {
 
     /**
      * FoldCreaseRegion constructor.
-     * @params { UInt32 } displayId
-     * @params { Array<Rect> } creaseRects
+     *
+     * @param { Int64 } displayId - The display ID is used to identify the screen where the crease is located.
+     * @param { Array<Rect> } creaseRects - Crease Region.
      */
     @!APILevel[
         22,

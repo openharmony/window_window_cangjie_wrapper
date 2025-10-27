@@ -121,9 +121,8 @@ func findCallbackObject(list: ArrayList<(CallbackObject, Int64)>, callback: Call
 /**
  * Obtain the default display.
  *
- * @returns { Display } the result of display.
+ * @returns { Display } the result of display
  * @throws { BusinessException } 1400001 - Invalid display or screen.
- * @throws { BusinessException } 1400003 - This display manager service works abnormally.
  */
 @!APILevel[
     22,
@@ -146,9 +145,8 @@ public func getDefaultDisplaySync(): Display {
 /**
  * Obtain all displays.
  *
- * @returns { Array<Display> } the result of all displays.
+ * @returns { Array<Display> } the result of all displays
  * @throws { BusinessException } 1400001 - Invalid display or screen.
- * @throws { BusinessException } 1400003 - This display manager service works abnormally.
  */
 @!APILevel[
     22,
@@ -248,9 +246,9 @@ public func getCurrentFoldCreaseRegion(): FoldCreaseRegion {
 }
 
 /**
- * Disables all listeners for display device changes.
+ * Unregister the callback for given event type.
  *
- * @param { ListenerType } listenerType - Type of listening event.
+ * @param { ListenerType } listenerType - Type of listening event
  */
 @!APILevel[
     22,
@@ -285,8 +283,7 @@ func offAllCallback(callbackType: String): Unit {
  *
  * @param { ListenerType } listenerType - the event of fold status changes.
  * @param { Callback1Argument<FoldStatus> } callback - Callback used to return the current fold status of device.
- * @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified.
- *                                                                       2. Incorrect parameter types.
+ * @throws { BusinessException } 801 - Capability not supported.
  * @throws { BusinessException } 1400003 - This display manager service works abnormally.
  */
 @!APILevel[
@@ -336,8 +333,7 @@ func onFoldStatusChange(callbackType: String, callback: Callback1Argument<FoldSt
  *
  * @param { ListenerType } listenerType - the event of fold status change.
  * @param { Callback1Argument<FoldStatus> } callback - Callback used to return the current fold status of device.
- * @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified.
- *                                                                       2. Incorrect parameter types.
+ * @throws { BusinessException } 801 - Capability not supported.
  * @throws { BusinessException } 1400003 - This display manager service works abnormally.
  */
 @!APILevel[
@@ -381,10 +377,8 @@ func offFoldStatusChange(callbackType: String, callback: Callback1Argument<FoldS
 /**
  * Register the callback for fold display mode changes.
  *
- * @param { ListenerType } listenerType - the event of fold status change.
- * @param { Callback1Argument<FoldDisplayMode> } callback - Callback used to return the current fold status of device.
- * @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified.
- *                                                                       2. Incorrect parameter types.
+ * @param { ListenerType } listenerType - the event of fold display mode changes.
+ * @param { Callback1Argument<FoldDisplayMode> } callback - Callback used to return the current fold display mode.
  * @throws { BusinessException } 1400003 - This display manager service works abnormally.
  */
 @!APILevel[
@@ -432,10 +426,8 @@ func onFoldDisplayModeChange(callbackType: String, callback: Callback1Argument<F
 /**
  * Unregister the callback for fold display mode changes.
  *
- * @param { ListenerType } listenerType - the event of fold status change.
- * @param { Callback1Argument<FoldDisplayMode> } callback - Callback used to return the current fold status of device.
- * @throws { BusinessException } 401 - Parameter error. Possible causes: 1. Mandatory parameters are left unspecified.
- *                                                                       2. Incorrect parameter types.
+ * @param { ListenerType } listenerType - the event of fold display mode changes.
+ * @param { Callback1Argument<FoldDisplayMode> } callback - Callback used to return the current fold display mode.
  * @throws { BusinessException } 1400003 - This display manager service works abnormally.
  */
 @!APILevel[
@@ -478,7 +470,6 @@ func offFoldDisplayModeChange(callbackType: String, callback: Callback1Argument<
 
 /**
  * Define properties of the display. They cannot be updated automatically.
- *
  */
 @!APILevel[
     22,
@@ -495,7 +486,7 @@ public class Display <: RemoteDataLite {
         22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public prop id: UInt32 {
+    public prop id: Int64 {
         get() {
             unsafe { FfiOHOSDisplayGetId(getID()) }
         }
@@ -519,7 +510,7 @@ public class Display <: RemoteDataLite {
     }
 
     /**
-     * Whether the display is alive.
+     * The display is alive.
      */
     @!APILevel[
         22,
@@ -598,7 +589,7 @@ public class Display <: RemoteDataLite {
         22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public prop width: Int32 {
+    public prop width: Int64 {
         get() {
             unsafe { FfiOHOSDisplayGetWidth(getID()) }
         }
@@ -611,7 +602,7 @@ public class Display <: RemoteDataLite {
         22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public prop height: Int32 {
+    public prop height: Int64 {
         get() {
             unsafe { FfiOHOSDisplayGetHeight(getID()) }
         }
@@ -624,7 +615,7 @@ public class Display <: RemoteDataLite {
         22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public prop densityDpi: Float32 {
+    public prop densityDpi: Float64 {
         get() {
             unsafe { FfiOHOSDisplayGetDensityDPI(getID()) }
         }
@@ -637,7 +628,7 @@ public class Display <: RemoteDataLite {
         22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public prop densityPixels: Float32 {
+    public prop densityPixels: Float64 {
         get() {
             unsafe { FfiOHOSDisplayGetVirtualPixelRatio(getID()) }
         }
@@ -650,7 +641,7 @@ public class Display <: RemoteDataLite {
         22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public prop scaledDensity: Float32 {
+    public prop scaledDensity: Float64 {
         get() {
             unsafe { FfiOHOSDisplayGetVirtualPixelRatio(getID()) }
         }
@@ -663,7 +654,7 @@ public class Display <: RemoteDataLite {
         22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public prop xDpi: Float32 {
+    public prop xDpi: Float64 {
         get() {
             unsafe { FfiOHOSDisplayGetXDPI(getID()) }
         }
@@ -676,7 +667,7 @@ public class Display <: RemoteDataLite {
         22,
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public prop yDpi: Float32 {
+    public prop yDpi: Float64 {
         get() {
             unsafe { FfiOHOSDisplayGetYDPI(getID()) }
         }
@@ -694,7 +685,7 @@ public class Display <: RemoteDataLite {
     /**
      * Obtain the cutout info of the display.
      *
-     * @returns { CutoutInfo }
+     * @returns { CutoutInfo } The cutout info of the display.
      * @throws { BusinessException } 1400001 - Invalid display or screen.
      * @throws { BusinessException } 1400003 - This display manager service works abnormally.
      */
