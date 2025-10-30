@@ -20,7 +20,7 @@ package ohos.window
 internal import std.collection.HashMap
 internal import ohos.base.*
 
-let ErrCodeMap = HashMap<Int32, String>(
+let ERR_CODE_MAP = HashMap<Int32, String>(
     [
         (1300001, "Repeated operation."),
         (1300002, "This window state is abnormal."),
@@ -41,7 +41,7 @@ let ErrCodeMap = HashMap<Int32, String>(
 
 func checkRet(errCode: Int32, message: String) {
     if (errCode != 0) {
-        if (let Some(errMsg) <- ErrCodeMap.get(errCode)) {
+        if (let Some(errMsg) <- ERR_CODE_MAP.get(errCode)) {
             let msg = message + errMsg
             throw BusinessException(errCode, msg)
         }

@@ -46,7 +46,7 @@ foreign {
         isModal: Bool): RetDataI64
 }
 
-let stageRegisterMutex = Mutex()
+let STAGE_REGISTER_MUTEX = Mutex()
 
 /**
  * WindowStage.
@@ -83,7 +83,7 @@ public class WindowStage <: RemoteDataLite {
         unsafe {
             let ret = FfiOHOSGetMainWindow(getID())
             checkRet(ret.code, "[WindowStage] get mainwindow: ")
-            getOrCreate(Window.instanceMap, ret.data, {id: Int64 => Window(id)})
+            getOrCreate(Window.INSTANCE_MAP, ret.data, {id: Int64 => Window(id)})
         }
     }
 
@@ -105,7 +105,7 @@ public class WindowStage <: RemoteDataLite {
                 ret = FfiOHOSCreateSubWindow(getID(), cname.value)
             }
             checkRet(ret.getOrThrow().code, "[WindowStage] create subwindow: ")
-            getOrCreate(Window.instanceMap, ret.getOrThrow().data, {id: Int64 => Window(id)})
+            getOrCreate(Window.INSTANCE_MAP, ret.getOrThrow().data, {id: Int64 => Window(id)})
         }
     }
 
@@ -127,7 +127,7 @@ public class WindowStage <: RemoteDataLite {
             let idArray = Array<Int64>(ret.len, {i => dataPtr.read(i)})
             LibC.free<Int64>(dataPtr)
             let result = Array<Window>(ret.len,
-                {i => getOrCreate(Window.instanceMap, idArray[i], {id: Int64 => Window(id)})})
+                {i => getOrCreate(Window.INSTANCE_MAP, idArray[i], {id: Int64 => Window(id)})})
             return result
         }
     }

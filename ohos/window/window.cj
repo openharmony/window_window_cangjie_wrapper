@@ -143,7 +143,7 @@ foreign {
     func FFIGetContext(id: Int64): CPointer<Unit>
 }
 
-let registerMutex = Mutex()
+let REGISTER_MUTEX = Mutex()
 
 /**
  * Finds a window based on the name.
@@ -164,7 +164,7 @@ public func findWindow(name: String): Window {
         }
         checkRet(cValue.getOrThrow().code, "[Window] findWindow: ")
         let id = cValue.getOrThrow().data
-        getOrCreate(Window.instanceMap, id, {id: Int64 => Window(id)})
+        getOrCreate(Window.INSTANCE_MAP, id, {id: Int64 => Window(id)})
     }
 }
 
@@ -202,7 +202,7 @@ public func createWindow(config: Configuration): Window {
                 config.parentId)
         }
         checkRet(ret.getOrThrow().code, "[Window] createWindow: ")
-        getOrCreate(Window.instanceMap, ret.getOrThrow().data, {id: Int64 => Window(id)})
+        getOrCreate(Window.INSTANCE_MAP, ret.getOrThrow().data, {id: Int64 => Window(id)})
     }
 }
 
@@ -229,7 +229,7 @@ public func getLastWindow(ctx: BaseContext): Window {
         }
         let ret = FfiOHOSGetLastWindow(stageContext)
         checkRet(ret.code, "[Window] getLastWindow: ")
-        getOrCreate(Window.instanceMap, ret.data, {id: Int64 => Window(id)})
+        getOrCreate(Window.INSTANCE_MAP, ret.data, {id: Int64 => Window(id)})
     }
 }
 
@@ -284,11 +284,11 @@ public class Window <: RemoteDataLite {
         ]
     )
 
-    static let instanceMap = HashMap<Int64, Window>()
+    static let INSTANCE_MAP = HashMap<Int64, Window>()
 
     init(id: Int64) {
         super(id)
-        WindowLibLog.info("[Window] construct success")
+        WINDOW_LIB_LOG.info("[Window] construct success")
     }
 
     ~init() {
@@ -773,14 +773,14 @@ public class Window <: RemoteDataLite {
     }
 
     func onKeyboardHeightChange(callbackType: String, callback: Callback1Argument<UInt32>): Unit {
-        synchronized(registerMutex) {
+        synchronized(REGISTER_MUTEX) {
             var value = callbackMaps.entryView(callbackType)
             if (value.value.isNone() || callbackType != "keyboardHeightChange") {
-                WindowLibLog.error("[Window] Invalid param.")
+                WINDOW_LIB_LOG.error("[Window] Invalid param.")
                 return
             }
             if (findCallbackObject(value.value.getOrThrow(), callback)) {
-                WindowLibLog.info("[Window] The callback object already exists.")
+                WINDOW_LIB_LOG.info("[Window] The callback object already exists.")
                 return
             }
             unsafe {
@@ -843,10 +843,10 @@ public class Window <: RemoteDataLite {
     }
 
     func commonUnregister(callbackType: String): Unit {
-        synchronized(registerMutex) {
+        synchronized(REGISTER_MUTEX) {
             var value = callbackMaps.entryView(callbackType)
             if (value.value.isNone()) {
-                WindowLibLog.error("[Window] Invalid param.")
+                WINDOW_LIB_LOG.error("[Window] Invalid param.")
                 return
             }
             unsafe {
@@ -861,10 +861,10 @@ public class Window <: RemoteDataLite {
     }
 
     func commonUnregister<T>(callbackType: String, callback: T): Unit where T <: CallbackObject {
-        synchronized(registerMutex) {
+        synchronized(REGISTER_MUTEX) {
             var callbackEntryView = callbackMaps.entryView(callbackType)
             if (callbackEntryView.value.isNone()) {
-                WindowLibLog.error("[Window] Invalid param.")
+                WINDOW_LIB_LOG.error("[Window] Invalid param.")
                 return
             }
             var callbackId: Option<Int64> = None
@@ -877,13 +877,13 @@ public class Window <: RemoteDataLite {
                 }
             }
             if (callbackId.isNone()) {
-                WindowLibLog.info("[Window] The callback object not exists.")
+                WINDOW_LIB_LOG.info("[Window] The callback object not exists.")
                 return
             }
             unsafe {
                 var ret: ?Int32 = None
                 try (callbackTypeCString = LibC.mallocCString(callbackType).asResource()) {
-                    WindowLibLog.info("[Window] The callback QDY id = ${callbackId.getOrThrow()}")
+                    WINDOW_LIB_LOG.info("[Window] The callback QDY id = ${callbackId.getOrThrow()}")
                     ret = FfiOHOSOffCallback(getID(), callbackId.getOrThrow(), callbackTypeCString.value)
                 }
                 checkRet(ret.getOrThrow(), "[Window] Unregister ${callbackType} failed: ")

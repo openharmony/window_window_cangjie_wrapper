@@ -20,4 +20,4 @@ package ohos.display
 import ohos.hilog.*
 // 0xD002B26 is Log Domain, which is used to filter logs
 
-let DisplayLog = HilogChannel(0, 0xD004201, "CJ-Display")
+let DISPLAY_LOG = HilogChannel(0, 0xD004201, "CJ-Display")
