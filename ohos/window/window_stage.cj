@@ -53,7 +53,7 @@ let STAGE_REGISTER_MUTEX = Mutex()
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class WindowStage <: RemoteDataLite {
@@ -76,7 +76,7 @@ public class WindowStage <: RemoteDataLite {
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func getMainWindow(): Window {
@@ -95,7 +95,7 @@ public class WindowStage <: RemoteDataLite {
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func createSubWindow(name: String): Window {
@@ -116,7 +116,7 @@ public class WindowStage <: RemoteDataLite {
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func getSubWindow(): Array<Window> {
@@ -139,7 +139,7 @@ public class WindowStage <: RemoteDataLite {
      * @param { String } path - Path of the page to which the content will be loaded.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func loadContent(path: String): Unit {

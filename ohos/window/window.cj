@@ -153,7 +153,7 @@ let REGISTER_MUTEX = Mutex()
  * @throws { BusinessException } 1300002 - This window state is abnormal.
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public func findWindow(name: String): Window {
@@ -181,7 +181,7 @@ public func findWindow(name: String): Window {
  * @throws { BusinessException } 1300006 - This window context is abnormal.
  */
 @!APILevel[
-    22,
+    since: "22",
     permission: "ohos.permission.SYSTEM_FLOAT_WINDOW",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
@@ -216,7 +216,7 @@ public func createWindow(config: Configuration): Window {
  * @throws { BusinessException } 1300002 - This window state is abnormal. Top window or main window is null or destroyed.
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public func getLastWindow(ctx: BaseContext): Window {
@@ -247,7 +247,7 @@ public func getLastWindow(ctx: BaseContext): Window {
  * @throws { BusinessException } 1300004 - Unauthorized operation.
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func shiftAppWindowFocus(sourceWindowID: Int32, targetWindowID: Int32): Unit {
@@ -262,7 +262,7 @@ public func shiftAppWindowFocus(sourceWindowID: Int32, targetWindowID: Int32): U
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class Window <: RemoteDataLite {
@@ -303,7 +303,7 @@ public class Window <: RemoteDataLite {
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func showWindow(): Unit {
@@ -321,7 +321,7 @@ public class Window <: RemoteDataLite {
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func moveWindowTo(x: Int32, y: Int32): Unit {
@@ -339,7 +339,7 @@ public class Window <: RemoteDataLite {
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func resize(width: UInt32, height: UInt32): Unit {
@@ -356,7 +356,7 @@ public class Window <: RemoteDataLite {
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func getWindowProperties(): WindowProperties {
@@ -375,7 +375,7 @@ public class Window <: RemoteDataLite {
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func destroyWindow(): Unit {
@@ -392,7 +392,7 @@ public class Window <: RemoteDataLite {
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowLayoutFullScreen(isLayoutFullScreen: Bool): Unit {
@@ -409,7 +409,7 @@ public class Window <: RemoteDataLite {
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func isWindowSupportWideGamut(): Bool {
@@ -428,7 +428,7 @@ public class Window <: RemoteDataLite {
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func isWindowShowing(): Bool {
@@ -449,7 +449,7 @@ public class Window <: RemoteDataLite {
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowBackgroundColor(color: String): Unit {
@@ -468,7 +468,7 @@ public class Window <: RemoteDataLite {
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowBrightness(brightness: Float32): Unit {
@@ -485,7 +485,7 @@ public class Window <: RemoteDataLite {
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowFocusable(isFocusable: Bool): Unit {
@@ -502,7 +502,7 @@ public class Window <: RemoteDataLite {
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowKeepScreenOn(isKeepScreenOn: Bool): Unit {
@@ -519,7 +519,7 @@ public class Window <: RemoteDataLite {
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
-        22,
+        since: "22",
         permission: "ohos.permission.PRIVACY_WINDOW",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
@@ -537,7 +537,7 @@ public class Window <: RemoteDataLite {
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowTouchable(isTouchable: Bool): Unit {
@@ -558,7 +558,7 @@ public class Window <: RemoteDataLite {
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setPreferredOrientation(orientation: Orientation): Unit {
@@ -577,7 +577,7 @@ public class Window <: RemoteDataLite {
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func getWindowAvoidArea(areaType: AvoidAreaType): AvoidArea {
@@ -598,7 +598,7 @@ public class Window <: RemoteDataLite {
      * @throws { BusinessException } 1300004 - Unauthorized operation.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setAspectRatio(ratio: Float64): Unit {
@@ -613,7 +613,7 @@ public class Window <: RemoteDataLite {
      * @throws { BusinessException } 1300004 - Unauthorized operation.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func resetAspectRatio(): Unit {
@@ -628,7 +628,7 @@ public class Window <: RemoteDataLite {
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowColorSpace(colorSpace: ColorSpace): Unit {
@@ -646,7 +646,7 @@ public class Window <: RemoteDataLite {
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Window.SessionManager"
     ]
     public func minimize(): Unit {
@@ -663,7 +663,7 @@ public class Window <: RemoteDataLite {
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func getWindowColorSpace(): ColorSpace {
@@ -682,7 +682,7 @@ public class Window <: RemoteDataLite {
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func snapshot(): PixelMap {
@@ -701,7 +701,7 @@ public class Window <: RemoteDataLite {
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowSystemBarEnabled(names: Array<SystemBarType>): Unit {
@@ -724,7 +724,7 @@ public class Window <: RemoteDataLite {
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func setWindowSystemBarProperties(systemBarProperties: SystemBarProperties): Unit {
@@ -762,7 +762,7 @@ public class Window <: RemoteDataLite {
      *                                                                      3. Parameter verification failed.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func on(callbackType: WindowCallbackType, callback: Callback1Argument<UInt32>): Unit {
@@ -810,7 +810,7 @@ public class Window <: RemoteDataLite {
      *                                                                      3. Parameter verification failed.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func off(callbackType: WindowCallbackType, callback: Callback1Argument<UInt32>): Unit {
@@ -829,7 +829,7 @@ public class Window <: RemoteDataLite {
      * <br> 3. Parameter verification failed.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func off(callbackType: WindowCallbackType): Unit {

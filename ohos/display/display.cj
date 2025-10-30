@@ -126,7 +126,7 @@ func findCallbackObject(list: ArrayList<(CallbackObject, Int64)>, callback: Call
  * @throws { BusinessException } 1400003 - This display manager service works abnormally.
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public func getDefaultDisplaySync(): Display {
@@ -151,7 +151,7 @@ public func getDefaultDisplaySync(): Display {
  * @throws { BusinessException } 1400003 - This display manager service works abnormally.
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public func getAllDisplays(): Array<Display> {
@@ -176,7 +176,7 @@ public func getAllDisplays(): Array<Display> {
  * @returns { Bool } true means the device is foldable.
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func isFoldable(): Bool {
@@ -189,7 +189,7 @@ public func isFoldable(): Bool {
  * @returns { FoldStatus } fold status of device.
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func getFoldStatus(): FoldStatus {
@@ -205,7 +205,7 @@ public func getFoldStatus(): FoldStatus {
  * @returns { FoldDisplayMode } display mode of the foldable device.
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func getFoldDisplayMode(): FoldDisplayMode {
@@ -223,7 +223,7 @@ public func getFoldDisplayMode(): FoldDisplayMode {
  * @throws { BusinessException } 100001 - Internal error: Failed to create target pointer type.
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func getCurrentFoldCreaseRegion(): FoldCreaseRegion {
@@ -254,7 +254,7 @@ public func getCurrentFoldCreaseRegion(): FoldCreaseRegion {
  * @param { ListenerType } listenerType - Type of listening event.
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func off(listenerType: ListenerType): Unit {
@@ -291,7 +291,7 @@ func offAllCallback(callbackType: String): Unit {
  * @throws { BusinessException } 1400003 - This display manager service works abnormally.
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func on(listenerType: ListenerType, callback: Callback1Argument<FoldStatus>): Unit {
@@ -342,7 +342,7 @@ func onFoldStatusChange(callbackType: String, callback: Callback1Argument<FoldSt
  * @throws { BusinessException } 1400003 - This display manager service works abnormally.
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func off(listenerType: ListenerType, callback: Callback1Argument<FoldStatus>): Unit {
@@ -389,7 +389,7 @@ func offFoldStatusChange(callbackType: String, callback: Callback1Argument<FoldS
  * @throws { BusinessException } 1400003 - This display manager service works abnormally.
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func on(listenerType: ListenerType, callback: Callback1Argument<FoldDisplayMode>): Unit {
@@ -440,7 +440,7 @@ func onFoldDisplayModeChange(callbackType: String, callback: Callback1Argument<F
  * @throws { BusinessException } 1400003 - This display manager service works abnormally.
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public func off(listenerType: ListenerType, callback: Callback1Argument<FoldDisplayMode>): Unit {
@@ -482,7 +482,7 @@ func offFoldDisplayModeChange(callbackType: String, callback: Callback1Argument<
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class Display <: RemoteDataLite {
@@ -493,7 +493,7 @@ public class Display <: RemoteDataLite {
      * Display ID.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop id: UInt32 {
@@ -506,7 +506,7 @@ public class Display <: RemoteDataLite {
      * Display name.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop name: String {
@@ -523,7 +523,7 @@ public class Display <: RemoteDataLite {
      * Whether the display is alive.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop alive: Bool {
@@ -536,7 +536,7 @@ public class Display <: RemoteDataLite {
      * The state of display.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop state: DisplayState {
@@ -551,7 +551,7 @@ public class Display <: RemoteDataLite {
      * Refresh rate, in Hz.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop refreshRate: UInt32 {
@@ -568,7 +568,7 @@ public class Display <: RemoteDataLite {
      * The value 3 indicates that the screen of the display rotates clockwise by 270°.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop rotation: UInt32 {
@@ -581,7 +581,7 @@ public class Display <: RemoteDataLite {
      * Display orientation.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop orientation: Orientation {
@@ -596,7 +596,7 @@ public class Display <: RemoteDataLite {
      * Display width, in pixels.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop width: Int32 {
@@ -609,7 +609,7 @@ public class Display <: RemoteDataLite {
      * Display height, in pixels.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop height: Int32 {
@@ -622,7 +622,7 @@ public class Display <: RemoteDataLite {
      * Display density, in pixels. which is the scaling coefficient between physical pixels and logical pixels. The value for a low-resolution display is 1.0.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop densityDpi: Float32 {
@@ -635,7 +635,7 @@ public class Display <: RemoteDataLite {
      * Display resolution, that is, the number of pixels per inch.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop densityPixels: Float32 {
@@ -648,7 +648,7 @@ public class Display <: RemoteDataLite {
      * Text scale density of the display.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop scaledDensity: Float32 {
@@ -661,7 +661,7 @@ public class Display <: RemoteDataLite {
      * DPI on the x-axis.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop xDpi: Float32 {
@@ -674,7 +674,7 @@ public class Display <: RemoteDataLite {
      * DPI on the y-axis.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public prop yDpi: Float32 {
@@ -701,7 +701,7 @@ public class Display <: RemoteDataLite {
      * @throws { BusinessException } 100001 - Internal error: Failed to create target pointer type.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public func getCutoutInfo(): CutoutInfo {

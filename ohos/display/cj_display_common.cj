@@ -44,7 +44,7 @@ struct CRect {
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class Rect {
@@ -52,7 +52,7 @@ public class Rect {
      * The Y-axis coordinate of the upper left vertex of the rectangle, in pixels.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var left: Int32
@@ -60,7 +60,7 @@ public class Rect {
      * The Y-axis coordinate of the upper left vertex of the rectangle, in pixels.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var top: Int32
@@ -69,7 +69,7 @@ public class Rect {
      *
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var width: UInt32
@@ -77,7 +77,7 @@ public class Rect {
      * Height of the rectangle, in pixels.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public var height: UInt32
@@ -90,7 +90,7 @@ public class Rect {
      * @params { UInt32 } height
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public init(
@@ -128,7 +128,7 @@ struct CWaterfallDisplayAreaRects {
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class WaterfallDisplayAreaRects {
@@ -136,7 +136,7 @@ public class WaterfallDisplayAreaRects {
      * Indicates the size of left side curved area of the waterfall screen.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public let left: Rect
@@ -144,7 +144,7 @@ public class WaterfallDisplayAreaRects {
      * Indicates the size of top side curved area of the waterfall screen.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public let top: Rect
@@ -152,7 +152,7 @@ public class WaterfallDisplayAreaRects {
      * Indicates the size of right side curved area of the waterfall screen.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public let right: Rect
@@ -160,7 +160,7 @@ public class WaterfallDisplayAreaRects {
      * Indicates the size of bottom side curved area of the waterfall screen.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public let bottom: Rect
@@ -173,7 +173,7 @@ public class WaterfallDisplayAreaRects {
      * @params { Rect } bottom
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public init(
@@ -210,7 +210,7 @@ struct CCutoutInfo {
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class CutoutInfo {
@@ -218,7 +218,7 @@ public class CutoutInfo {
      * Bounding rectangles of the cutout areas of the display.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public let boundingRects: Array<Rect>
@@ -226,7 +226,7 @@ public class CutoutInfo {
      * Rectangles of curved parts on each side of a waterfall display.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public let waterfallDisplayAreaRects: WaterfallDisplayAreaRects
@@ -237,7 +237,7 @@ public class CutoutInfo {
      * @params { WaterfallDisplayAreaRects } waterfallDisplayAreaRects
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     public init(
@@ -271,7 +271,7 @@ struct CFoldCreaseRegion {
  *
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Window.SessionManager"
 ]
 public class FoldCreaseRegion {
@@ -279,7 +279,7 @@ public class FoldCreaseRegion {
      * The display ID is used to identify the screen where the crease is located.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Window.SessionManager"
     ]
     public let displayId: UInt32
@@ -287,7 +287,7 @@ public class FoldCreaseRegion {
      * Crease Region.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Window.SessionManager"
     ]
     public let creaseRects: Array<Rect>
@@ -298,7 +298,7 @@ public class FoldCreaseRegion {
      * @params { Array<Rect> } creaseRects
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Window.SessionManager"
     ]
     public init(
