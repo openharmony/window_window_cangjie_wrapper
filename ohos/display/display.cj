@@ -133,13 +133,13 @@ public func getDefaultDisplaySync(): Display {
     unsafe {
         let ret = FfiOHOSGetDefaultDisplaySync()
         if (ret.code != 0) {
-            DisplayLog.error("[display] ERROR: ${ret.code} Failed to get default display.")
+            DISPLAY_LOG.error("[display] ERROR: ${ret.code} Failed to get default display.")
             throw BusinessException(ret.code, "ERROR: Failed to get default display.")
         }
         let dataPtr = CPointer<Int64>(ret.data)
         let retVal = dataPtr.read()
         LibC.free<Int64>(dataPtr)
-        return getOrCreate(Display.instanceMap, retVal, {id: Int64 => Display(id)})
+        return getOrCreate(Display.INSTANCE_MAP, retVal, {id: Int64 => Display(id)})
     }
 }
 
@@ -158,14 +158,14 @@ public func getAllDisplays(): Array<Display> {
     unsafe {
         let ret = FfiOHOSGetAllDisplays()
         if (ret.code != 0) {
-            DisplayLog.error("[display] ERROR: ${ret.code} Failed to get all displays.")
+            DISPLAY_LOG.error("[display] ERROR: ${ret.code} Failed to get all displays.")
             throw BusinessException(ret.code, "ERROR: Failed to get all displays.")
         }
         let dataPtr = CPointer<Int64>(ret.data)
         let idArray = Array<Int64>(ret.len, {i => dataPtr.read(i)})
         LibC.free<Int64>(dataPtr)
         let result = Array<Display>(ret.len,
-            {i => getOrCreate(Display.instanceMap, idArray[i], {id: Int64 => Display(id)})})
+            {i => getOrCreate(Display.INSTANCE_MAP, idArray[i], {id: Int64 => Display(id)})})
         return result
     }
 }
@@ -220,6 +220,7 @@ public func getFoldDisplayMode(): FoldDisplayMode {
  *
  * @returns { FoldCreaseRegion } fold crease region in the current display mode.
  * @throws { BusinessException } 1400003 - This display manager service works abnormally.
+ * @throws { BusinessException } 100001 - Internal error: Failed to create target pointer type.
  */
 @!APILevel[
     22,
@@ -230,7 +231,7 @@ public func getCurrentFoldCreaseRegion(): FoldCreaseRegion {
         FfiOHOSGetCurrentFoldCreaseRegion()
     }
     if (retData.code != 0) {
-        DisplayLog.error("[Display] ERROR: ${retData.code} Failed to get current fold crease region.")
+        DISPLAY_LOG.error("[Display] ERROR: ${retData.code} Failed to get current fold crease region.")
         throw BusinessException(retData.code, "ERROR: Failed to get current fold crease region.")
     }
     let ptr = unsafe { CPointer<CFoldCreaseRegion>(retData.data) }
@@ -264,7 +265,7 @@ func offAllCallback(callbackType: String): Unit {
     synchronized(REGISTER_MUTEX) {
         var v = CALLBACK_MAP.entryView(callbackType)
         if (v.value.isNone()) {
-            DisplayLog.error("[display] ERROR: Failed to unregister callback with type ${callbackType}")
+            DISPLAY_LOG.error("[display] ERROR: Failed to unregister callback with type ${callbackType}")
             return
         }
         unsafe {
@@ -272,7 +273,7 @@ func offAllCallback(callbackType: String): Unit {
             try (callbackCType = LibC.mallocCString(callbackType).asResource()) {
                 let ret = FfiOHOSUnRegisterAllDisplayManagerCallback(callbackCType.value)
                 if (ret != 0) {
-                    DisplayLog.error("[display] ERROR: ${ret} Failed to unregister callback with type ${callbackType}")
+                    DISPLAY_LOG.error("[display] ERROR: ${ret} Failed to unregister callback with type ${callbackType}")
                     throw BusinessException(ret, "ERROR: Failed to unregister callback with type ${callbackType}")
                 }
             }
@@ -305,11 +306,11 @@ func onFoldStatusChange(callbackType: String, callback: Callback1Argument<FoldSt
     synchronized(REGISTER_MUTEX) {
         var v = CALLBACK_MAP.entryView(callbackType)
         if (v.value.isNone()) {
-            DisplayLog.error("[display] ERROR: Failed to register callback with type ${callbackType}")
+            DISPLAY_LOG.error("[display] ERROR: Failed to register callback with type ${callbackType}")
             return
         }
         if (findCallbackObject(v.value.getOrThrow(), callback) >= 0) {
-            DisplayLog.info("[Display] INFO: The callback obj already registered!")
+            DISPLAY_LOG.info("[Display] INFO: The callback obj already registered!")
             return
         }
         let wrapper = {
@@ -322,7 +323,7 @@ func onFoldStatusChange(callbackType: String, callback: Callback1Argument<FoldSt
             try (callbackCType = LibC.mallocCString(callbackType).asResource()) {
                 let ret = FfiOHOSRegisterDisplayManagerCallback(callbackCType.value, registerCall.getID())
                 if (ret != 0) {
-                    DisplayLog.error("[display] ERROR: ${ret} Failed to register callback with type ${callbackType}")
+                    DISPLAY_LOG.error("[display] ERROR: ${ret} Failed to register callback with type ${callbackType}")
                     throw BusinessException(ret, "ERROR: Failed to register callback with type ${callbackType}")
                 }
             }
@@ -356,12 +357,12 @@ func offFoldStatusChange(callbackType: String, callback: Callback1Argument<FoldS
     synchronized(REGISTER_MUTEX) {
         var v = CALLBACK_MAP.entryView(callbackType)
         if (v.value.isNone()) {
-            DisplayLog.error("[display] ERROR: Failed to unregister callback with type ${callbackType}")
+            DISPLAY_LOG.error("[display] ERROR: Failed to unregister callback with type ${callbackType}")
             return
         }
         let idx = findCallbackObject(v.value.getOrThrow(), callback)
         if (idx == -1) {
-            DisplayLog.info("[Display] INFO: The callback obj is not registered!")
+            DISPLAY_LOG.info("[Display] INFO: The callback obj is not registered!")
             return
         }
         unsafe {
@@ -369,7 +370,7 @@ func offFoldStatusChange(callbackType: String, callback: Callback1Argument<FoldS
             try (callbackCType = LibC.mallocCString(callbackType).asResource()) {
                 let ret = FfiOHOSUnRegisterDisplayManagerCallback(callbackCType.value, callbackId)
                 if (ret != 0) {
-                    DisplayLog.error("[display] ERROR: ${ret} Failed to unregister callback with type ${callbackType}")
+                    DISPLAY_LOG.error("[display] ERROR: ${ret} Failed to unregister callback with type ${callbackType}")
                     throw BusinessException(ret, "ERROR: Failed to unregister callback with type ${callbackType}")
                 }
             }
@@ -403,11 +404,11 @@ func onFoldDisplayModeChange(callbackType: String, callback: Callback1Argument<F
     synchronized(REGISTER_MUTEX) {
         var v = CALLBACK_MAP.entryView(callbackType)
         if (v.value.isNone()) {
-            DisplayLog.error("[display] ERROR: Failed to register callback with type ${callbackType}")
+            DISPLAY_LOG.error("[display] ERROR: Failed to register callback with type ${callbackType}")
             return
         }
         if (findCallbackObject(v.value.getOrThrow(), callback) >= 0) {
-            DisplayLog.info("[Display] INFO: The callback obj already registered!")
+            DISPLAY_LOG.info("[Display] INFO: The callback obj already registered!")
             return
         }
         unsafe {
@@ -420,7 +421,7 @@ func onFoldDisplayModeChange(callbackType: String, callback: Callback1Argument<F
             try (callbackCType = LibC.mallocCString(callbackType).asResource()) {
                 let ret = FfiOHOSRegisterDisplayManagerCallback(callbackCType.value, registerCall.getID())
                 if (ret != 0) {
-                    DisplayLog.error("[display] ERROR: ${ret} Failed to register callback with type ${callbackType}")
+                    DISPLAY_LOG.error("[display] ERROR: ${ret} Failed to register callback with type ${callbackType}")
                     throw BusinessException(ret, "ERROR: Failed to register callback with type ${callbackType}")
                 }
             }
@@ -454,12 +455,12 @@ func offFoldDisplayModeChange(callbackType: String, callback: Callback1Argument<
     synchronized(REGISTER_MUTEX) {
         var v = CALLBACK_MAP.entryView(callbackType)
         if (v.value.isNone()) {
-            DisplayLog.error("[display] ERROR: Failed to unregister callback with type ${callbackType}")
+            DISPLAY_LOG.error("[display] ERROR: Failed to unregister callback with type ${callbackType}")
             return
         }
         let idx = findCallbackObject(v.value.getOrThrow(), callback)
         if (idx == -1) {
-            DisplayLog.info("[Display] INFO: The callback obj is not registered!")
+            DISPLAY_LOG.info("[Display] INFO: The callback obj is not registered!")
             return
         }
         unsafe {
@@ -467,7 +468,7 @@ func offFoldDisplayModeChange(callbackType: String, callback: Callback1Argument<
             try (callbackCType = LibC.mallocCString(callbackType).asResource()) {
                 let ret = FfiOHOSUnRegisterDisplayManagerCallback(callbackCType.value, callbackId)
                 if (ret != 0) {
-                    DisplayLog.error("[display] ERROR: ${ret} Failed to unregister callback with type ${callbackType}")
+                    DISPLAY_LOG.error("[display] ERROR: ${ret} Failed to unregister callback with type ${callbackType}")
                     throw BusinessException(ret, "ERROR: Failed to unregister callback with type ${callbackType}")
                 }
             }
@@ -485,7 +486,7 @@ func offFoldDisplayModeChange(callbackType: String, callback: Callback1Argument<
     syscap: "SystemCapability.WindowManager.WindowManager.Core"
 ]
 public class Display <: RemoteDataLite {
-    static let instanceMap = HashMap<Int64, Display>()
+    static let INSTANCE_MAP = HashMap<Int64, Display>()
     static let REGISTER_MUTEX = Mutex()
 
     /**
@@ -512,7 +513,7 @@ public class Display <: RemoteDataLite {
         get() {
             let retData = unsafe { FfiOHOSGetDisplayName(getID()) }
             let ret = retData.toString()
-            DisplayLog.info("[Display] name: " + ret)
+            DISPLAY_LOG.info("[Display] name: " + ret)
             unsafe { LibC.free(retData) }
             return ret
         }
@@ -684,7 +685,7 @@ public class Display <: RemoteDataLite {
 
     init(id: Int64) {
         super(id)
-        DisplayLog.info("[Display] construct success")
+        DISPLAY_LOG.info("[Display] construct success")
     }
 
     ~init() {
@@ -697,6 +698,7 @@ public class Display <: RemoteDataLite {
      * @returns { CutoutInfo }
      * @throws { BusinessException } 1400001 - Invalid display or screen.
      * @throws { BusinessException } 1400003 - This display manager service works abnormally.
+     * @throws { BusinessException } 100001 - Internal error: Failed to create target pointer type.
      */
     @!APILevel[
         22,
@@ -707,7 +709,7 @@ public class Display <: RemoteDataLite {
             FfiOHOSDisplayGetCutoutInfo(getID())
         }
         if (retData.code != 0) {
-            DisplayLog.error("[Display] ERROR: ${retData.code} Failed to get cutout info.")
+            DISPLAY_LOG.error("[Display] ERROR: ${retData.code} Failed to get cutout info.")
             throw BusinessException(retData.code, "ERROR: Failed to get cutout info.")
         }
         let ptr = unsafe { CPointer<CCutoutInfo>(retData.data) }

@@ -20,4 +20,4 @@ package ohos.window
 internal import ohos.hilog.*
 
 const HILOG_DOMAIN_WINDOW: UInt32 = 0xD004200
-let WindowLibLog = HilogChannel(0, HILOG_DOMAIN_WINDOW, "CJ-Window-Manager")
+let WINDOW_LIB_LOG = HilogChannel(0, HILOG_DOMAIN_WINDOW, "CJ-Window-Manager")
