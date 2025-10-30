@@ -17,8 +17,7 @@
 
 package ohos.display
 
-import ohos.base.*
-import ohos.labels.*
+import ohos.labels.APILevel
 
 @C
 struct RetStruct {

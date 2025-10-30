@@ -17,8 +17,8 @@
 
 package ohos.window
 
-internal import ohos.labels.*
 import ohos.app.ability.BaseContext
+import ohos.labels.APILevel
 
 /**
  * Window size.

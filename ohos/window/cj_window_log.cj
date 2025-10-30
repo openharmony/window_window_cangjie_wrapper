@@ -17,7 +17,8 @@
 
 package ohos.window
 
-internal import ohos.hilog.*
+import ohos.hilog.HilogChannel
+import ohos.labels.APILevel
 
 const HILOG_DOMAIN_WINDOW: UInt32 = 0xD004200
 let WINDOW_LIB_LOG = HilogChannel(0, HILOG_DOMAIN_WINDOW, "CJ-Window-Manager")
