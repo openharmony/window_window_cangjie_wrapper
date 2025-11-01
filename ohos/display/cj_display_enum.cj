@@ -17,9 +17,10 @@
 
 package ohos.display
 
-import ohos.base.*
-import ohos.labels.*
-import ohos.business_exception.*
+import ohos.labels.APILevel
+import ohos.business_exception.BusinessException
+import ohos.hilog.HilogChannel
+import ohos.ffi.getOrCreate
 import std.deriving.Derive
 
 /**

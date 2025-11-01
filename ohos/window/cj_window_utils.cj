@@ -17,8 +17,8 @@
 
 package ohos.window
 
-internal import std.collection.HashMap
-internal import ohos.base.*
+import ohos.business_exception.BusinessException
+import std.collection.HashMap
 
 let ERR_CODE_MAP = HashMap<Int32, String>(
     [

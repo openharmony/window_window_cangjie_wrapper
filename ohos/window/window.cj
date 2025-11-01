@@ -17,13 +17,15 @@
 
 package ohos.window
 
-internal import std.collection.*
-internal import std.sync.*
+import ohos.ffi.{getOrCreate, releaseFFIData, RemoteDataLite, RetDataI64, CArrString, toArrayCString, freeArrCString,
+    Callback1Param}
 import ohos.app.ability.BaseContext
-internal import ohos.ffi.*
-internal import ohos.multimedia.image.*
-internal import ohos.callback_invoke.*
-internal import ohos.business_exception.*
+import ohos.business_exception.BusinessException
+import ohos.labels.APILevel
+import ohos.callback_invoke.{CallbackObject, Callback1Argument}
+import ohos.multimedia.image.PixelMap
+import std.sync.Mutex
+import std.collection.{ArrayList, HashMap}
 
 type StageContext = CPointer<Unit>
 

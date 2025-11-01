@@ -17,14 +17,12 @@
 
 package ohos.display
 
-import ohos.ffi.*
-import ohos.base.*
-import std.sync.*
-import std.collection.*
-import ohos.labels.*
-import ohos.callback_invoke.*
-import ohos.business_exception.*
-import std.collection.HashMap
+import ohos.labels.APILevel
+import ohos.business_exception.BusinessException
+import ohos.ffi.{Callback1Param, RemoteDataLite, releaseFFIData, getOrCreate}
+import ohos.callback_invoke.{CallbackObject, Callback1Argument}
+import std.sync.Mutex
+import std.collection.{HashMap, ArrayList}
 
 foreign {
     func FfiOHOSGetDefaultDisplaySync(): RetStruct

@@ -17,7 +17,12 @@
 
 package ohos.window
 
-internal import ohos.ffi.*
+import ohos.labels.APILevel
+import ohos.ffi.{getOrCreate, releaseFFIData, RemoteDataLite, RetDataI64}
+import ohos.callback_invoke.{CallbackObject, Callback1Argument}
+import ohos.business_exception.BusinessException
+import std.sync.Mutex
+import std.collection.{HashMap, ArrayList}
 
 foreign {
     func FfiOHOSBindWindowStage(handler: Int64): RetDataI64
