@@ -214,6 +214,66 @@ public enum FoldStatus {
         syscap: "SystemCapability.Window.SessionManager"
     ]
     FoldStatusHalfFolded
+    |
+    /**
+    * Fold Status Expanded With Second Expanded.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.Window.SessionManager"
+    ]
+    @!Hide
+    FoldStatusExpandedWithSecondExpanded
+    |
+    /**
+    * Fold Status Expanded With Second Half Folded.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.Window.SessionManager"
+    ]
+    @!Hide
+    FoldStatusExpandedWithSecondHalfFolded
+    |
+    /**
+    * Fold Status Folded With Second Expanded.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.Window.SessionManager"
+    ]
+    @!Hide
+    FoldStatusFoldedWithSecondExpanded
+    |
+    /**
+    * Fold Status Folded With Second Half Folded.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.Window.SessionManager"
+    ]
+    @!Hide
+    FoldStatusFoldedWithSecondHalfFolded
+    |
+    /**
+    * Fold Status Half Folded With Second Expanded.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.Window.SessionManager"
+    ]
+    @!Hide
+    FoldStatusHalfFoldedWithSecondExpanded
+    |
+    /**
+    * Fold Status Half Folded With Second Half Folded.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.Window.SessionManager"
+    ]
+    @!Hide
+    FoldStatusHalfFoldedWithSecondHalfFolded
     | ...
 
     static func parse(val: UInt32) {

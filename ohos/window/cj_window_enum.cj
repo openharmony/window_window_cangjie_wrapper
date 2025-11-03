@@ -67,6 +67,246 @@ public enum WindowType {
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     TypeDialog
+    |
+    /**
+    * Input method.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    TypeInputMethod
+    |
+    /**
+    * Status bar.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    TypeStatusBar
+    |
+    /**
+    * Panel.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    TypePanel
+    |
+    /**
+    * Keyguard.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    TypeKeyguard
+    |
+    /**
+    * Volume.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    TypeVolumeOverlay
+    |
+    /**
+    * Navigation bar.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    TypeNavigationBar
+    |
+    /**
+    * Wallpaper.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    TypeWallpaper
+    |
+    /**
+    * Desktop.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    TypeDesktop
+    |
+    /**
+    * Recent.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    TypeLauncherRecent
+    |
+    /**
+    * Dock.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    TypeLauncherDock
+    |
+    /**
+    * Voice interaction.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    TypeVoiceInteraction
+    |
+    /**
+    * Pointer.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    TypePointer
+    |
+    /**
+    * Float camera.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    TypeFloatCamera
+    |
+    /**
+    * Screenshot.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    TypeScreenshot
+    |
+    /**
+    * System Toast.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    TypeSystemToast
+    |
+    /**
+    * Divider.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    TypeDivider
+    |
+    /**
+    * Global Search.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    TypeGlobalSearch
+    |
+    /**
+    * Handwrite.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    TypeHandwrite
+    |
+    /**
+    * type wallet swipe card.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    TypeWalletSwipeCard
+    |
+    /**
+    * Screen Control.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    TypeScreenControl
+    |
+    /**
+    * type float navigation.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    TypeFloatNavigation
+    |
+    /**
+    * type dynamic.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    TypeDynamic
+    |
+    /**
+    * type mutiscreen collaboration.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    TypeMutiscreenCollaboration
+    |
+    /**
+    * Main.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    TypeMain
     | ...
 
     func getValue(): UInt32 {
@@ -208,6 +448,66 @@ public enum Orientation {
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
     Locked
+    |
+    /**
+    * Follow the rotation of the sensor, determined by the system, controlled by auto rotation lock.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    AutoRotationUnspecified
+    |
+    /**
+    * Display in portrait orientation, and then, follow the rotation of the sensor, determined by the system, controlled by auto rotation lock.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    UserRotationPortrait
+    |
+    /**
+    * Display in landscape orientation, and then, follow the rotation of the sensor, determined by the system, controlled by auto rotation lock.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    UserRotationLandscape
+    |
+    /**
+    * Display in inverted portrait orientation, and then, follow the rotation of the sensor, determined by the system, controlled by auto rotation lock.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    UserRotationPortraitInverted
+    |
+    /**
+    * Display in inverted landscape orientation, and then, follow the rotation of the sensor, determined by the system, controlled by auto rotation lock.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    UserRotationLandscapeInverted
+    |
+    /**
+    * Follow the desktop rotate mode.
+    */
+    @!APILevel[
+        since: "22",
+        syscap: "SystemCapability.WindowManager.WindowManager.Core"
+    ]
+    @!Hide
+    FollowDesktop
     | ...
 
     func getValue(): UInt32 {
