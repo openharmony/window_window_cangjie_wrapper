@@ -18,7 +18,7 @@
 package ohos.window
 
 import ohos.app.ability.BaseContext
-import ohos.labels.APILevel
+import ohos.labels.{APILevel, Hide}
 
 /**
  * Window size.
@@ -795,4 +795,9 @@ struct CSubWindowOptions {
         var decorEnabled: Bool,
         var isModal: Bool
     ) {}
+}
+
+@!Hide
+protected class WindowCreateParams {
+    protected init() {}
 }
