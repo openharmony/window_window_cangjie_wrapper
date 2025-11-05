@@ -24,8 +24,7 @@ import ohos.ffi.getOrCreate
 import std.deriving.Derive
 
 /**
- * Enum for cause of disconnect.
- *
+ * Enumerates the display orientation.
  */
 @Derive[Equatable]
 @!APILevel[
@@ -34,8 +33,8 @@ import std.deriving.Derive
 ]
 public enum Orientation {
     /**
-    * Indicate that the display content is in portrait mode.
-    */
+     * Indicate that the display content is in portrait mode.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
@@ -43,8 +42,8 @@ public enum Orientation {
     Portrait
     |
     /**
-    * Indicate that the display content is in landscape mode.
-    */
+     * Indicate that the display content is in landscape mode.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
@@ -52,8 +51,8 @@ public enum Orientation {
     Landscape
     |
     /**
-    * Indicate that the display content is in the opposite direction of the portrait mode.
-    */
+     * Indicate that the display content is in the opposite direction of the portrait mode.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
@@ -61,8 +60,8 @@ public enum Orientation {
     PortraitInverted
     |
     /**
-    * Indicate that the display content is in the opposite direction of the landscape mode.
-    */
+     * Indicate that the display content is in the opposite direction of the landscape mode.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
@@ -92,8 +91,8 @@ public enum Orientation {
 ]
 public enum DisplayState {
     /**
-    * Unknown.
-    */
+     * Unknown.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
@@ -101,8 +100,8 @@ public enum DisplayState {
     StateUnknown
     |
     /**
-    * Screen off.
-    */
+     * Screen off.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
@@ -110,8 +109,8 @@ public enum DisplayState {
     StateOff
     |
     /**
-    * Screen on
-    */
+     * Screen on
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
@@ -119,8 +118,8 @@ public enum DisplayState {
     StateOn
     |
     /**
-    * Doze, but it will update for some important system messages.
-    */
+     * Doze, but it will update for some important system messages.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
@@ -128,8 +127,8 @@ public enum DisplayState {
     StateDoze
     |
     /**
-    * Doze and not update.
-    */
+     * Doze and not update.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
@@ -137,8 +136,8 @@ public enum DisplayState {
     StateDozeSuspend
     |
     /**
-    * VR node.
-    */
+     * VR node.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
@@ -146,8 +145,8 @@ public enum DisplayState {
     StateVr
     |
     /**
-    * Screen on and not update.
-    */
+     * Screen on and not update.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
@@ -180,8 +179,8 @@ public enum DisplayState {
 ]
 public enum FoldStatus {
     /**
-    * Fold Status Unknown.
-    */
+     * Fold Status Unknown.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.Window.SessionManager"
@@ -189,8 +188,8 @@ public enum FoldStatus {
     FoldStatusUnknown
     |
     /**
-    * Fold Status Expanded.
-    */
+     * Fold Status Expanded.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.Window.SessionManager"
@@ -198,8 +197,8 @@ public enum FoldStatus {
     FoldStatusExpanded
     |
     /**
-    * Fold Status Folded. For dual-fold axis devices, the first fold axis is folded, and the second fold axis is folded.
-    */
+     * Fold Status Folded.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.Window.SessionManager"
@@ -207,8 +206,9 @@ public enum FoldStatus {
     FoldStatusFolded
     |
     /**
-    * Fold Status Half Folded.
-    */
+     * Fold Status Half Folded. Somehow between fully open and completely closed.
+     * For dual-fold axis devices, the first fold axis is half-folded, and the second fold axis is folded.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.Window.SessionManager"
@@ -238,8 +238,8 @@ public enum FoldStatus {
 ]
 public enum FoldDisplayMode {
     /**
-    * Unknown Display.
-    */
+     * Unknown Display.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.Window.SessionManager"
@@ -247,8 +247,8 @@ public enum FoldDisplayMode {
     FoldDisplayModeUnknown
     |
     /**
-    * Full Display.
-    */
+     * Full Display.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.Window.SessionManager"
@@ -256,8 +256,8 @@ public enum FoldDisplayMode {
     FoldDisplayModeFull
     |
     /**
-    * Main Display.
-    */
+     * Main Display.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.Window.SessionManager"
@@ -265,8 +265,8 @@ public enum FoldDisplayMode {
     FoldDisplayModeMain
     |
     /**
-    * Sub Display.
-    */
+     * Sub Display.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.Window.SessionManager"
@@ -274,8 +274,8 @@ public enum FoldDisplayMode {
     FoldDisplayModeSub
     |
     /**
-    * Coordination Display.
-    */
+     * Coordination Display.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.Window.SessionManager"
@@ -307,7 +307,7 @@ public enum FoldDisplayMode {
 }
 
 /**
-* Enumerates of listening event.
+* Enumerates of listener event.
 */
 @Derive[Equatable]
 @!APILevel[
@@ -316,8 +316,8 @@ public enum FoldDisplayMode {
 ]
 public enum ListenerType {
     /**
-    * add type the event of display change
-    */
+     * The Add event type.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.Window.SessionManager"
@@ -325,8 +325,8 @@ public enum ListenerType {
     ListenerTypeAdd
     |
     /**
-    * remove type the event of display change
-    */
+     * The Remove event type.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.Window.SessionManager"
@@ -334,8 +334,8 @@ public enum ListenerType {
     ListenerTypeRemove
     |
     /**
-    * change type the event of display change
-    */
+     * The Change event type.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.Window.SessionManager"
@@ -343,8 +343,8 @@ public enum ListenerType {
     ListenerTypeChange
     |
     /**
-    * foldStatusChange type the event of display change
-    */
+     * The FoldStatusChange event type.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.Window.SessionManager"
@@ -352,8 +352,8 @@ public enum ListenerType {
     ListenerTypeFoldStatusChange
     |
     /**
-    * foldAngleChange type the event of display change
-    */
+     * The FoldAngleChange event type.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.Window.SessionManager"
@@ -361,8 +361,8 @@ public enum ListenerType {
     ListenerTypeFoldAngleChange
     |
     /**
-    * captureStatusChange type the event of display change
-    */
+     * The CaptureStatusChange event type.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.Window.SessionManager"
@@ -370,8 +370,8 @@ public enum ListenerType {
     ListenerTypeCaptureStatusChange
     |
     /**
-    * foldDisplayModeChange type the event of display change
-    */
+     * The FoldDisplayModeChange event type.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.Window.SessionManager"
@@ -379,8 +379,8 @@ public enum ListenerType {
     ListenerTypeFoldDisplayModeChange
     |
     /**
-    * availableAreaChange type the event of display change
-    */
+     * The AvailableAreaChange event type.
+     */
     @!APILevel[
         since: "22",
         syscap: "SystemCapability.Window.SessionManager"
