@@ -17,7 +17,7 @@
 
 package ohos.display
 
-import ohos.labels.APILevel
+import ohos.labels.{APILevel, Hide}
 import ohos.business_exception.BusinessException
 import ohos.hilog.HilogChannel
 import ohos.ffi.getOrCreate
