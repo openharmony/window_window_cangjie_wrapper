@@ -300,7 +300,7 @@ public class FoldCreaseRegion {
         syscap: "SystemCapability.Window.SessionManager"
     ]
     public init(
-        displayId!: UInt32,
+        displayId!: Int64,
         creaseRects!: Array<Rect>
     ) {
         this.displayId = displayId
