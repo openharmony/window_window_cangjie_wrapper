@@ -312,7 +312,7 @@ public class FoldCreaseRegion {
         this.creaseRects = unsafe {
             Array<Rect>(cFoldCreaseRegion.number, {i => Rect(ptr.read(i))})
         }
-        this.displayId = cFoldCreaseRegion.displayId
+        this.displayId = Int64(cFoldCreaseRegion.displayId)
     }
 }
 
