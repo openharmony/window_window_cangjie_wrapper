@@ -487,7 +487,7 @@ public class Display <: RemoteDataLite {
     ]
     public prop id: Int64 {
         get() {
-            unsafe { FfiOHOSDisplayGetId(getID()) }
+            unsafe { Int64(FfiOHOSDisplayGetId(getID())) }
         }
     }
 
@@ -590,7 +590,7 @@ public class Display <: RemoteDataLite {
     ]
     public prop width: Int64 {
         get() {
-            unsafe { FfiOHOSDisplayGetWidth(getID()) }
+            unsafe { Int64(FfiOHOSDisplayGetWidth(getID())) }
         }
     }
 
@@ -603,7 +603,7 @@ public class Display <: RemoteDataLite {
     ]
     public prop height: Int64 {
         get() {
-            unsafe { FfiOHOSDisplayGetHeight(getID()) }
+            unsafe { Int64(FfiOHOSDisplayGetHeight(getID())) }
         }
     }
 
@@ -616,7 +616,7 @@ public class Display <: RemoteDataLite {
     ]
     public prop densityDpi: Float64 {
         get() {
-            unsafe { FfiOHOSDisplayGetDensityDPI(getID()) }
+            unsafe { Float64(FfiOHOSDisplayGetDensityDPI(getID())) }
         }
     }
 
@@ -629,7 +629,7 @@ public class Display <: RemoteDataLite {
     ]
     public prop densityPixels: Float64 {
         get() {
-            unsafe { FfiOHOSDisplayGetVirtualPixelRatio(getID()) }
+            unsafe { Float64(FfiOHOSDisplayGetVirtualPixelRatio(getID())) }
         }
     }
 
@@ -642,7 +642,7 @@ public class Display <: RemoteDataLite {
     ]
     public prop scaledDensity: Float64 {
         get() {
-            unsafe { FfiOHOSDisplayGetVirtualPixelRatio(getID()) }
+            unsafe { Float64(FfiOHOSDisplayGetVirtualPixelRatio(getID())) }
         }
     }
 
@@ -655,7 +655,7 @@ public class Display <: RemoteDataLite {
     ]
     public prop xDpi: Float64 {
         get() {
-            unsafe { FfiOHOSDisplayGetXDPI(getID()) }
+            unsafe { Float64(FfiOHOSDisplayGetXDPI(getID())) }
         }
     }
 
@@ -668,7 +668,7 @@ public class Display <: RemoteDataLite {
     ]
     public prop yDpi: Float64 {
         get() {
-            unsafe { FfiOHOSDisplayGetYDPI(getID()) }
+            unsafe { Float64(FfiOHOSDisplayGetYDPI(getID())) }
         }
     }
 
