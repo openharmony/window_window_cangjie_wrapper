@@ -57,16 +57,6 @@
           ],
           "when":"inuse"
         }
-      },
-      {
-        "name" : "ohos.permission.SYSTEM_FLOAT_WINDOW",
-        "reason": "$string:EntryAbility_label",
-        "usedScene": {
-          "abilities": [
-            "MainAbility"
-          ],
-          "when":"inuse"
-        }
       }
     ]
   }

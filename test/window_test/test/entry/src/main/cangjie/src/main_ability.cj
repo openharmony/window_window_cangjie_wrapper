@@ -15,30 +15,71 @@
 
 package ohos_app_cangjie_entry
 
-import kit.AbilityKit.{Ability, AbilityStage, Want, LaunchParam, LaunchReason}
-import kit.ArkUI.{WindowStage}
-import kit.ArkWeb.{WebviewController}
-import ohos.state_manage.AppStorage
-import ohos.ability.AbilityContext
+import ohos.hilog.Hilog
+internal import ohos.app.ability.ability_stage.AbilityStage
+internal import ohos.app.ability.ability_constant.LaunchReason
+internal import ohos.app.ability.ui_ability.UIAbilityContext
+internal import ohos.app.ability.ui_ability.UIAbility
+internal import ohos.resource_manager.{AppResource}
+import std.sync.*
+import ohos.window.WindowStage
+import ohos.resource_manager.*
+import ohos.app.ability.ability_delegator_registry.*
+import ohos.application.test_runner.*
+import ohos.ui_test.*
 
-class MainAbility <: Ability {
+public class Global {
+    public static let initialized = Monitor()
+    public static var abilityContext: Option<UIAbilityContext> = None
+    public static var windowStage: Option<WindowStage> = None
+    public static var _driver: Option<Driver> = None
+    public static prop driver: Driver {
+        get() {
+            match (Global._driver) {
+                case Some(driver) => driver
+                case None =>
+                    let newDriver = Driver.create()
+                    newDriver.delayMs(2000)
+                    Global._driver = newDriver
+                    newDriver
+            }
+        }
+    }
+
+    public static func getAbilityContext() {
+        abilityContext.getOrThrow()
+    }
+
+    public static func getWindowStage() {
+        windowStage.getOrThrow()
+    }
+    public static func getMainWindow() {
+        getWindowStage().getMainWindow()
+    }
+}
+
+public var globalAbilityContext: Option<UIAbilityContext> = Option<UIAbilityContext>.None
+
+class MainAbility <: UIAbility {
     public init() {
         super()
         registerSelf()
     }
 
     public override func onCreate(want: Want, launchParam: LaunchParam): Unit {
-        logger.info("MainAbility OnCreated.${want.abilityName}")
+        Hilog.info(1, "1", "1", "MainAbility OnCreated.${want.abilityName}")
+        globalAbilityContext = Option<UIAbilityContext>.Some(this.context)
         match (launchParam.launchReason) {
-            case LaunchReason.START_ABILITY => logger.info("START_ABILITY")
-            case _ => throw Exception("unsupported enum constructor")
+            case LaunchReason.StartAbility => Hilog.info(1, "1", "1", "START_ABILITY")
+            case _ => ()
         }
     }
 
     public override func onWindowStageCreate(windowStage: WindowStage): Unit {
-        logger.info("MainAbility onWindowStageCreate.")
-        AppStorage.setOrCreate<AbilityContext>("abilityContext", this.context)
-        AppStorage.setOrCreate<WindowStage>("windowStage", windowStage)
+        Hilog.info(1, "1", "1", "MainAbility onWindowStageCreate.")
+        Global.windowStage = windowStage
         windowStage.loadContent("EntryView")
+        //        windowStage.loadContentByName("MyView")
+        let promise = windowStage.getSubWindow()
     }
 }

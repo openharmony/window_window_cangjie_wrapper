@@ -19,28 +19,29 @@
 package ohos_app_cangjie_entry
 
 
-import kit.ArkUI.{Configuration as Conf, getLastWindow, WindowOrientation, createWindow, WindowType, SystemBarProperties, 
-    ColorSpace, AvoidAreaType, findWindow, Size as windowSize, TitleButtonRect, AvoidArea, WindowRect, Window}
+import ohos.window.{ColorSpace, Window, getLastWindow, SystemBarProperties, WindowCallbackType, Orientation,
+    AvoidAreaType, WindowType, createWindow, findWindow, AvoidArea, TitleButtonRect, Configuration as WindowConfiguration,
+    Rect as WindowRect}
 import std.unittest.testmacro.*
-import ohos.base.*
-import ohos.image.*
 import std.runtime.*
-import std.sync.*
-import std.time.*
 import std.unittest.*
-import std.unittest.common.*
 import std.unittest.testmacro.*
-import ohos.base.*
-import ohos.window.WindowStage
-import ohos.state_manage.AppStorage
+import ohos.callback_invoke.Callback1Argument
+import ohos.arkui.state_management.AppStorage
+import ohos.business_exception.BusinessException
+internal import ohos.hilog.Hilog
+
+var callbackMsg: String = "trigger:"
 
 class MyCallbackObject <: Callback1Argument<UInt32> {
-    let callback_: (UInt32) -> Unit
-    public init(callback: (UInt32) -> Unit) {
-        callback_ = callback
-    }
-    public func invoke(val: UInt32): Unit {
-        callback_(val)
+    public init() {}
+
+    public open func invoke(err: ?BusinessException, event: UInt32): Unit {
+        callbackMsg += "\nSubWindowClose;"
+        if (let Some(v) <- err) {
+            callbackMsg += "error: ${err.toString()}"
+        }
+        Hilog.info(1, "Cangjie-App", callbackMsg)
     }
 }
 
@@ -59,8 +60,8 @@ public func getWindowStage(): WindowStage {
 class Test_window_runtime {
     func matchParse(v1: ColorSpace, v2: ColorSpace) {
         match ((v1, v2)) {
-            case (ColorSpace.WIDE_GAMUT, ColorSpace.WIDE_GAMUT) => true
-            case (ColorSpace.DEFAULT, ColorSpace.DEFAULT) => true
+            case (ColorSpace.WideGamut, ColorSpace.WideGamut) => true
+            case (ColorSpace.Default, ColorSpace.Default) => true
             case _ => false
         }
     }
@@ -77,7 +78,7 @@ class Test_window_runtime {
             sleepFor(1 * Duration.second)
             let windowInfo = getMainWindow().getWindowProperties()
         } catch (e: Exception) {
-            logger.error("case_GetMainWindowInfo " + e.toString())
+            Hilog.error(0, "CangjieUI-test", "case_GetMainWindowInfo " + e.toString())
             @Expect(false)
         }
     }
@@ -87,14 +88,14 @@ class Test_window_runtime {
     func test_windowColorSpace() {
         try {
             let windowClass = getMainWindow()
-            windowClass.setWindowColorSpace(ColorSpace.WIDE_GAMUT)
+            windowClass.setWindowColorSpace(ColorSpace.WideGamut)
             let wideColorSpace = windowClass.getWindowColorSpace()
-            windowClass.setWindowColorSpace(ColorSpace.DEFAULT)
+            windowClass.setWindowColorSpace(ColorSpace.Default)
             let defaultColorSpace = windowClass.getWindowColorSpace()
-            @Expect(matchParse(wideColorSpace, ColorSpace.WIDE_GAMUT))
-            @Expect(matchParse(defaultColorSpace, ColorSpace.DEFAULT))
+            @Expect(matchParse(wideColorSpace, ColorSpace.WideGamut))
+            @Expect(matchParse(defaultColorSpace, ColorSpace.Default))
         } catch (e: Exception) {
-            logger.error("case_windowColorSpace " + e.toString())
+            Hilog.error(0, "CangjieUI-test", "case_windowColorSpace " + e.toString())
             @Expect(false)
         }
     }
@@ -106,7 +107,7 @@ class Test_window_runtime {
             sleepFor(1.second)
             let map = getMainWindow().snapshot()
         } catch (e: Exception) {
-            logger.error("case_windowSnapshot " + e.toString())
+            Hilog.error(0, "CangjieUI-test", "case_windowSnapshot " + e.toString())
             @Expect(false)
         }
     }
@@ -119,7 +120,7 @@ class Test_window_runtime {
             windowClass.setAspectRatio(0.8f64)
             windowClass.resetAspectRatio()
         } catch (e: Exception) {
-            logger.error("case_windowRatio " + e.toString())
+            Hilog.error(0, "CangjieUI-test", "case_windowRatio " + e.toString())
             @Expect(false)
         }
     }
@@ -129,7 +130,8 @@ class Test_window_runtime {
     func test_windowSettings() {
         try {
             sleepFor(1.second)
-            let windowClass = getLastWindow(getStageContext())
+            let stageContext = getAbilityContext()
+            let windowClass = getLastWindow(stageContext)
             let gamut = windowClass.isWindowSupportWideGamut()
             let showing = windowClass.isWindowShowing()
             windowClass.setWindowBrightness(0.5f32)
@@ -142,9 +144,8 @@ class Test_window_runtime {
                     navigationBarContentColor: "#00ffff"
                 )
             )
-            windowClass.setWindowSystemBarEnable(["status", "navigation"])
         } catch (e: Exception) {
-            logger.error("case_windowSettings " + e.toString())
+            Hilog.error(0, "CangjieUI-test", "case_windowSettings " + e.toString())
             @Expect(false)
         }
     }
@@ -153,16 +154,17 @@ class Test_window_runtime {
     @Tag[APILevel16, TestLevel0]
     func test_windowSettingTrue() {
         try {
-            let callback = MyCallbackObject({val: UInt32 => logger.info("keyboard raise to ${val}")})
-            let windowClass = getLastWindow(getStageContext())
+            let callback = MyCallbackObject()
+            let stageContext = getAbilityContext()
+            let windowClass = getLastWindow(stageContext)
             windowClass.setWindowKeepScreenOn(true)
             windowClass.setWindowPrivacyMode(true)
             windowClass.setWindowTouchable(true)
             windowClass.setWindowFocusable(true)
             windowClass.setWindowLayoutFullScreen(true)
-            windowClass.on("keyboardHeightChange", callback)
+            windowClass.on(WindowCallbackType.KeyboardHeightChange, callback)
         } catch (e: Exception) {
-            logger.error("case_windowSettingTrue " + e.toString())
+            Hilog.error(0, "CangjieUI-test", "case_windowSettingTrue " + e.toString())
             @Expect(false)
         }
     }
@@ -171,15 +173,16 @@ class Test_window_runtime {
     @Tag[APILevel16, TestLevel0]
     func test_windowSettingFalse() {
         try {
-            let windowClass = getLastWindow(getStageContext())
+            let stageContext = getAbilityContext()
+            let windowClass = getLastWindow(stageContext)
             windowClass.setWindowKeepScreenOn(false)
             windowClass.setWindowPrivacyMode(false)
             windowClass.setWindowTouchable(false)
             windowClass.setWindowFocusable(false)
             windowClass.setWindowLayoutFullScreen(false)
-            windowClass.off("keyboardHeightChange")
+            windowClass.off(WindowCallbackType.KeyboardHeightChange)
         } catch (e: Exception) {
-            logger.error("case_windowSettingFalse " + e.toString())
+            Hilog.error(0, "CangjieUI-test", "case_windowSettingFalse " + e.toString())
             @Expect(false)
         }
     }
@@ -188,21 +191,22 @@ class Test_window_runtime {
     @Tag[APILevel16, TestLevel0]
     func test_windowSettingOrientation() {
         try {
-            let windowClass = getLastWindow(getStageContext())
-            windowClass.setPreferredOrientation(WindowOrientation.UNSPECIFIED)
-            windowClass.setPreferredOrientation(WindowOrientation.PORTRAIT)
-            windowClass.setPreferredOrientation(WindowOrientation.LANDSCAPE)
-            windowClass.setPreferredOrientation(WindowOrientation.PORTRAIT_INVERTED)
-            windowClass.setPreferredOrientation(WindowOrientation.LANDSCAPE_INVERTED)
-            windowClass.setPreferredOrientation(WindowOrientation.AUTO_ROTATION_PORTRAIT)
-            windowClass.setPreferredOrientation(WindowOrientation.AUTO_ROTATION_LANDSCAPE)
-            windowClass.setPreferredOrientation(WindowOrientation.AUTO_ROTATION_RESTRICTED)
-            windowClass.setPreferredOrientation(WindowOrientation.AUTO_ROTATION_PORTRAIT_RESTRICTED)
-            windowClass.setPreferredOrientation(WindowOrientation.AUTO_ROTATION_LANDSCAPE_RESTRICTED)
-            windowClass.setPreferredOrientation(WindowOrientation.LOCKED)
-            windowClass.setPreferredOrientation(WindowOrientation.AUTO_ROTATION)
+            let stageContext = getAbilityContext()
+            let windowClass = getLastWindow(stageContext)
+            windowClass.setPreferredOrientation(Orientation.Unspecified)
+            windowClass.setPreferredOrientation(Orientation.Portrait)
+            windowClass.setPreferredOrientation(Orientation.Landscape)
+            windowClass.setPreferredOrientation(Orientation.PortraitInverted)
+            windowClass.setPreferredOrientation(Orientation.LandscapeInverted)
+            windowClass.setPreferredOrientation(Orientation.AutoRotationPortrait)
+            windowClass.setPreferredOrientation(Orientation.AutoRotationLandscape)
+            windowClass.setPreferredOrientation(Orientation.AutoRotationRestricted)
+            windowClass.setPreferredOrientation(Orientation.AutoRotationPortraitRestricted)
+            windowClass.setPreferredOrientation(Orientation.AutoRotationLandscapeRestricted)
+            windowClass.setPreferredOrientation(Orientation.Locked)
+            windowClass.setPreferredOrientation(Orientation.AutoRotation)
         } catch (e: Exception) {
-            logger.error("case_windowSettingOrientation " + e.toString())
+            Hilog.error(0, "CangjieUI-test", "case_windowSettingOrientation " + e.toString())
             @Expect(false)
         }
     }
@@ -211,9 +215,9 @@ class Test_window_runtime {
     @Tag[APILevel16, TestLevel0]
     func test_GetMainWindowAvoidArea() {
         try {
-            let area = getMainWindow().getWindowAvoidArea(AvoidAreaType.TYPE_SYSTEM)
+            let area = getMainWindow().getWindowAvoidArea(AvoidAreaType.TypeSystem)
         } catch (e: Exception) {
-            logger.error("case_GetMainWindowAvoidArea " + e.toString())
+            Hilog.error(0, "CangjieUI-test", "case_GetMainWindowAvoidArea " + e.toString())
             @Expect(false)
         }
     }
@@ -234,13 +238,17 @@ class Test_window_runtime {
     func test_CreateWindow() {
         try {
             let mainWindow = getMainWindow()
-            let mainId = mainWindow.getWindowProperties().id
-            let conf3 = Conf("test3", WindowType.TYPE_DIALOG, getStageContext(), displayId: 0, parentId: Int64(mainId))
+            let mainId = mainWindow
+                .getWindowProperties()
+                .id
+            let stageContext = getAbilityContext()
+            let conf3 = WindowConfiguration(name: "test3", windowType: WindowType.TypeDialog, ctx: stageContext,
+                displayId: 0, parentId: Int64(mainId))
             let win3 = createWindow(conf3)
             let result3 = findWindow("test3")
             @Expect(win3.getWindowProperties().id == result3.getWindowProperties().id)
         } catch (e: Exception) {
-            logger.error("case_CreateWindow " + e.toString())
+            Hilog.error(0, "CangjieUI-test", "case_CreateWindow " + e.toString())
             @Expect(false)
         }
     }
@@ -248,20 +256,20 @@ class Test_window_runtime {
     @TestCase
     @Tag[APILevel16, TestLevel0]
     func test_CreateWindow1() {
-        func createWindow(name: String, windowType: WindowType, id: UInt32): Unit {
-            try {
-                let config = Conf(name, windowType, getStageContext(), displayId: 0, parentId: Int64(id))
-                createWindow(config)
-            } catch (e: Exception) {
-                logger.error("case_CreateWindow " + e.toString())
-            }
-        }
-
         let mainWindow = getMainWindow()
-        let id = mainWindow.getWindowProperties().id
-        createWindow("TYPE_APP", WindowType.TYPE_APP, id)
-        createWindow("TYPE_SYSTEM_ALERT", WindowType.TYPE_SYSTEM_ALERT, id)
-        createWindow("TYPE_FLOAT", WindowType.TYPE_FLOAT, id)
+        let id = mainWindow
+            .getWindowProperties()
+            .id
+        let stageContext = getAbilityContext()
+        createWindow(
+            WindowConfiguration(name: "TypeApp", windowType: WindowType.TypeApp, ctx: stageContext, displayId: 0,
+                parentId: Int64(id)))
+        createWindow(
+            WindowConfiguration(name: "TypeMain", windowType: WindowType.TypeMain, ctx: stageContext,
+                displayId: 0, parentId: Int64(id)))
+        createWindow(
+            WindowConfiguration(name: "TypeFloat", windowType: WindowType.TypeFloat, ctx: stageContext, displayId: 0,
+                parentId: Int64(id)))
     }
 
     @TestCase
@@ -271,14 +279,14 @@ class Test_window_runtime {
             try {
                 window.getWindowAvoidArea(aaType)
             } catch (e: Exception) {
-                logger.error("case_getWindowAvoidArea " + e.toString())
+                Hilog.error(0, "CangjieUI-test", "case_getWindowAvoidArea " + e.toString())
             }
         }
         let mainWindow = getMainWindow()
-        getWindowAvoidArea(mainWindow, AvoidAreaType.TYPE_CUTOUT)
-        getWindowAvoidArea(mainWindow, AvoidAreaType.TYPE_SYSTEM_GESTURE)
-        getWindowAvoidArea(mainWindow, AvoidAreaType.TYPE_KEYBOARD)
-        getWindowAvoidArea(mainWindow, AvoidAreaType.TYPE_NAVIGATION_INDICATOR)
+        getWindowAvoidArea(mainWindow, AvoidAreaType.TypeCutout)
+        getWindowAvoidArea(mainWindow, AvoidAreaType.TypeSystemGesture)
+        getWindowAvoidArea(mainWindow, AvoidAreaType.TypeKeyboard)
+        getWindowAvoidArea(mainWindow, AvoidAreaType.TypeNavigationIndicator)
     }
 
     @TestCase
@@ -288,7 +296,7 @@ class Test_window_runtime {
             let mainWindow = getMainWindow()
             mainWindow.moveWindowTo(0, 0)
         } catch (e: Exception) {
-            logger.error("case_windowMoveWindowTo" + e.toString())
+            Hilog.error(0, "CangjieUI-test", "case_windowMoveWindowTo" + e.toString())
             @Expect(false)
         }
     }
@@ -299,11 +307,15 @@ class Test_window_runtime {
         try {
             sleepFor(1.second)
             let mainWindow = getMainWindow()
-            let mainId = mainWindow.getWindowProperties().id
-            let conf3 = Conf("test7", WindowType.TYPE_DIALOG, getStageContext(), displayId: 0, parentId: Int64(mainId))
+            let mainId = mainWindow
+                .getWindowProperties()
+                .id
+            let stageContext = getAbilityContext()
+            let conf3 = WindowConfiguration(name: "test7", windowType: WindowType.TypeDialog, ctx: stageContext,
+                displayId: 0, parentId: Int64(mainId))
             let win3 = createWindow(conf3).resize(100, 100)
         } catch (e: Exception) {
-            logger.error("case_windowResize" + e.toString())
+            Hilog.error(0, "CangjieUI-test", "case_windowResize" + e.toString())
             @Expect(false)
         }
     }
@@ -319,18 +331,19 @@ class Test_window_runtime {
     @TestCase
     @Tag[APILevel16, TestLevel0]
     func test_struct() {
-        let size = windowSize(1, 1)
-        let titleButtonRect = TitleButtonRect(1, 1, 1, 1)
+        let titleButtonRect = TitleButtonRect(right: 1, top: 1, width: 1, height: 1)
     }
 
     @TestCase
     @Tag[APILevel16, TestLevel0]
     func test_AvoidAreaStruct() {
         try {
-            var avoidArea: AvoidArea = AvoidArea(false, WindowRect(0, 0, 0, 0), WindowRect(0, 0, 0, 0),
-                WindowRect(0, 0, 0, 0), WindowRect(0, 0, 0, 0))
+            var avoidArea: AvoidArea = AvoidArea(visible: false, leftRect: WindowRect(left: 0, top: 0, width: 0,
+                height: 0), topRect: WindowRect(left: 0, top: 0, width: 0, height: 0),
+                rightRect: WindowRect(left: 0, top: 0, width: 0, height: 0),
+                bottomRect: WindowRect(left: 0, top: 0, width: 0, height: 0))
         } catch (e: Exception) {
-            logger.error("case_AvoidAreaStruct " + e.toString())
+            Hilog.error(0, "CangjieUI-test", "case_AvoidAreaStruct " + e.toString())
             @Expect(false)
         }
     }
@@ -339,15 +352,13 @@ class Test_window_runtime {
     @Tag[APILevel16, TestLevel0]
     func test_on_off(): Unit {
         let window = getMainWindow()
-        let callback = MyCallbackObject({val: UInt32 => logger.info("keyboard raise to ${val}")})
+        let callback = MyCallbackObject()
         // test on twice
-        window.on("keyboardHeightChange", callback)
-        window.on("keyboardHeightChange", callback)
+        window.on(WindowCallbackType.KeyboardHeightChange, callback)
+        window.on(WindowCallbackType.KeyboardHeightChange, callback)
         // test on invalid callbackType
-        window.on("invalid", callback)
         // test off
-        window.off("keyboardHeightChange")
-        window.off("invalid")
+        window.off(WindowCallbackType.KeyboardHeightChange)
     }
 
     @TestCase
@@ -357,7 +368,7 @@ class Test_window_runtime {
             let mainWindow = getMainWindow()
             mainWindow.destroyWindow()
         } catch (e: Exception) {
-            logger.error("case_windowDestroyWindow" + e.toString())
+            Hilog.error(0, "CangjieUI-test", "case_windowDestroyWindow" + e.toString())
             @Expect(false)
         }
     }
