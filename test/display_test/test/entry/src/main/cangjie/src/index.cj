@@ -15,10 +15,14 @@
 
 package ohos_app_cangjie_entry
 
-import ohos.component.*
-import ohos.state_manage.*
-import ohos.state_macro_manage.*
-import ohos.base.{LengthProp}
+internal import ohos.arkui.component.*
+internal import ohos.arkui.component.loadNativeView
+internal import ohos.base.*
+internal import ohos.arkui.state_management.*
+import ohos.arkui.state_macro_manage.Entry
+import ohos.arkui.state_macro_manage.Component
+import ohos.arkui.state_macro_manage.State
+import ohos.arkui.state_macro_manage.r
 
 @Entry
 @Component
@@ -28,9 +32,12 @@ class EntryView {
     func build() {
         Row {
             Column {
-                Button(message).onClick {
-                    evt =>
-                }.fontSize(40).height(80)
+                Button(message)
+                    .onClick({
+                        evt =>
+                    })
+                    .fontSize(40)
+                    .height(80)
             }.width(100.percent)
         }.height(100.percent)
     }

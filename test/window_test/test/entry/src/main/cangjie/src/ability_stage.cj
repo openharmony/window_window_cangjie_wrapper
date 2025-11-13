@@ -15,13 +15,14 @@
 
 package ohos_app_cangjie_entry
 
-import kit.AbilityKit.{AbilityStage}
-import ohos.state_manage.AppStorage
-import ohos.ability.AbilityStageContext
+internal import ohos.app.ability.ui_ability.Ability
+internal import ohos.app.ability.want.Want
+internal import ohos.app.ability.ability_constant.LaunchParam
+internal import ohos.window.WindowStage
+import ohos.hilog.Hilog
 
 class MyAbilityStage <: AbilityStage {
     public override func onCreate(): Unit {
-        logger.info("MyAbilityStage onCreated.")
-        AppStorage.setOrCreate<AbilityStageContext>("abilityStageContext", this.context)
+        Hilog.info(1, "1", "1", "MyAbilityStage onCreated.")
     }
 }

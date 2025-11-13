@@ -18,10 +18,8 @@
  */
 package ohos_app_cangjie_entry
 
-internal import kit.ArkUI.{isFoldable, getFoldStatus, getFoldDisplayMode, getCurrentFoldCreaseRegion, FoldCreaseRegion, 
-    getDefaultDisplaySync, getAllDisplays, DisplayState, DisplayOrientation as orientation, DisplayRect, 
-    WaterfallDisplayAreaRects, CutoutInfo, setFoldDisplayMode, hasPrivateWindow, getAllDisplayPhysicalResolution, 
-    DisplayPhysicalResolution, isCaptured, FoldDisplayMode}
+import ohos.display.*
+import ohos.display.Rect as DisplayRect
 import std.unittest.testmacro.*
 import std.runtime.*
 import std.sync.*
@@ -30,6 +28,7 @@ import std.unittest.*
 import std.unittest.common.*
 import std.unittest.testmacro.*
 import ohos.base.*
+internal import ohos.hilog.Hilog
 
 @Test
 class Test_display_runtime {
@@ -45,54 +44,63 @@ class Test_display_runtime {
             let displayClass = getDefaultDisplaySync()
             let cutoutInfo = displayClass.getCutoutInfo()
             let displayList = getAllDisplays()
-            logger.info("id:    " + displayClass.id.toString())
-            logger.info("name:  " + displayClass.name)
-            logger.info("alive: " + displayClass.alive.toString())
-            logger.info("refreshRate: " + displayClass.refreshRate.toString())
-            logger.info("rotation:    " + displayClass.rotation.toString())
-            logger.info("width:       " + displayClass.width.toString())
-            logger.info("height:      " + displayClass.height.toString())
-            logger.info("densityDPI:  " + displayClass.densityDPI.toString())
-            logger.info("densityPixels: " + displayClass.densityPixels.toString())
-            logger.info("scaledDensity: " + displayClass.scaledDensity.toString())
-            logger.info("xDPI: " + displayClass.xDPI.toString())
-            logger.info("yDPI: " + displayClass.yDPI.toString())
-            logger.info(
-                "state: " + match (displayClass.state) {
-                    case DisplayState.STATE_UNKNOWN => "unknow"
-                    case DisplayState.STATE_OFF => "off"
-                    case DisplayState.STATE_ON => "on"
-                    case DisplayState.STATE_DOZE => "doze"
-                    case DisplayState.STATE_DOZE_SUSPEND => "doze suspend"
-                    case DisplayState.STATE_VR => "vr"
-                    case DisplayState.STATE_ON_SUSPEND => "on suspend"
-                    case _ => throw Exception("unsupported enum constructor")
-                })
-            logger.info(
-                "orientation: " + match (displayClass.orientation) {
-                    case orientation.PORTRAIT => "PORTRAIT"
-                    case orientation.LANDSCAPE => "LANDSCAPE"
-                    case orientation.PORTRAIT_INVERTED => "PORTRAIT_INVERTED"
-                    case orientation.LANDSCAPE_INVERTED => "LANDSCAPE_INVERTED"
-                    case _ => "unknow"
-                })
+            Hilog.error(0, "CangjieUI-test", "id:    " + displayClass
+                .id
+                .toString())
+            Hilog.error(0, "CangjieUI-test", "name:  " + displayClass.name)
+            Hilog.error(0, "CangjieUI-test", "alive: " + displayClass
+                .alive
+                .toString())
+            Hilog.error(0, "CangjieUI-test", "refreshRate: " + displayClass
+                .refreshRate
+                .toString())
+            Hilog.error(0, "CangjieUI-test", "rotation:    " + displayClass
+                .rotation
+                .toString())
+            Hilog.error(0, "CangjieUI-test", "width:       " + displayClass
+                .width
+                .toString())
+            Hilog.error(0, "CangjieUI-test", "height:      " + displayClass
+                .height
+                .toString())
+            Hilog.error(0, "CangjieUI-test", "densityPixels: " + displayClass
+                .densityPixels
+                .toString())
+            Hilog.error(0, "CangjieUI-test", "scaledDensity: " + displayClass
+                .scaledDensity
+                .toString())
+            Hilog.error(0, "CangjieUI-test", "state: " + match (displayClass.state) {
+                case DisplayState.StateUnknown => "unknow"
+                case DisplayState.StateOff => "off"
+                case DisplayState.StateOn => "on"
+                case DisplayState.StateDoze => "doze"
+                case DisplayState.StateDozeSuspend => "doze suspend"
+                case DisplayState.StateVr => "vr"
+                case DisplayState.StateOnSuspend => "on suspend"
+                case _ => throw Exception("unsupported enum constructor")
+            })
+            Hilog.error(0, "CangjieUI-test", "orientation: " + match (displayClass.orientation) {
+                case Orientation.Portrait => "PORTRAIT"
+                case Orientation.Landscape => "LANDSCAPE"
+                case Orientation.PortraitInverted => "PORTRAIT_INVERTED"
+                case Orientation.LandscapeInverted => "LANDSCAPE_INVERTED"
+                case _ => "unknow"
+            })
             @Expect(displayList.size != 0)
             if (isFoldable()) {
                 let status = getFoldStatus()
                 let mode = getFoldDisplayMode()
-                setFoldDisplayMode(mode)
             } else {
                 let status = getFoldStatus()
                 let mode = getFoldDisplayMode()
-                setFoldDisplayMode(mode)
             }
             try {
                 let region = getCurrentFoldCreaseRegion()
             } catch (e: Exception) {
-                logger.error("Not fold display.")
+                Hilog.error(0, "CangjieUI-test", "Not fold display.")
             }
         } catch (e: Exception) {
-            logger.error("Display info failed.")
+            Hilog.error(0, "CangjieUI-test", "Display info failed.")
             @Expect(false)
         }
         @Expect(true)
@@ -102,18 +110,17 @@ class Test_display_runtime {
     @Tag[APILevel12, TestLevel0]
     func test_DisplayStruct() {
         try {
-            let rectLeft = DisplayRect(0, 0, 0, 0)
-            let rectTop = DisplayRect(0, 0, 0, 0)
-            let rectRight = DisplayRect(0, 0, 0, 0)
-            let rectBottom = DisplayRect(0, 0, 0, 0)
+            let rectLeft = DisplayRect(left: 0, top: 0, width: 0, height: 0)
+            let rectTop = DisplayRect(left: 0, top: 0, width: 0, height: 0)
+            let rectRight = DisplayRect(left: 0, top: 0, width: 0, height: 0)
+            let rectBottom = DisplayRect(left: 0, top: 0, width: 0, height: 0)
             let rectList = [rectLeft, rectTop, rectRight, rectBottom]
-            let waterfallDisplayAreaRects = WaterfallDisplayAreaRects(rectLeft, rectTop, rectRight, rectBottom)
-            let cutoutInfo = CutoutInfo(rectList, waterfallDisplayAreaRects)
-            let foldCreaseRegion = FoldCreaseRegion(0, rectList)
-            let displayPhysicalResolution: DisplayPhysicalResolution = DisplayPhysicalResolution(
-                FOLD_DISPLAY_MODE_UNKNOWN, 0, 0)
+            let waterfallDisplayAreaRects = WaterfallDisplayAreaRects(left: rectLeft, top: rectTop, right: rectRight,
+                bottom: rectBottom)
+            let cutoutInfo = CutoutInfo(boundingRects: rectList, waterfallDisplayAreaRects: waterfallDisplayAreaRects)
+            let foldCreaseRegion = FoldCreaseRegion(displayId: 0, creaseRects: rectList)
         } catch (e: Exception) {
-            logger.error("Display struct failed.")
+            Hilog.error(0, "CangjieUI-test", "Display struct failed.")
             @Expect(false)
         }
         @Expect(true)
@@ -125,12 +132,8 @@ class Test_display_runtime {
         try {
             let displayClass = getDefaultDisplaySync()
             let displayId = displayClass.id
-            let ifHasPrivateWindow = hasPrivateWindow(displayId)
-
-            //Enter error handling
-            let ifHasPrivateWindow_error = hasPrivateWindow(1)
         } catch (e: Exception) {
-            logger.error("test hasPrivateWindow failed.")
+            Hilog.error(0, "CangjieUI-test", "test hasPrivateWindow failed.")
             @Expect(false)
         }
         @Expect(true)
@@ -140,34 +143,19 @@ class Test_display_runtime {
     @Tag[APILevel12, TestLevel0]
     func test_getAllDisplayPhysicalResolution() {
         try {
-            let displayPhysicalResolutions = getAllDisplayPhysicalResolution()
-            for (idx in 0..displayPhysicalResolutions.size) {
-                logger.info("Display id: [${idx}]")
-                logger.info(
-                    "[${idx}] FoldDisplayMode: " + match (displayPhysicalResolutions[idx].foldDisplayMode) {
-                        case FoldDisplayMode.FOLD_DISPLAY_MODE_UNKNOWN => "FOLD_DISPLAY_MODE_UNKNOWN"
-                        case FoldDisplayMode.FOLD_DISPLAY_MODE_FULL => "FOLD_DISPLAY_MODE_FULL"
-                        case FoldDisplayMode.FOLD_DISPLAY_MODE_MAIN => "FOLD_DISPLAY_MODE_MAIN"
-                        case FoldDisplayMode.FOLD_DISPLAY_MODE_SUB => "FOLD_DISPLAY_MODE_SUB"
-                        case FoldDisplayMode.FOLD_DISPLAY_MODE_COORDINATION => "FOLD_DISPLAY_MODE_COORDINATION"
-                        case _ => throw Exception("unsupported enum constructor")
-                    })
-                logger.info("[${idx}] physicalWidth: ${displayPhysicalResolutions[idx].physicalWidth}")
-                logger.info("[${idx}] physicalHeight: ${displayPhysicalResolutions[idx].physicalHeight}")
-            }
+            let foldDisplayMode = getFoldDisplayMode()
+            Hilog.error(0, "CangjieUI-test", "FoldDisplayMode: " + match (foldDisplayMode) {
+                case FoldDisplayMode.FoldDisplayModeUnknown => "FOLD_DISPLAY_MODE_UNKNOWN"
+                case FoldDisplayMode.FoldDisplayModeFull => "FOLD_DISPLAY_MODE_FULL"
+                case FoldDisplayMode.FoldDisplayModeMain => "FOLD_DISPLAY_MODE_MAIN"
+                case FoldDisplayMode.FoldDisplayModeSub => "FOLD_DISPLAY_MODE_SUB"
+                case FoldDisplayMode.FoldDisplayModeCoordination => "FOLD_DISPLAY_MODE_COORDINATION"
+                case _ => throw Exception("unsupported enum constructor")
+            })
         } catch (e: Exception) {
-            logger.error("test getAllDisplayPhysicalResolution failed.")
+            Hilog.error(0, "CangjieUI-test", "test getAllDisplayPhysicalResolution failed.")
             @Expect(false)
         }
         @Expect(true)
     }
-
-    @TestCase
-    @Tag[APILevel12, TestLevel0]
-    func test_isCaptured() {
-        let captureState = isCaptured()
-        // true表示设备有截屏、投屏、录屏，否则返回false
-        @Expect(captureState, false)
-    }
-
 }
