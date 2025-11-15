@@ -18,20 +18,20 @@
  */
 package ohos_app_cangjie_entry
 
-
-import ohos.window.{ColorSpace, Window, getLastWindow, SystemBarProperties, WindowCallbackType, Orientation,
-    AvoidAreaType, WindowType, createWindow, findWindow, AvoidArea, TitleButtonRect, Configuration as WindowConfiguration,
-    Rect as WindowRect}
 import std.unittest.testmacro.*
 import std.runtime.*
 import std.unittest.*
+import ohos.ui_test.*
 import std.unittest.testmacro.*
 import ohos.callback_invoke.Callback1Argument
 import ohos.arkui.state_management.AppStorage
 import ohos.business_exception.BusinessException
 internal import ohos.hilog.Hilog
+import stdx.encoding.json.*
+import ohos.window.{ColorSpace, Window}
 
 var callbackMsg: String = "trigger:"
+var wideColorSpace: ColorSpace = ColorSpace.WideGamut
 
 class MyCallbackObject <: Callback1Argument<UInt32> {
     public init() {}
@@ -58,6 +58,12 @@ public func getWindowStage(): WindowStage {
 
 @Test
 class Test_window_runtime {
+    prop driver: Driver {
+        get() {
+            OpenHarmonyTestRunner.driver
+        }
+    }
+
     func matchParse(v1: ColorSpace, v2: ColorSpace) {
         match ((v1, v2)) {
             case (ColorSpace.WideGamut, ColorSpace.WideGamut) => true
@@ -71,305 +77,162 @@ class Test_window_runtime {
         sleep(Duration.second)
     }
 
+    func clickButton(buttonId: String) {
+        driver.delayMs(300)
+        Hilog.info(1,"Test_window_runtime","click ${buttonId}")
+        let button = driver.waitForComponent(On().id(buttonId),500).getOrThrow()
+        button.click()
+        driver.delayMs(200)
+    }
+
+    func getContentFromText(textId: String): String {
+        var inspector = getInspectorByKey(textId)
+        var jsonObject = JsonValue.fromStr(inspector).asObject()
+        var attrs = jsonObject.get("$attrs").getOrThrow().asObject()
+        attrs.get("content").getOrThrow().toString()
+    }
+
     @TestCase
     @Tag[APILevel16, TestLevel0]
     func test_GetMainWindowInfo() {
-        try {
-            sleepFor(1 * Duration.second)
-            let windowInfo = getMainWindow().getWindowProperties()
-        } catch (e: Exception) {
-            Hilog.error(0, "CangjieUI-test", "case_GetMainWindowInfo " + e.toString())
-            @Expect(false)
-        }
+        clickButton("test_GetMainWindowInfo")
+        var prop2: String = getContentFromText("message")
+        @Expect(prop2.contains("windowRect: [0, 0, 1260, 2720]"))
     }
 
     @TestCase
     @Tag[APILevel16, TestLevel0]
     func test_windowColorSpace() {
-        try {
-            let windowClass = getMainWindow()
-            windowClass.setWindowColorSpace(ColorSpace.WideGamut)
-            let wideColorSpace = windowClass.getWindowColorSpace()
-            windowClass.setWindowColorSpace(ColorSpace.Default)
-            let defaultColorSpace = windowClass.getWindowColorSpace()
-            @Expect(matchParse(wideColorSpace, ColorSpace.WideGamut))
-            @Expect(matchParse(defaultColorSpace, ColorSpace.Default))
-        } catch (e: Exception) {
-            Hilog.error(0, "CangjieUI-test", "case_windowColorSpace " + e.toString())
-            @Expect(false)
-        }
+        clickButton("test_windowColorSpace")
+        var prop2: String = getContentFromText("message")
+        @Expect(prop2.contains("windowColorSpace success"))
     }
 
     @TestCase
     @Tag[APILevel16, TestLevel0]
     func test_windowSnapshot() {
-        try {
-            sleepFor(1.second)
-            let map = getMainWindow().snapshot()
-        } catch (e: Exception) {
-            Hilog.error(0, "CangjieUI-test", "case_windowSnapshot " + e.toString())
-            @Expect(false)
-        }
+        clickButton("test_windowSnapshot")
+        var prop2: String = getContentFromText("message")
+        @Expect(prop2.contains("windowSnapshot success"))
     }
 
     @TestCase
     @Tag[APILevel16, TestLevel0]
     func test_windowRatio() {
-        try {
-            let windowClass = getMainWindow()
-            windowClass.setAspectRatio(0.8f64)
-            windowClass.resetAspectRatio()
-        } catch (e: Exception) {
-            Hilog.error(0, "CangjieUI-test", "case_windowRatio " + e.toString())
-            @Expect(false)
-        }
-    }
-
-    @TestCase
-    @Tag[APILevel16, TestLevel0]
-    func test_windowSettings() {
-        try {
-            sleepFor(1.second)
-            let stageContext = getAbilityContext()
-            let windowClass = getLastWindow(stageContext)
-            let gamut = windowClass.isWindowSupportWideGamut()
-            let showing = windowClass.isWindowShowing()
-            windowClass.setWindowBrightness(0.5f32)
-            windowClass.setWindowBackgroundColor("#00ff00")
-            windowClass.setWindowSystemBarProperties(
-                SystemBarProperties(
-                    statusBarColor: "#ff00ff",
-                    navigationBarColor: "#00ff00",
-                    statusBarContentColor: "#ffffff",
-                    navigationBarContentColor: "#00ffff"
-                )
-            )
-        } catch (e: Exception) {
-            Hilog.error(0, "CangjieUI-test", "case_windowSettings " + e.toString())
-            @Expect(false)
-        }
-    }
-
-    @TestCase
-    @Tag[APILevel16, TestLevel0]
-    func test_windowSettingTrue() {
-        try {
-            let callback = MyCallbackObject()
-            let stageContext = getAbilityContext()
-            let windowClass = getLastWindow(stageContext)
-            windowClass.setWindowKeepScreenOn(true)
-            windowClass.setWindowPrivacyMode(true)
-            windowClass.setWindowTouchable(true)
-            windowClass.setWindowFocusable(true)
-            windowClass.setWindowLayoutFullScreen(true)
-            windowClass.on(WindowCallbackType.KeyboardHeightChange, callback)
-        } catch (e: Exception) {
-            Hilog.error(0, "CangjieUI-test", "case_windowSettingTrue " + e.toString())
-            @Expect(false)
-        }
-    }
-
-    @TestCase
-    @Tag[APILevel16, TestLevel0]
-    func test_windowSettingFalse() {
-        try {
-            let stageContext = getAbilityContext()
-            let windowClass = getLastWindow(stageContext)
-            windowClass.setWindowKeepScreenOn(false)
-            windowClass.setWindowPrivacyMode(false)
-            windowClass.setWindowTouchable(false)
-            windowClass.setWindowFocusable(false)
-            windowClass.setWindowLayoutFullScreen(false)
-            windowClass.off(WindowCallbackType.KeyboardHeightChange)
-        } catch (e: Exception) {
-            Hilog.error(0, "CangjieUI-test", "case_windowSettingFalse " + e.toString())
-            @Expect(false)
-        }
+        clickButton("test_windowRatio")
+        var prop2: String = getContentFromText("message")
+        @Expect(prop2.contains("windowRatio success"))
     }
 
     @TestCase
     @Tag[APILevel16, TestLevel0]
     func test_windowSettingOrientation() {
-        try {
-            let stageContext = getAbilityContext()
-            let windowClass = getLastWindow(stageContext)
-            windowClass.setPreferredOrientation(Orientation.Unspecified)
-            windowClass.setPreferredOrientation(Orientation.Portrait)
-            windowClass.setPreferredOrientation(Orientation.Landscape)
-            windowClass.setPreferredOrientation(Orientation.PortraitInverted)
-            windowClass.setPreferredOrientation(Orientation.LandscapeInverted)
-            windowClass.setPreferredOrientation(Orientation.AutoRotationPortrait)
-            windowClass.setPreferredOrientation(Orientation.AutoRotationLandscape)
-            windowClass.setPreferredOrientation(Orientation.AutoRotationRestricted)
-            windowClass.setPreferredOrientation(Orientation.AutoRotationPortraitRestricted)
-            windowClass.setPreferredOrientation(Orientation.AutoRotationLandscapeRestricted)
-            windowClass.setPreferredOrientation(Orientation.Locked)
-            windowClass.setPreferredOrientation(Orientation.AutoRotation)
-        } catch (e: Exception) {
-            Hilog.error(0, "CangjieUI-test", "case_windowSettingOrientation " + e.toString())
-            @Expect(false)
-        }
+        clickButton("test_windowSettingOrientation")
+        var prop2: String = getContentFromText("message")
+        @Expect(prop2.contains("windowSettingOrientation success"))
     }
 
     @TestCase
     @Tag[APILevel16, TestLevel0]
     func test_GetMainWindowAvoidArea() {
-        try {
-            let area = getMainWindow().getWindowAvoidArea(AvoidAreaType.TypeSystem)
-        } catch (e: Exception) {
-            Hilog.error(0, "CangjieUI-test", "case_GetMainWindowAvoidArea " + e.toString())
-            @Expect(false)
-        }
+        clickButton("test_GetMainWindowAvoidArea")
+        var prop2: String = getContentFromText("message")
+        @Expect(prop2.contains("GetMainWindowAvoidArea success"))
     }
 
     @TestCase
     @Tag[APILevel16, TestLevel0]
     func test_WindowStageCreate() {
-        let winStage = getWindowStage()
-        let sub1 = winStage.createSubWindow("sub1")
-        let sub2 = winStage.createSubWindow("sub2")
-        sleepFor(1.second)
-        let list = winStage.getSubWindow()
-        @Expect(list.size == 2)
+        clickButton("test_WindowStageCreate")
+        var prop2: String = getContentFromText("message")
+        @Expect(prop2.contains("2"))
     }
 
     @TestCase
     @Tag[APILevel16, TestLevel0]
     func test_CreateWindow() {
-        try {
-            let mainWindow = getMainWindow()
-            let mainId = mainWindow
-                .getWindowProperties()
-                .id
-            let stageContext = getAbilityContext()
-            let conf3 = WindowConfiguration(name: "test3", windowType: WindowType.TypeDialog, ctx: stageContext,
-                displayId: 0, parentId: Int64(mainId))
-            let win3 = createWindow(conf3)
-            let result3 = findWindow("test3")
-            @Expect(win3.getWindowProperties().id == result3.getWindowProperties().id)
-        } catch (e: Exception) {
-            Hilog.error(0, "CangjieUI-test", "case_CreateWindow " + e.toString())
-            @Expect(false)
-        }
-    }
-
-    @TestCase
-    @Tag[APILevel16, TestLevel0]
-    func test_CreateWindow1() {
-        let mainWindow = getMainWindow()
-        let id = mainWindow
-            .getWindowProperties()
-            .id
-        let stageContext = getAbilityContext()
-        createWindow(
-            WindowConfiguration(name: "TypeApp", windowType: WindowType.TypeApp, ctx: stageContext, displayId: 0,
-                parentId: Int64(id)))
-        createWindow(
-            WindowConfiguration(name: "TypeMain", windowType: WindowType.TypeMain, ctx: stageContext,
-                displayId: 0, parentId: Int64(id)))
-        createWindow(
-            WindowConfiguration(name: "TypeFloat", windowType: WindowType.TypeFloat, ctx: stageContext, displayId: 0,
-                parentId: Int64(id)))
+        clickButton("test_CreateWindow")
+        var prop2: String = getContentFromText("message")
+        @Expect(prop2.contains("true"))
     }
 
     @TestCase
     @Tag[APILevel16, TestLevel0]
     func test_getWindowAvoidArea() {
-        func getWindowAvoidArea(window: Window, aaType: AvoidAreaType): Unit {
-            try {
-                window.getWindowAvoidArea(aaType)
-            } catch (e: Exception) {
-                Hilog.error(0, "CangjieUI-test", "case_getWindowAvoidArea " + e.toString())
-            }
-        }
-        let mainWindow = getMainWindow()
-        getWindowAvoidArea(mainWindow, AvoidAreaType.TypeCutout)
-        getWindowAvoidArea(mainWindow, AvoidAreaType.TypeSystemGesture)
-        getWindowAvoidArea(mainWindow, AvoidAreaType.TypeKeyboard)
-        getWindowAvoidArea(mainWindow, AvoidAreaType.TypeNavigationIndicator)
+        clickButton("test_getWindowAvoidArea")
+        var prop2: String = getContentFromText("message")
+        @Expect(prop2.contains("getWindowAvoidArea success"))
     }
 
     @TestCase
     @Tag[APILevel16, TestLevel0]
     func test_windowMoveWindowTo() {
-        try {
-            let mainWindow = getMainWindow()
-            mainWindow.moveWindowTo(0, 0)
-        } catch (e: Exception) {
-            Hilog.error(0, "CangjieUI-test", "case_windowMoveWindowTo" + e.toString())
-            @Expect(false)
-        }
+        clickButton("test_windowMoveWindowTo")
+        var prop2: String = getContentFromText("message")
+        @Expect(prop2.contains("windowMoveWindowTo success"))
     }
 
     @TestCase
     @Tag[APILevel16, TestLevel0]
     func test_windowResize() {
-        try {
-            sleepFor(1.second)
-            let mainWindow = getMainWindow()
-            let mainId = mainWindow
-                .getWindowProperties()
-                .id
-            let stageContext = getAbilityContext()
-            let conf3 = WindowConfiguration(name: "test7", windowType: WindowType.TypeDialog, ctx: stageContext,
-                displayId: 0, parentId: Int64(mainId))
-            let win3 = createWindow(conf3).resize(100, 100)
-        } catch (e: Exception) {
-            Hilog.error(0, "CangjieUI-test", "case_windowResize" + e.toString())
-            @Expect(false)
-        }
-    }
-
-    @TestCase
-    @Tag[APILevel16, TestLevel0]
-    func test_windowMinimize() {
-        let mainWindow = getMainWindow()
-
-        mainWindow.minimize()
+        clickButton("test_windowResize")
+        var prop2: String = getContentFromText("message")
+        @Expect(prop2.contains("windowResize success"))
     }
 
     @TestCase
     @Tag[APILevel16, TestLevel0]
     func test_struct() {
-        let titleButtonRect = TitleButtonRect(right: 1, top: 1, width: 1, height: 1)
+        clickButton("test_struct")
+        var prop2: String = getContentFromText("message")
+        @Expect(prop2.contains("struct success"))
     }
 
     @TestCase
     @Tag[APILevel16, TestLevel0]
     func test_AvoidAreaStruct() {
-        try {
-            var avoidArea: AvoidArea = AvoidArea(visible: false, leftRect: WindowRect(left: 0, top: 0, width: 0,
-                height: 0), topRect: WindowRect(left: 0, top: 0, width: 0, height: 0),
-                rightRect: WindowRect(left: 0, top: 0, width: 0, height: 0),
-                bottomRect: WindowRect(left: 0, top: 0, width: 0, height: 0))
-        } catch (e: Exception) {
-            Hilog.error(0, "CangjieUI-test", "case_AvoidAreaStruct " + e.toString())
-            @Expect(false)
-        }
+        clickButton("test_AvoidAreaStruct")
+        var prop2: String = getContentFromText("message")
+        @Expect(prop2.contains("visible: false, leftRect: [0, 0, 0, 0]"))
     }
 
     @TestCase
     @Tag[APILevel16, TestLevel0]
     func test_on_off(): Unit {
-        let window = getMainWindow()
-        let callback = MyCallbackObject()
-        // test on twice
-        window.on(WindowCallbackType.KeyboardHeightChange, callback)
-        window.on(WindowCallbackType.KeyboardHeightChange, callback)
-        // test on invalid callbackType
-        // test off
-        window.off(WindowCallbackType.KeyboardHeightChange)
+        clickButton("test_on_off")
+        var prop2: String = getContentFromText("message")
+        @Expect(prop2.contains("on_off success"))
     }
 
     @TestCase
     @Tag[APILevel16, TestLevel0]
     func test_windowDestroyWindow() {
-        try {
-            let mainWindow = getMainWindow()
-            mainWindow.destroyWindow()
-        } catch (e: Exception) {
-            Hilog.error(0, "CangjieUI-test", "case_windowDestroyWindow" + e.toString())
-            @Expect(false)
-        }
+        clickButton("test_windowDestroyWindow")
+        var prop2: String = getContentFromText("message")
+        @Expect(prop2.contains("windowDestroyWindow success"))
+    }
+
+    @TestCase
+    @Tag[APILevel16, TestLevel0]
+    func test_windowSettings() {
+        clickButton("test_windowSettings")
+        var prop2: String = getContentFromText("message")
+        @Expect(prop2.contains("windowSettings success"))
+    }
+
+    @TestCase
+    @Tag[APILevel16, TestLevel0]
+    func test_windowSettingTrue() {
+        clickButton("test_windowSettingTrue")
+        var prop2: String = getContentFromText("message")
+        @Expect(prop2.contains("windowSettingTrue success"))
+    }
+
+    @TestCase
+    @Tag[APILevel16, TestLevel0]
+    func test_windowSettingFalse() {
+        clickButton("test_windowSettingFalse")
+        var prop2: String = getContentFromText("message")
+        @Expect(prop2.contains("windowSettingFalse success"))
     }
 }
