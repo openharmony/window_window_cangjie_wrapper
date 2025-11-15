@@ -21,6 +21,7 @@ internal import ohos.app.ability.ability_constant.LaunchReason
 internal import ohos.app.ability.ui_ability.UIAbilityContext
 internal import ohos.app.ability.ui_ability.UIAbility
 internal import ohos.resource_manager.{AppResource}
+import ohos.arkui.state_management.AppStorage
 import std.sync.*
 import ohos.window.WindowStage
 import ohos.resource_manager.*
@@ -81,5 +82,7 @@ class MainAbility <: UIAbility {
         windowStage.loadContent("EntryView")
         //        windowStage.loadContentByName("MyView")
         let promise = windowStage.getSubWindow()
+        AppStorage.setOrCreate("windowStage",windowStage)
+        AppStorage.setOrCreate<UIAbilityContext>("abilityContext", this.context) //适配新getContextStage, AbilityContext存在AppStorage
     }
 }

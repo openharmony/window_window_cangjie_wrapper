@@ -19,4 +19,5 @@ let _ = testsuite()
 
 func testsuite(): Unit {
     registerTestSuite("Test_window_runtime", {=> Test_window_runtime()})
+    registerTestSuite("Test_window_runtime2", {=> Test_window_runtime2()})
 }
