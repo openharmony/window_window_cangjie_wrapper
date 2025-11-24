@@ -43,6 +43,9 @@
           },
           {
             "name": "//foundation/window/window_cangjie_wrapper/ohos/display:ohos.display"
+          },
+          {
+            "name": "//foundation/window/window_cangjie_wrapper:copy_sdk_window_cangjie_libs"
           }
         ],
         "test": [
