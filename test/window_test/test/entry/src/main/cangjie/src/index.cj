@@ -92,7 +92,7 @@ class EntryView {
                         Hilog.error(0, "Test_window_runtime", "test_windowSettings start")
                         let stageContext = getAbilityContext()
                         let windowClass = getLastWindow(stageContext)
-                        let gamut = windowClass.isWindowSupportWideGamut()
+                        let gamut = windowClass.isWideGamutSupported()
                         let showing = windowClass.isWindowShowing()
                         windowClass.setWindowBrightness(0.5f32)
                         windowClass.setWindowBackgroundColor("#00ff00")
