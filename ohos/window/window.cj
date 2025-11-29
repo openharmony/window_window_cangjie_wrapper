@@ -413,11 +413,11 @@ public class Window <: RemoteDataLite {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public func isWindowSupportWideGamut(): Bool {
+    public func isWideGamutSupported(): Bool {
         unsafe {
             var errCode: Int32 = 0
             let res = FfiOHOSWindowIsWindowSupportWideGamut(getID(), inout errCode)
-            checkRet(errCode, "[Window] isWindowSupportWideGamut: ")
+            checkRet(errCode, "[Window] isWideGamutSupported: ")
             return res
         }
     }
