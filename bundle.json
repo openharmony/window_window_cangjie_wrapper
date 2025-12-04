@@ -12,10 +12,6 @@
     "component": {
       "name": "window_cangjie_wrapper",
       "subsystem": "window",
-      "syscap": [
-        "SystemCapability.WindowManager.WindowManager.Core",
-        "SystemCapability.Window.SessionManager"
-      ],
       "features": [],
       "adapted_system_type": [ "standard" ],
       "rom": "435KB",
