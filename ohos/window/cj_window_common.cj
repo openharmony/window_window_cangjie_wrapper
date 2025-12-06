@@ -384,7 +384,7 @@ public class WindowProperties {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    public var winType: WindowType
+    public var windowType: WindowType
     /**
      * Whether the window is displayed in full screen mode. The default value is false.
      */
@@ -463,7 +463,7 @@ public class WindowProperties {
      *
      * @param { Rect } windowRect - The position and size of the window.
      * @param { Rect } drawableRect - The position relative to the window and size of drawable area.
-     * @param { WindowType } winType - Window type.
+     * @param { WindowType } windowType - Window type.
      * @param { Bool } isFullScreen - Whether the window is displayed in full screen mode. The default value is false.
      * @param { Bool } isLayoutFullScreen - Whether the window layout is in full screen mode(whether the window is immersive). The default value is false.
      * @param { Bool } focusable - Whether the window can gain focus. The default value is true.
@@ -481,7 +481,7 @@ public class WindowProperties {
     public init(
         windowRect!: Rect,
         drawableRect!: Rect,
-        winType!: WindowType,
+        windowType!: WindowType,
         isFullScreen!: Bool,
         isLayoutFullScreen!: Bool,
         focusable!: Bool,
@@ -494,7 +494,7 @@ public class WindowProperties {
     ) {
         this.windowRect = windowRect
         this.drawableRect = drawableRect
-        this.winType = winType
+        this.windowType = windowType
         this.isFullScreen = isFullScreen
         this.isLayoutFullScreen = isLayoutFullScreen
         this.focusable = focusable
@@ -527,7 +527,7 @@ struct CWindowProperties {
 
     func toWindowProperties(): WindowProperties {
         return WindowProperties(windowRect: windowRect.toRect(), drawableRect: drawableRect.toRect(),
-            winType: WindowType.parse(winType), isFullScreen: isFullScreen, isLayoutFullScreen: isLayoutFullScreen,
+            windowType: WindowType.parse(winType), isFullScreen: isFullScreen, isLayoutFullScreen: isLayoutFullScreen,
             focusable: focusable, touchable: touchable, brightness: brightness, isKeepScreenOn: isKeepScreenOn,
             isPrivacyMode: isPrivacyMode, isTransparent: isTransparent, id: id)
     }
