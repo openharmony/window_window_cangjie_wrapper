@@ -222,7 +222,7 @@ public enum FoldStatus {
         since: "22",
         syscap: "SystemCapability.Window.SessionManager"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     FoldStatusExpandedWithSecondExpanded
     |
     /**
@@ -232,7 +232,7 @@ public enum FoldStatus {
         since: "22",
         syscap: "SystemCapability.Window.SessionManager"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     FoldStatusExpandedWithSecondHalfFolded
     |
     /**
@@ -242,7 +242,7 @@ public enum FoldStatus {
         since: "22",
         syscap: "SystemCapability.Window.SessionManager"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     FoldStatusFoldedWithSecondExpanded
     |
     /**
@@ -252,7 +252,7 @@ public enum FoldStatus {
         since: "22",
         syscap: "SystemCapability.Window.SessionManager"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     FoldStatusFoldedWithSecondHalfFolded
     |
     /**
@@ -262,7 +262,7 @@ public enum FoldStatus {
         since: "22",
         syscap: "SystemCapability.Window.SessionManager"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     FoldStatusHalfFoldedWithSecondExpanded
     |
     /**
@@ -272,7 +272,7 @@ public enum FoldStatus {
         since: "22",
         syscap: "SystemCapability.Window.SessionManager"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     FoldStatusHalfFoldedWithSecondHalfFolded
     | ...
 

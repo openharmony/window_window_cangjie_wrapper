@@ -74,7 +74,7 @@ public enum WindowType {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     TypeInputMethod
     |
     /**
@@ -84,7 +84,7 @@ public enum WindowType {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     TypeStatusBar
     |
     /**
@@ -94,7 +94,7 @@ public enum WindowType {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     TypePanel
     |
     /**
@@ -104,7 +104,7 @@ public enum WindowType {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     TypeKeyguard
     |
     /**
@@ -114,7 +114,7 @@ public enum WindowType {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     TypeVolumeOverlay
     |
     /**
@@ -124,7 +124,7 @@ public enum WindowType {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     TypeNavigationBar
     |
     /**
@@ -134,7 +134,7 @@ public enum WindowType {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     TypeWallpaper
     |
     /**
@@ -144,7 +144,7 @@ public enum WindowType {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     TypeDesktop
     |
     /**
@@ -154,7 +154,7 @@ public enum WindowType {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     TypeLauncherRecent
     |
     /**
@@ -164,7 +164,7 @@ public enum WindowType {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     TypeLauncherDock
     |
     /**
@@ -174,7 +174,7 @@ public enum WindowType {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     TypeVoiceInteraction
     |
     /**
@@ -184,7 +184,7 @@ public enum WindowType {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     TypePointer
     |
     /**
@@ -194,7 +194,7 @@ public enum WindowType {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     TypeFloatCamera
     |
     /**
@@ -204,7 +204,7 @@ public enum WindowType {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     TypeScreenshot
     |
     /**
@@ -214,7 +214,7 @@ public enum WindowType {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     TypeSystemToast
     |
     /**
@@ -224,7 +224,7 @@ public enum WindowType {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     TypeDivider
     |
     /**
@@ -234,7 +234,7 @@ public enum WindowType {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     TypeGlobalSearch
     |
     /**
@@ -244,7 +244,7 @@ public enum WindowType {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     TypeHandwrite
     |
     /**
@@ -254,7 +254,7 @@ public enum WindowType {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     TypeWalletSwipeCard
     |
     /**
@@ -264,7 +264,7 @@ public enum WindowType {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     TypeScreenControl
     |
     /**
@@ -274,7 +274,7 @@ public enum WindowType {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     TypeFloatNavigation
     |
     /**
@@ -284,7 +284,7 @@ public enum WindowType {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     TypeDynamic
     |
     /**
@@ -294,7 +294,7 @@ public enum WindowType {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     TypeMutiscreenCollaboration
     | ...
 
@@ -443,7 +443,7 @@ public enum Orientation {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     AutoRotationUnspecified
     |
     /**
@@ -453,7 +453,7 @@ public enum Orientation {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     UserRotationPortrait
     |
     /**
@@ -463,7 +463,7 @@ public enum Orientation {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     UserRotationLandscape
     |
     /**
@@ -473,7 +473,7 @@ public enum Orientation {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     UserRotationPortraitInverted
     |
     /**
@@ -483,7 +483,7 @@ public enum Orientation {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     UserRotationLandscapeInverted
     |
     /**
@@ -493,7 +493,7 @@ public enum Orientation {
         since: "22",
         syscap: "SystemCapability.WindowManager.WindowManager.Core"
     ]
-    @!Hide
+    @!Hide[isChecked: true]
     FollowDesktop
     | ...
 
