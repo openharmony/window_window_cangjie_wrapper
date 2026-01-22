@@ -594,7 +594,7 @@ public class Window <: RemoteDataLite {
     /**
      * Sets the aspect ratio of window.
      *
-     * @param { Float64 } ratio - The aspect ratio of window except decoration
+     * @param { Float64 } ratio - The aspect ratio of window except decoration.
      * @throws { BusinessException } 1300002 - This window state is abnormal.
      * @throws { BusinessException } 1300004 - Unauthorized operation.
      */
