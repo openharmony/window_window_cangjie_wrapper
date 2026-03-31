@@ -97,7 +97,11 @@ class Test_window_runtime {
     func test_GetMainWindowInfo() {
         clickButton("test_GetMainWindowInfo")
         var prop2: String = getContentFromText("message")
-        @Expect(prop2.contains("windowRect: [0, 0, 1260, 2720]"))
+        //适配70pro，改为从windowStage获取
+        if(let Some(windowStage) <- Global.windowStage){
+            let windowInfo = windowStage.getMainWindow().getWindowProperties()
+            @Expect(prop2.contains("windowRect: [${windowInfo.windowRect.left}, ${windowInfo.windowRect.top}, ${windowInfo.windowRect.width}, ${windowInfo.windowRect.height}]"))
+        }
     }
 
     @TestCase
