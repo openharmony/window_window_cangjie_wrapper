@@ -127,7 +127,13 @@ public class WindowStage <: RemoteDataLite {
         unsafe {
             var ret = FfiOHOSGetSubWindow(getID())
             checkRet(ret.code, "[WindowStage] get subWindow: ")
+            if (ret.len == 0) {
+                return Array<Window>(0, {_ => Window(0)})
+            }
             let dataPtr = CPointer<Int64>(ret.data)
+            if (dataPtr.isNull()) {
+                throw BusinessException(100001, "Internal error: Failed to create target pointer type")
+            }
             let idArray = Array<Int64>(ret.len, {i => dataPtr.read(i)})
             LibC.free<Int64>(dataPtr)
             let result = Array<Window>(ret.len,
@@ -149,7 +155,8 @@ public class WindowStage <: RemoteDataLite {
     public func loadContent(path: String): Unit {
         unsafe {
             try (cpath = LibC.mallocCString(path).asResource()) {
-                FfiOHOSLoadContent(getID(), cpath.value)
+                let ret = FfiOHOSLoadContent(getID(), cpath.value)
+                checkRet(ret, "[WindowStage] loadContent: ")
             }
         }
     }
