@@ -135,9 +135,6 @@ public func getDefaultDisplaySync(): Display {
             throw BusinessException(ret.code, "ERROR: Failed to get default display.")
         }
         let dataPtr = CPointer<Int64>(ret.data)
-        if (dataPtr.isNull()) {
-            throw BusinessException(100001, "Internal error: Failed to create target pointer type")
-        }
         let retVal = dataPtr.read()
         LibC.free<Int64>(dataPtr)
         return getOrCreate(Display.INSTANCE_MAP, retVal, {id: Int64 => Display(id)})
@@ -162,13 +159,7 @@ public func getAllDisplays(): Array<Display> {
             DISPLAY_LOG.error("[display] ERROR: ${ret.code} Failed to get all displays.")
             throw BusinessException(ret.code, "ERROR: Failed to get all displays.")
         }
-        if (ret.len == 0) {
-            return Array<Display>(0, {_ => Display(0)})
-        }
         let dataPtr = CPointer<Int64>(ret.data)
-        if (dataPtr.isNull()) {
-            throw BusinessException(100001, "Internal error: Failed to create target pointer type")
-        }
         let idArray = Array<Int64>(ret.len, {i => dataPtr.read(i)})
         LibC.free<Int64>(dataPtr)
         let result = Array<Display>(ret.len,
