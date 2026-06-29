@@ -868,27 +868,26 @@ public class Window <: RemoteDataLite {
                 WINDOW_LIB_LOG.error("[Window] Invalid param.")
                 return
             }
+            var callbackId: Option<Int64> = None
             var callbackList = callbackEntryView.value.getOrThrow()
-            var targetIdx: Option<Int64> = None
             for (idx in 0..callbackList.size) {
                 if (refEq(callback, callbackList[idx][0])) {
-                    targetIdx = Int64(idx)
+                    callbackId = callbackList[idx][1]
+                    callbackList.remove(idx..idx + 1)
                     break
                 }
             }
-            if (targetIdx.isNone()) {
+            if (callbackId.isNone()) {
                 WINDOW_LIB_LOG.info("[Window] The callback object not exists.")
                 return
             }
-            let callbackId = callbackList[targetIdx.getOrThrow()][1]
             unsafe {
                 var ret: ?Int32 = None
                 try (callbackTypeCString = LibC.mallocCString(callbackType).asResource()) {
-                    WINDOW_LIB_LOG.info("[Window] The callback QDY id = ${callbackId}")
-                    ret = FfiOHOSOffCallback(getID(), callbackId, callbackTypeCString.value)
+                    WINDOW_LIB_LOG.info("[Window] The callback QDY id = ${callbackId.getOrThrow()}")
+                    ret = FfiOHOSOffCallback(getID(), callbackId.getOrThrow(), callbackTypeCString.value)
                 }
                 checkRet(ret.getOrThrow(), "[Window] Unregister ${callbackType} failed: ")
-                callbackList.remove(targetIdx.getOrThrow()..targetIdx.getOrThrow() + 1)
             }
         }
     }
