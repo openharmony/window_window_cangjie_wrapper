@@ -315,12 +315,3 @@ public class FoldCreaseRegion {
         this.displayId = cFoldCreaseRegion.displayId
     }
 }
-
-@C
-struct CDisplayPhysicalResolution {
-    CDisplayPhysicalResolution(
-        let foldDisplayMode: UInt32,
-        let physicalWidth: UInt32,
-        let physicalHeight: UInt32
-    ) {}
-}
