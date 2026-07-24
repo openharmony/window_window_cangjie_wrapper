@@ -19,4 +19,5 @@ let _ = testsuite()
 
 func testsuite(): Unit {
     registerTestSuite("Test_display_runtime", {=> Test_display_runtime()})
+    registerTestSuite("Test_display_cov", {=> Test_display_cov()})
 }

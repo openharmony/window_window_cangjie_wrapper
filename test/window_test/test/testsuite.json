@@ -8,6 +8,10 @@
     {
       "name": "Test_window_runtime2",
       "timeout": 100
+    },
+    {
+      "name": "Test_window_cov",
+      "timeout": 100
     }
   ]
 }
